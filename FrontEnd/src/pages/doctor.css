@@ -1,0 +1,12 @@
+.patient_list li{
+    list-style-type: none;
+    scroll-padding-top: 60;
+}
+.patient_header {
+    color: rgb(12, 160, 36);
+    padding-inline: 5rem;
+    font-size: 20px;
+}
+.for_padding{
+    padding-left: 0rem;
+}
