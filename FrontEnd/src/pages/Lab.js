@@ -39,6 +39,7 @@ class Lab extends React.Component {
                 <div className="col-sm-6">
                     <p className="changeFonts">Submit The Report:</p>
                     <br />
+                    <input type="file" />
                     <div>
                         <br />
                         <SuggestedTextBox message="Any Remarks?"/>
