@@ -1,0 +1,15 @@
+.styling-details{
+    color:purple;
+    float: left;
+    font-size: larger;
+    display: block;
+    align-content: left;
+}
+.attribute-styling{
+    color:black;
+    float: right;
+    font-size: larger;
+}
+.align-details{
+    text-align: center;
+}

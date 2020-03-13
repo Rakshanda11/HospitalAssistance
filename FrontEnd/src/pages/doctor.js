@@ -4,12 +4,17 @@ import DocImg from './Doctor.jpg'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Prescription from './DoctorPrescription'
 import SuggestTest from './DoctorTest'
+import ShowDetails from '../components/PatientDetails/Doctor-PatientDetails'
 class Doctor extends React.Component {
     constructor(props) {
         super(props);
         // this.getInfo = this.getInfo.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
         console.log("Bind successful");
+        var tempShowDetails; 
+        this.state = {
+            showDetails: false
+        }
     }
     patientsList = [
         {
@@ -18,17 +23,23 @@ class Doctor extends React.Component {
         },
         {
             name: "Patient 2",
-            age: "50"
+            age: "80"
         },
         {
             name: "Patient 3",
-            age: "50"
+            age: "20"
         }
     ];
-    handleClick(event) {
-        // console.log(details);
-        console.log("In getinfp");
+    handleClickArg = (item) => {
+        this.tempShowDetails = <ShowDetails detail = {item}/>
+        this.setState({
+            showDetails: true
+        })
+
     }
+    // handleClick(event) {
+    //    this.handleClickArg(event, item);
+    // }
     element = (item, key) => {
         return (
             <ListGroupItem key={key} variant="primary">
@@ -37,6 +48,7 @@ class Doctor extends React.Component {
         );
     }
     render() {
+        
         return (
             <div className="row">
                 <div className="col-sm-2" >
@@ -46,7 +58,9 @@ class Doctor extends React.Component {
                             {this.patientsList.map(function (d, idx) {
                                 return (
                                     // this.element(d, idx)
-                                    <ListGroupItem key={idx} variant="primary" onClick={this.handleClick}>
+                                    <ListGroupItem key={idx} variant="primary" onClick={() => {
+                                        this.handleClickArg(d)
+                                    }}>
                                         {d.name}
                                     </ListGroupItem>
                                 );
@@ -56,8 +70,9 @@ class Doctor extends React.Component {
                 </div>
 
                 <div className="col-sm-6">
+                    {this.state.showDetails ? this.tempShowDetails : null}
                     <Prescription />
-                    <SuggestTest />
+                    <SuggestTest message ="Enter the Prescription" />
                 </div>
                 <div className="col-sm-3" >
                     <img src={DocImg} alt="Doctor_img" />

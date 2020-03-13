@@ -4,7 +4,7 @@ class SuggestedTextBox extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            tests:"Suggested Tests"
+            tests:this.props.message
         }
     }
     clearInput = e => {

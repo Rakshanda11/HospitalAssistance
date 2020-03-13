@@ -1,6 +1,6 @@
 import React from 'react';
 import './Lab.css';
-import LabImg from './Lab.png';
+import LabImg from '../components/Lab.png';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import SuggestedTextBox from '../components/Navigation/suggestedTest';
 import Submit from '../components/Navigation/submitButton'
@@ -39,17 +39,16 @@ class Lab extends React.Component {
                 <div className="col-sm-6">
                     <p className="changeFonts">Submit The Report:</p>
                     <br />
-                    
-                    
                     <div>
-                        <br/>
-                    <SuggestedTextBox/>
+                        <br />
+                        <SuggestedTextBox message="Any Remarks?"/>
+                        <Submit/>   
                     </div>
-                    <div  className="col-sm-2" >
-                    <img src ={LabImg} alt="Lab_img"/>
+                    <div className="col-sm-2" >
+                        <img src={LabImg} alt="Lab_img" />
+                    </div>
                 </div>
-                </div>
-                    
+
 
 
             </div>
