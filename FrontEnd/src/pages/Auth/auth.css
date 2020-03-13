@@ -1,0 +1,50 @@
+/* 
+.form-control{
+    margin-bottom: 1rem;
+}
+.form-control label{
+    margin-bottom: 0.5rem;
+}
+
+.form-control label,
+.form-control input{
+    width: 100%;
+    display: block;
+}
+
+
+ */
+.greetings{
+    margin-top: 2rem;
+    margin-bottom: 0;
+    text-align: center;
+    color: rgb(168, 41, 58);
+}
+
+ .auth-form{
+    width: 20rem;
+    max-width: 80%;
+    margin: 5rem auto;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    
+}
+.form-action button{
+    background: #05d3d3;
+    font: inherit;
+    border: 1px solid #05d3d3;
+    border-radius: 3px;
+    padding: 0.25rem 1rem;
+    margin-right: 1rem;
+    box-shadow: 1px 1px 5px rgba(0,0 , 0, 0.25);
+    color: white;
+    cursor: pointer;
+}
+
+.form-action button:hover,
+.form-action button:active{
+    background: #05a3d3;
+    border-color: #05a3d3;
+}
+

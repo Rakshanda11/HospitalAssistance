@@ -1,9 +1,9 @@
 import React from 'react';
 import './Lab.css';
-import LabImg from '../components/Lab.png';
+import LabImg from '../../components/Lab.png';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
-import SuggestedTextBox from '../components/Navigation/suggestedTest';
-import Submit from '../components/Navigation/submitButton'
+import SuggestedTextBox from '../../components/Navigation/suggestedTest';
+import Submit from '../../components/Navigation/submitButton'
 class Lab extends React.Component {
     patientsList = [
         {
@@ -45,10 +45,11 @@ class Lab extends React.Component {
                         <SuggestedTextBox message="Any Remarks?"/>
                         <Submit/>   
                     </div>
-                    <div className="col-sm-2" >
-                        <img src={LabImg} alt="Lab_img" />
-                    </div>
+                    
                 </div>
+                {/* <div className="col-sm-4 image" >
+                        <img src={LabImg} alt="Lab_img" />
+                    </div> */}
 
 
 

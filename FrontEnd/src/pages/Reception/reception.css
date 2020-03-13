@@ -1,0 +1,13 @@
+.Container{
+    height: 100%;
+    background: #003973; 
+    background: -webkit-linear-gradient(to right, #E5E5BE, #003973); 
+    background: linear-gradient(to right, #E5E5BE, #003973);
+  }
+body{
+    height: 100%;
+}
+.title{
+    align-self: center;
+}
+  

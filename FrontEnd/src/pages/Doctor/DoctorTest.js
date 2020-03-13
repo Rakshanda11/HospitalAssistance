@@ -1,6 +1,6 @@
 import React from 'react';
-import Submit from '../components/Navigation/submitButton';
-import SuggestedTextBox from '../components/Navigation/suggestedTest';
+import Submit from '../../components/Navigation/submitButton';
+import SuggestedTextBox from '../../components/Navigation/suggestedTest';
 
 class SuggestTest extends React.Component {
     state={

@@ -2,14 +2,21 @@
     color:purple;
     float: left;
     font-size: larger;
-    display: block;
-    align-content: left;
+    display: flex;
+    align-content: center;
 }
 .attribute-styling{
     color:black;
-    float: right;
-    font-size: larger;
+    /* float: right; */
+    /* font-size: larger; */
+    margin-left: 0.5rem
 }
 .align-details{
+    margin-top: 1rem;
+    margin-bottom: 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
 }

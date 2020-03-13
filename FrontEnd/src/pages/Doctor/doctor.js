@@ -4,14 +4,14 @@ import DocImg from './Doctor.jpg'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Prescription from './DoctorPrescription'
 import SuggestTest from './DoctorTest'
-import ShowDetails from '../components/PatientDetails/Doctor-PatientDetails'
+import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails'
 class Doctor extends React.Component {
     constructor(props) {
         super(props);
         // this.getInfo = this.getInfo.bind(this);
         // this.handleClick = this.handleClick.bind(this);
         console.log("Bind successful");
-        var tempShowDetails; 
+        
         this.state = {
             showDetails: false
         }
@@ -74,7 +74,7 @@ class Doctor extends React.Component {
                     <Prescription />
                     <SuggestTest message ="Enter the Prescription" />
                 </div>
-                <div className="col-sm-3" >
+                <div className="col-sm-4 image" >
                     <img src={DocImg} alt="Doctor_img" />
                 </div>
 
