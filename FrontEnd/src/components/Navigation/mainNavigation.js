@@ -13,8 +13,8 @@ const mainNavigation = props => (
       <div className="toolbar__logo">
         <a href="/">THE LOGO</a>
       </div>
-      <div className="space"></div>
-      <div className="toolbar__navigation-items">
+      <div className="spacer"></div>
+      <div className="main-navigation__div">
         <ul>
           <li>
             {/* <a href="/">Products</a> */}

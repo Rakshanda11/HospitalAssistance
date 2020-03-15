@@ -1,66 +1,75 @@
-.toolbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #521751;
-    height: 56px;
-  }
-  
-  .toolbar__navigation {
+.main-navigation {
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+}
+.main-navigation__logo h1 {
+  margin: 10px;
+  color: rosybrown;
+  font-size: 1.5rem;
+}
+
+.spacer{
+  flex: 1;
+}
+
+.toolbar__toggle-button{
+    align-self: center;
+    align-items: center;
+}
+.main-navigation__div{
     display: flex;
     height: 100%;
     align-items: center;
-    padding: 0 1rem;
-  }
-  
-  .toolbar__logo{
-      margin-left: 1rem;
-  }
-  
-  .toolbar__logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-  }
-  
-  .space { 
-    flex: 1;
-  }
-  
-  .toolbar__navigation-items ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .toolbar__navigation-items li {
-    padding: 0 0.5rem;
-  }
-  
-  .toolbar__navigation-items a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .toolbar__navigation-items a:hover,
-  .toolbar__navigation-items a:active,
-  .toolbar__navigation-items a.active
-   {
-    color: orange;
-  }
-  
-  @media (max-width: 768px){
-      .toolbar__navigation-items{
-          display: none
-      }
-  }
-  
-  @media (min-width: 769px){
-      .toolbar__toggle-button{
-          display: none;
-      }
-      .toolbar__logo{
-          margin-left: 0;
-      }
-  }
+}
+.main-navigation__items {
+  width: 100%;
+  margin-left: 1.5rem;
+  display: flex;
+  align-content: center;
+}
+.main-navigation__items ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 1rem;
+  /* margin-top: 1rem; */
+}
+.main-navigation__items li {
+  margin: 0 1rem;
+}
+
+.main-navigation__items a {
+  text-decoration: none;
+  color: white;
+}
+.main-navigation__items a:hover {
+  text-decoration: none;
+  color: lightblue;
+}
+.main-navigation__items a:active {
+  text-decoration: none;
+  color: lightblue;
+}
+
+@media (max-width: 768px){
+    .toolbar__navigation-items{
+        display: none
+    }
+    .main-navigation__div{
+        display: none;
+    }
+}
+
+@media (min-width: 769px){
+    .toolbar__toggle-button{
+        display: none;
+    }
+    .toolbar__logo{
+        margin-left: 0;
+    }
+}
