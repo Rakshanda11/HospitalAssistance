@@ -13,7 +13,7 @@ const mainNavigation = props => (
       <div className="toolbar__logo">
         <a href="/">THE LOGO</a>
       </div>
-      <div className="spacer"></div>
+      <div className="space"></div>
       <div className="toolbar__navigation-items">
         <ul>
           <li>
