@@ -1,37 +1,42 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
-import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-import "./MainNavigation.css";
-
+import "./mainNavigation.css";
+import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
 const mainNavigation = props => (
-  <header className="toolbar">
-    <nav className="toolbar__navigation">
+  <header className="main-navigation">
+    <nav className="main-navigation__items">
       <div className="toolbar__toggle-button">
-        <DrawerToggleButton click={props.drawerClickHandler}></DrawerToggleButton>
+        <DrawerToggleButton
+          click={props.drawerClickHandler}
+        ></DrawerToggleButton>
       </div>
-      <div className="toolbar__logo">
-        <a href="/">THE LOGO</a>
+      <div className="main-navigation__logo">
+        <h1>CarePlus</h1>
       </div>
       <div className="spacer"></div>
       <div className="main-navigation__div">
         <ul>
           <li>
-            {/* <a href="/">Products</a> */}
+            <NavLink to="/auth">Authentication</NavLink>
+          </li>
+          <li>
             <NavLink to="/reception">Reception</NavLink>
           </li>
           <li>
-            {/* <a href="/">Users</a> */}
-            <NavLink to="/doctors">Doctors</NavLink>
+            <NavLink to="/doctor">Doctor</NavLink>
           </li>
           <li>
-            {/* <a href="/">Users</a> */}
-            <NavLink to="/auth">Auth</NavLink>
+            <NavLink to="/lab">Lab</NavLink>
           </li>
+          {/* 
+            <Route path="/auth" component={AuthPage} />
+              <Route path="/reception" component={Reception} />
+              <Route path="/doctor" component={Doctor} />
+              <Route path="/lab" component={Lab} />
+          */}
         </ul>
       </div>
     </nav>
   </header>
 );
-
 export default mainNavigation;

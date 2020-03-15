@@ -12,18 +12,15 @@
   color: rosybrown;
   font-size: 1.5rem;
 }
-
-.spacer{
-  flex: 1;
-}
-
 .toolbar__toggle-button{
     align-self: center;
     align-items: center;
 }
+.spacer{
+  flex: 1
+}
 .main-navigation__div{
     display: flex;
-    height: 100%;
     align-items: center;
 }
 .main-navigation__items {
