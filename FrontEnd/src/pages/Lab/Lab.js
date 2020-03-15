@@ -1,10 +1,18 @@
 import React from 'react';
 import './Lab.css';
-import LabImg from '../../components/Lab.png';
+import LabImg from '../../components/Lab.jpg';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import SuggestedTextBox from '../../components/Navigation/suggestedTest';
 import Submit from '../../components/Navigation/submitButton'
+import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails'
 class Lab extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            showDetails: false
+        }
+    }
     patientsList = [
         {
             name: "Patient 1",
@@ -19,6 +27,12 @@ class Lab extends React.Component {
             age: "50"
         }
     ];
+    handleClickArg = (item) =>{
+        this.setState({
+            showDetails: true
+        })
+        this.tempShowDetails = <ShowDetails detail = {item}/>
+    }
     render() {
         return (
             <div className="row">
@@ -28,15 +42,19 @@ class Lab extends React.Component {
                         <ListGroup className="for_padding" defaultActiveKey="">
                             {this.patientsList.map(function (d, idx) {
                                 return (
-                                    <ListGroupItem variant="primary" key={idx}
+                                    <ListGroupItem variant="primary" key={idx} 
+                                    onClick ={ ()=>{
+                                        this.handleClickArg(d);
+                                    }}
 
                                     >{d.name}</ListGroupItem>
                                 )
-                            })}
+                            }.bind(this))};
                         </ListGroup>
                     </div>
                 </div>
                 <div className="col-sm-6">
+                {this.state.showDetails ? this.tempShowDetails : null}
                     <p className="changeFonts">Submit The Report:</p>
                     <br />
                     <input type="file" />
@@ -47,9 +65,9 @@ class Lab extends React.Component {
                     </div>
                     
                 </div>
-                {/* <div className="col-sm-4 image" >
-                        <img src={LabImg} alt="Lab_img" />
-                    </div> */}
+                 <div className="col-sm-4 image" >
+                        <img src={LabImg} class="rounded-circle" alt="Lab_img" />
+                    </div> 
 
 
 

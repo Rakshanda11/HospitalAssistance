@@ -34,7 +34,7 @@ class AuthPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className ="img-fluid" src ="Auth.jpg">
         <h2 className="greetings">Welcome</h2>
         <form className="auth-form" onSubmit={this.submitHandler}>
           <div className="form-group">
