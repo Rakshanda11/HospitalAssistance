@@ -3,8 +3,8 @@ import './reception.css';
 import Patiententry from '../../components/patiententry/patiententry';
 import Patientlist from '../../components/patientlist/patientlist';
 // import Pd from '../component/patiententry/pd';
-import PopUp from '../../components/patientlist/popUp';
-
+// import PopUp from '../../components/patientlist/popUp';
+import receptionist from '../../components/receptionist.jpg'
 class Receptionpage extends Component {
     constructor(props){
         super(props);
@@ -41,9 +41,9 @@ class Receptionpage extends Component {
                         <div className="col-sm-4">
                             <Patientlist list={this.state.patientList}/>
                         </div>
-                        {/* <div className="col-sm-4">
-                            <Patientlist />
-                        </div> */}
+                        <div className="col-sm-4">
+                            <img className="imag" src={receptionist} alt="receptionist"/>
+                        </div>
                         
                     </React.Fragment>
                 </div>

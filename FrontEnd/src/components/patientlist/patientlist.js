@@ -29,7 +29,7 @@ class Patientlist extends React.Component {
             ? this.props.list.map((patient, index) => (
                 <li key={index} onClick={this.togglePopup}>
                   {/* {this.singlePatientRow(patient)} */}
-                  <button className="buttonStyle">{patient.name}</button>
+                  <button className="buttonlistStyle">{patient.name}</button>
                 </li>
               ))
             : null}

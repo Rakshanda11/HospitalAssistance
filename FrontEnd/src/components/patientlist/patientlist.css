@@ -7,11 +7,21 @@ ul{
     text-align: center;
     list-style: none;
 }
-.buttonStyle{
+.buttonlistStyle{
     text-align: center;
     height: 30px;
     width: 200px;
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #17b2c775
+}
+.buttonlistStyle:hover {
+   background-color: #6c717275
+   ;
 }
 .listpatient{
     margin-bottom: 40px;
+    color: rgb(47, 143, 63);
 }

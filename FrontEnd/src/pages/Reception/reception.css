@@ -1,8 +1,8 @@
 .Container{
     height: 100%;
-    background: #003973; 
+    /* background: #003973; 
     background: -webkit-linear-gradient(to right, #E5E5BE, #003973); 
-    background: linear-gradient(to right, #E5E5BE, #003973);
+    background: linear-gradient(to right, #E5E5BE, #003973); */
   }
 body{
     height: 100%;
@@ -10,4 +10,7 @@ body{
 .title{
     align-self: center;
 }
-  
+.imag{
+    margin-top: 100px;
+    border-radius: 50%;;
+}

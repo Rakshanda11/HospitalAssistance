@@ -45,7 +45,7 @@ class Patiententry extends React.Component {
     return (
 
       <div className="entry">
-        <h3>Patient Entry</h3>
+        <h3 className="patiententry">Patient Entry</h3>
         <form className="entryform" onSubmit={this.mySubmitHandler}>
           <label >
             Patient Details
