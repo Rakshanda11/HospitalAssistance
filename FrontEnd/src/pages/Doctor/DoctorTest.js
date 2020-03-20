@@ -1,5 +1,4 @@
 import React from 'react';
-import Submit from '../../components/Navigation/submitButton';
 import SuggestedTextBox from '../../components/Navigation/suggestedTest';
 
 class SuggestTest extends React.Component {
@@ -27,8 +26,11 @@ class SuggestTest extends React.Component {
                 <button type="button" className="btn btn-primary" onClick={this.setTrue}>YES</button>
                 <button type="button" className="btn btn-danger" onClick={this.setFalse}>NO </button><br/><br/>
                      {testrequired}
-                
-                <Submit/>
+                {/* <Submit onClick={()=>{
+                    console.log("In submit");
+                    //this.funref();
+                }}/> */}
+                <button type="button" className="btn btn-dark" >Submit</button> 
             </div>
             
         );

@@ -3,7 +3,6 @@ import './Lab.css';
 import LabImg from '../../components/Lab.jpg';
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import SuggestedTextBox from '../../components/Navigation/suggestedTest';
-import Submit from '../../components/Navigation/submitButton'
 import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails'
 class Lab extends React.Component {
     constructor(props) {
@@ -61,7 +60,7 @@ class Lab extends React.Component {
                     <div>
                         <br />
                         <SuggestedTextBox message="Any Remarks?"/>
-                        <Submit/>   
+                        <button type="button" className="btn btn-dark" >Submit</button> 
                     </div>
                     
                 </div>
