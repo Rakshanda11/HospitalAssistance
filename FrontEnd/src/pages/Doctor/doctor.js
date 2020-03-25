@@ -1,140 +1,111 @@
-import React from 'react';
-import './doctor.css';
-import DocImg from './Doctor.jpg'
-import Instruction from '../../components/DoctorsModule/Instructions'
+import React from "react";
+import "./doctor.css";
+import DocImg from "./Doctor.jpg";
+import Instruction from "../../components/DoctorsModule/Instructions";
 // import { ListGroup, ListGroupItem } from 'react-bootstrap'
-import Prescription from './DoctorPrescription'
-import SuggestTest from './DoctorTest'
-import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails'
-import GetPatientHistory from '../../components/DoctorsModule/GetPatientHistory';
-import DoctorPageStart from '../../components/DoctorsModule/StartDoctor'
+import Prescription from "./DoctorPrescription";
+// import SuggestTest from "./DoctorTest";
+import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
+import GetPatientHistory from "../../components/DoctorsModule/GetPatientHistory";
+import DoctorPageStart from "../../components/DoctorsModule/StartDoctor";
+import DoctorNavigation from "../../components/Navigation/doctorsNavigation";
 // import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log("Bind successful");
-        this.state = {
-            showDetails: false,
-            showHistory: false,
-            mainBody: <DoctorPageStart/>,
-            currentPatient: null
-            
-        }
-        this.patientsList = [
-            {
-                name: "Patient 1",
-                age: "50"
-            },
-            {
-                name: "Patient 2",
-                age: "80"
-            },
-            {
-                name: "Patient 3",
-                age: "20"
-            },
-            {
-                name: "Patient 4",
-                age: "67"
-            }
-        ];
-    }
-
-    // handleClickArg = (item) => {
-    //     this.tempShowDetails = <ShowDetails detail = {item}/>
-    //     this.setState({
-    //         showDetails: true
-    //     })
-
-    // }
-    // handleClick(event) {
-    //    this.handleClickArg(event, item);
-    // }
-    removePatient = () => {
-        this.patientsList.shift();
-        console.log(this.patientsList);
+  constructor(props) {
+    super(props);
+    this.patientsList = [
+      {
+        name: "Patient 1",
+        age: "50"
+      },
+      {
+        name: "Patient 2",
+        age: "80"
+      },
+      {
+        name: "Patient 3",
+        age: "20"
+      },
+      {
+        name: "Patient 4",
+        age: "67"
+      }
+    ];
+    this.state = {
+      showDetails: false,
+      showHistory: false,
+      mainBody: <DoctorPageStart />,
+      currentPatient: this.patientsList[0]
     };
-    detailsfun = () =>{
-        this.setState({
-            mainBody : <ShowDetails patient = {this.state.currentPatient}/>
-        });
-    }
-    getPatientHistory = () =>{
-        this.setState({
-            mainBody : <GetPatientHistory/>
-        });
-    }
-    insertVitalsigns = () =>{
-        alert("InsertVitalSigns");
-    }
-    currentIssues = () =>{
-        
-        this.setState(
-            {
-                mainBody : <Prescription/>
-            }
-        );
-    }
-    
-    render() {
-        // var ShowHistory, askHistory
-        // if (this.showHistory) {
-        //     ShowHistory = <GetPatientHistory patient={this.patientsList[0]} />
-        // }
-        // else if (!this.showHistory) {
-        //     askHistory = <button type="button" className="btn btn-danger alignbutton" onClick={this.cons} >History</button>
-        // }
-        return (
-            <div className="row">
-                <div className="col-sm-3" >
-                    <div className="patient_list">
-                        {/* <h6 className="patient_header">List Of Patients</h6> */}
-                        {/* <ListGroup className="for_padding" defaultActiveKey="">
-                            {this.patientsList.map(function (d, idx) {
-                                return (
-                                    // this.element(d, idx)
-                                    <ListGroupItem key={idx} variant="primary" onClick={() => {
-                                        this.handleClickArg(d)
-                                    }}>
-                                        {d.name}
-                                    </ListGroupItem>
-                                );
-                            }.bind(this))}
-                        </ListGroup> */}
-                        <Instruction patientsList={this.patientsList} updatePatient={(patient) => {
-                            this.setState({
-                                currentPatient: patient
-                            });
-                        }}/>
-                    </div>
-                </div>
+  } // Contructor ends here
 
-                <div className="col-sm-5 border backgroundstyle">
-                    <div >
-                        <button type="button" className="btn btn-dark col-sm-6" onClick={this.getPatientHistory}>GetHistory</button>
-                        <button type="button" className="btn btn-danger col-sm-6" onClick={this.detailsfun} >PatientDetails</button>
+  removePatient = () => {
+    this.patientsList.shift();
+  };
+  detailsfun = () => {
+    this.setState({
+      mainBody: <ShowDetails patient={this.state.currentPatient} />
+    });
+  };
+  getPatientHistory = () => {
+    //   if (this.state.currentPatient)
+    this.setState({
+      mainBody: (
+        <>
+          <ShowDetails patient={this.state.currentPatient} />
+          <GetPatientHistory />
+        </>
+      )
+    });
+  };
+  insertVitalsigns = () => {
+    alert("InsertVitalSigns");
+  };
+  currentIssues = () => {
+    this.setState({
+      mainBody: (
+        <>
+          <ShowDetails patient={this.state.currentPatient} />
+          <Prescription />
+        </>
+      )
+    });
+  };
 
-                    </div>
-                    <div >
-                        <button type="button" className="btn btn-danger col-sm-6" onClick={this.insertVitalsigns} >Vital Signs</button>
-                        <button type="button" className="btn btn-dark col-sm-6" onClick= {this.currentIssues}>Prescription</button>
-                    </div>
-                    
-                    {/* <GetPatientHistory />
-                    {askHistory}
-                    {ShowHistory} */}
-                    {/* {this.state.showDetails ? this.tempShowDetails : null} */}
-                    {this.state.mainBody}
-                    
-                    
-                </div>
-                <div className="col-sm-4 image" >
-                    <img src={DocImg} alt="Doctor_img" />
-                </div>
-
-
+  render() {
+    return (
+      <>
+        {/* {this.props.navBar} */}
+        <DoctorNavigation
+          currentPage={this.state.currentPage}
+          drawerClickHandler={this.props.drawerToggleClickHandler}
+          diagnosis={this.insertVitalsigns}
+          prescription={this.currentIssues}
+          history={this.getPatientHistory}
+        />
+        <div className="row">
+          <div className="col-sm-3">
+            <div className="patient_list">
+              <Instruction
+                patientsList={this.patientsList}
+                updatePatient={patient => {
+                  this.setState({
+                    currentPatient: patient,
+                    mainBody: (
+                      <ShowDetails patient={this.state.currentPatient} />
+                    )
+                  });
+                }}
+              />
             </div>
-        );
-    }
+          </div>
+          <div className="border backgroundstyle">{this.state.mainBody}</div>
+          <div className="imageDiv">
+            <img src={DocImg} alt="Doctor_img" />
+          </div>
+        </div>
+      </>
+    );
+  }
 }
 export default Doctor;

@@ -10,14 +10,28 @@
 .for_padding{
     padding-left: 0rem;
 }
-.image{
-    /* margin-left: 5rem; */
-    overflow: hidden;
-    
+
+.row{
+    height: 100%;
+}
+
+.imageDiv{
+    /* align-items: center; */
+    overflow: visible;
+    width: 26%;
+    margin-left: 3rem
+}
+
+.imageDiv img{
+    align-self: center;
+    width: inherit;
+    /* margin-left: 10rem; */
+    position: absolute;
 }
 .backgroundstyle{
     /* background-color:oldlace; */
     background-color: ivory;
+    width: 45%
 }
 .alignbutton{
     margin-left: 17rem;

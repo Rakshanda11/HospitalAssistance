@@ -5,15 +5,27 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import AuthPage from "./pages/Auth/auth";
 import Reception from "./pages/Reception/reception";
 import Doctor from "./pages/Doctor/doctor";
-import MainNavigation from "./components/Navigation/mainNavigation";
+// import MainNavigation from "./components/Navigation/mainNavigation";
 import SideDrawer from "./components/SideDrawer/SideDrawer";
 import Backdrop from "./components/Backdrop/Backdrop";
 import Lab from "./pages/Lab/Lab";
+
 class App extends Component {
-  state = {
-    sideDrawerOpen: false
-  };
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      sideDrawerOpen: false,
+      // navBar: null
+      // This will contain the list of functions to be displayed on navBar for individual module.
+    };
+    // this.state.navBar = (
+    //   <MainNavigation
+    //     currentPage={this.state.currentPage}
+    //     drawerClickHandler={this.drawerToggleClickHandler}
+    //   />
+    // );
+  }
+
   drawerToggleClickHandler = () => {
     this.setState(prevState => {
       return { sideDrawerOpen: !prevState.sideDrawerOpen };
@@ -33,16 +45,22 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <MainNavigation drawerClickHandler={this.drawerToggleClickHandler}/>
-          <SideDrawer  show={this.state.sideDrawerOpen}></SideDrawer>
+          {/* {this.state.navBar} */}
+          <SideDrawer show={this.state.sideDrawerOpen}></SideDrawer>
           {backDrop}
           <main className="main_content">
             <Switch>
-              <Redirect from="/" to="/auth" exact></Redirect>
-              <Route path="/auth" component={AuthPage} />
-              <Route path="/reception" component={Reception} />
-              <Route path="/doctor" component={Doctor} />
-              <Route path="/lab" component={Lab} />
+              <Redirect from="/" to="/auth" exact strict></Redirect>
+              <Route path="/auth" component={() => <AuthPage></AuthPage>} />
+              <Route
+                path="/reception"
+                component={() => <Reception></Reception>}
+              />
+              <Route
+                path="/doctor"
+                component={() => <Doctor drawerToggleClickHandler={this.drawerToggleClickHandler}></Doctor>}
+              />
+              <Route path="/lab" component={() => <Lab></Lab>} />
             </Switch>
           </main>
         </React.Fragment>

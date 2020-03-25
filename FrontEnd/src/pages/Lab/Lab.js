@@ -65,7 +65,7 @@ class Lab extends React.Component {
                     
                 </div>
                  <div className="col-sm-4 image" >
-                        <img src={LabImg} class="rounded-circle" alt="Lab_img" />
+                        <img src={LabImg} className="rounded-circle" alt="Lab_img" />
                     </div> 
 
 

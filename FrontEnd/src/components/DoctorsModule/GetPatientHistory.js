@@ -6,7 +6,7 @@ class GetPatientHistory extends React.Component{
             <>
             <form>
                 <h3>History</h3>
-                <div row>
+                <div>
                     <label>BLOOD PRESSURE:
                         <textarea className ="form-control"/>
                     </label>
@@ -16,7 +16,7 @@ class GetPatientHistory extends React.Component{
                     </label>
                 </div>
                 <hr/>
-                <div row>
+                <div>
                     <label>HEARTBEAT RATE:
                         <textarea className ="form-control"/>
                     </label>
