@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 import "./SideDrawer.css";
 
-class sideDrawer extends React.Component{
-  render(){
+class sideDrawer extends React.Component {
+  render() {
     let drawerClasses = "side-drawer";
     if (this.props.show) {
       drawerClasses = "side-drawer open";
@@ -13,19 +13,27 @@ class sideDrawer extends React.Component{
       <nav className={drawerClasses}>
         <ul>
           <li>
-            <button type="button" className="btn" onClick={this.props.history}>
+            <button
+              // type="button"
+              className="SDbtn"
+              onClick={this.props.history}
+            >
               Patient History
             </button>
           </li>
           <li>
-            <button type="button" className="btn" onClick={this.props.diagnosis}>
+            <button
+              // type="button"
+              className="SDbtn"
+              onClick={this.props.diagnosis}
+            >
               Diagnosis
             </button>
           </li>
           <li>
             <button
-              type="button"
-              className="btn"
+              // type="button"
+              className="SDbtn"
               onClick={this.props.prescription}
             >
               Prescription
@@ -38,7 +46,7 @@ class sideDrawer extends React.Component{
         </ul>
       </nav>
     );
-  };
+  }
 }
 
 export default sideDrawer;
