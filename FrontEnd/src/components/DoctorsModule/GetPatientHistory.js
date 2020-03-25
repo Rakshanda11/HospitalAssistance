@@ -1,5 +1,5 @@
 import React from 'react';
-import './InsertCurrentDetails.css';
+import './GetPatientHistory.css';
 class GetPatientHistory extends React.Component{
     render(){
         return(

@@ -6,16 +6,19 @@ import Instruction from '../../components/DoctorsModule/Instructions'
 import Prescription from './DoctorPrescription'
 import SuggestTest from './DoctorTest'
 import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails'
-import GetPatientHistory from '../../components/DoctorsModule/InsertCurrentDetails';
+import GetPatientHistory from '../../components/DoctorsModule/GetPatientHistory';
+import DoctorPageStart from '../../components/DoctorsModule/StartDoctor'
 // import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
     constructor(props) {
         super(props);
         console.log("Bind successful");
-        
         this.state = {
             showDetails: false,
-            showHistory:false
+            showHistory: false,
+            mainBody: <DoctorPageStart/>,
+            currentPatient: null
+            
         }
         this.patientsList = [
             {
@@ -36,7 +39,7 @@ class Doctor extends React.Component {
             }
         ];
     }
-   
+
     // handleClickArg = (item) => {
     //     this.tempShowDetails = <ShowDetails detail = {item}/>
     //     this.setState({
@@ -51,17 +54,36 @@ class Doctor extends React.Component {
         this.patientsList.shift();
         console.log(this.patientsList);
     };
-    cons =() =>{
-        console.log("In cons");
+    detailsfun = () =>{
+        this.setState({
+            mainBody : <ShowDetails patient = {this.state.currentPatient}/>
+        });
     }
+    getPatientHistory = () =>{
+        this.setState({
+            mainBody : <GetPatientHistory/>
+        });
+    }
+    insertVitalsigns = () =>{
+        alert("InsertVitalSigns");
+    }
+    currentIssues = () =>{
+        
+        this.setState(
+            {
+                mainBody : <Prescription/>
+            }
+        );
+    }
+    
     render() {
-        var ShowHistory,askHistory
-        if(this.showHistory){
-            ShowHistory = <GetPatientHistory patient = {this.patientsList[0]}/>
-        }
-        else if(!this.showHistory){
-            askHistory = <button type="button" className="btn btn-danger alignbutton" onClick={this.cons} >History</button> 
-        }
+        // var ShowHistory, askHistory
+        // if (this.showHistory) {
+        //     ShowHistory = <GetPatientHistory patient={this.patientsList[0]} />
+        // }
+        // else if (!this.showHistory) {
+        //     askHistory = <button type="button" className="btn btn-danger alignbutton" onClick={this.cons} >History</button>
+        // }
         return (
             <div className="row">
                 <div className="col-sm-3" >
@@ -79,18 +101,32 @@ class Doctor extends React.Component {
                                 );
                             }.bind(this))}
                         </ListGroup> */}
-                        <Instruction patientsList ={this.patientsList} />
+                        <Instruction patientsList={this.patientsList} updatePatient={(patient) => {
+                            this.setState({
+                                currentPatient: patient
+                            });
+                        }}/>
                     </div>
                 </div>
 
                 <div className="col-sm-5 border backgroundstyle">
-                    <GetPatientHistory/>
+                    <div >
+                        <button type="button" className="btn btn-dark col-sm-6" onClick={this.getPatientHistory}>GetHistory</button>
+                        <button type="button" className="btn btn-danger col-sm-6" onClick={this.detailsfun} >PatientDetails</button>
+
+                    </div>
+                    <div >
+                        <button type="button" className="btn btn-danger col-sm-6" onClick={this.insertVitalsigns} >Vital Signs</button>
+                        <button type="button" className="btn btn-dark col-sm-6" onClick= {this.currentIssues}>Prescription</button>
+                    </div>
+                    
+                    {/* <GetPatientHistory />
                     {askHistory}
-                    {ShowHistory}
+                    {ShowHistory} */}
                     {/* {this.state.showDetails ? this.tempShowDetails : null} */}
-                    <ShowDetails patient ={this.patientsList[0]}/>
-                    <Prescription />
-                    <SuggestTest message ="Enter the Prescription" patientsList ={this.patientsList} funref ={this.removePatient} />
+                    {this.state.mainBody}
+                    
+                    
                 </div>
                 <div className="col-sm-4 image" >
                     <img src={DocImg} alt="Doctor_img" />

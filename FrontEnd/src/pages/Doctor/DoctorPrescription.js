@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SuggestTest from './DoctorTest';
 class Prescription extends React.Component {
     state = {
         medicines: "Enter The Prescription"
@@ -21,6 +21,7 @@ class Prescription extends React.Component {
                     onClick={this.clearInput}
                 />
                 <br />
+                <SuggestTest message="Enter the Prescription" patientsList={this.patientsList} funref={this.removePatient} />
             </div>
             
         );

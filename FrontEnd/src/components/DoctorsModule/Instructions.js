@@ -16,7 +16,7 @@ class Instructions extends React.Component {
                 </ul>
                 
             </div>
-            <List patientsList ={this.props.patientsList}/>
+            <List patientsList ={this.props.patientsList} updatePatient={this.props.updatePatient}/>
         </div>
         );
     }
