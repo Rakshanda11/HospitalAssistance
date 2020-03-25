@@ -16,6 +16,14 @@
   transform: translateX(0);
 }
 
+.btn{
+  color: purple;
+}
+.btn:hover,
+.btn:active{
+  text-decoration: none;
+  color: #fa933ff1;
+}
 .side-drawer ul {
   height: 100%;
   list-style: none;

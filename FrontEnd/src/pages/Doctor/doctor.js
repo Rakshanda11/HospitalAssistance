@@ -9,6 +9,8 @@ import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import GetPatientHistory from "../../components/DoctorsModule/GetPatientHistory";
 import DoctorPageStart from "../../components/DoctorsModule/StartDoctor";
 import DoctorNavigation from "../../components/Navigation/doctorsNavigation";
+import SideDrawer from "../../components/SideDrawer/doctorSideDrawer";
+import Backdrop from "../../components/Backdrop/Backdrop";
 // import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
   constructor(props) {
@@ -32,6 +34,7 @@ class Doctor extends React.Component {
       }
     ];
     this.state = {
+      sideDrawerOpen: false,
       showDetails: false,
       showHistory: false,
       mainBody: <DoctorPageStart />,
@@ -39,14 +42,26 @@ class Doctor extends React.Component {
     };
   } // Contructor ends here
 
+  drawerToggleClickHandler = () => {
+    this.setState(prevState => {
+      return { sideDrawerOpen: !prevState.sideDrawerOpen };
+    });
+  };
+
+  backDropClickHandler = () => {
+    this.setState({ sideDrawerOpen: false });
+  };
+
   removePatient = () => {
     this.patientsList.shift();
   };
+
   detailsfun = () => {
     this.setState({
       mainBody: <ShowDetails patient={this.state.currentPatient} />
     });
   };
+
   getPatientHistory = () => {
     //   if (this.state.currentPatient)
     this.setState({
@@ -58,9 +73,11 @@ class Doctor extends React.Component {
       )
     });
   };
+
   insertVitalsigns = () => {
     alert("InsertVitalSigns");
   };
+
   currentIssues = () => {
     this.setState({
       mainBody: (
@@ -73,18 +90,29 @@ class Doctor extends React.Component {
   };
 
   render() {
+    let backDrop;
+    if (this.state.sideDrawerOpen) {
+      backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
+    }
     return (
       <>
         {/* {this.props.navBar} */}
         <DoctorNavigation
-          currentPage={this.state.currentPage}
-          drawerClickHandler={this.props.drawerToggleClickHandler}
+          drawerClickHandler={this.drawerToggleClickHandler}
           diagnosis={this.insertVitalsigns}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
         />
+        <SideDrawer
+          drawerClickHandler={this.props.drawerToggleClickHandler}
+          diagnosis={this.insertVitalsigns}
+          prescription={this.currentIssues}
+          history={this.getPatientHistory}
+          show={this.state.sideDrawerOpen}
+        ></SideDrawer>
+        {backDrop}
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
                 patientsList={this.patientsList}

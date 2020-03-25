@@ -6,8 +6,8 @@ import AuthPage from "./pages/Auth/auth";
 import Reception from "./pages/Reception/reception";
 import Doctor from "./pages/Doctor/doctor";
 // import MainNavigation from "./components/Navigation/mainNavigation";
-import SideDrawer from "./components/SideDrawer/SideDrawer";
-import Backdrop from "./components/Backdrop/Backdrop";
+// import SideDrawer from "./components/SideDrawer/SideDrawer";
+// import Backdrop from "./components/Backdrop/Backdrop";
 import Lab from "./pages/Lab/Lab";
 
 class App extends Component {
@@ -15,39 +15,31 @@ class App extends Component {
     super(props);
     this.state = {
       sideDrawerOpen: false,
-      // navBar: null
-      // This will contain the list of functions to be displayed on navBar for individual module.
     };
-    // this.state.navBar = (
-    //   <MainNavigation
-    //     currentPage={this.state.currentPage}
-    //     drawerClickHandler={this.drawerToggleClickHandler}
-    //   />
-    // );
   }
 
-  drawerToggleClickHandler = () => {
-    this.setState(prevState => {
-      return { sideDrawerOpen: !prevState.sideDrawerOpen };
-    });
-  };
+  // drawerToggleClickHandler = () => {
+  //   this.setState(prevState => {
+  //     return { sideDrawerOpen: !prevState.sideDrawerOpen };
+  //   });
+  // };
 
-  backDropClickHandler = () => {
-    this.setState({ sideDrawerOpen: false });
-  };
+  // backDropClickHandler = () => {
+  //   this.setState({ sideDrawerOpen: false });
+  // };
 
   render() {
-    let backDrop;
+    // let backDrop;
 
-    if (this.state.sideDrawerOpen) {
-      backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
-    }
+    // if (this.state.sideDrawerOpen) {
+    //   backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
+    // }
     return (
       <BrowserRouter>
         <React.Fragment>
           {/* {this.state.navBar} */}
-          <SideDrawer show={this.state.sideDrawerOpen}></SideDrawer>
-          {backDrop}
+          {/* <SideDrawer show={this.state.sideDrawerOpen}></SideDrawer> */}
+          {/* {backDrop} */}
           <main className="main_content">
             <Switch>
               <Redirect from="/" to="/auth" exact strict></Redirect>
@@ -58,7 +50,7 @@ class App extends Component {
               />
               <Route
                 path="/doctor"
-                component={() => <Doctor drawerToggleClickHandler={this.drawerToggleClickHandler}></Doctor>}
+                component={() => <Doctor></Doctor>}
               />
               <Route path="/lab" component={() => <Lab></Lab>} />
             </Switch>

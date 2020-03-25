@@ -4,6 +4,7 @@ import "./mainNavigation.css";
 import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
 class mainNavigation extends React.Component{
   render(){
+    // console.log(this.props)
     return (
       <header className="main-navigation">
         <nav className="main-navigation__items">
