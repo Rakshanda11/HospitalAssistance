@@ -18,7 +18,7 @@ class AssignedPatients extends React.Component {
                                 <thead>
                                     <tr>
                                         <th>Name </th>
-                                        <th>Age</th>
+                                        <th>Id</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,7 +34,7 @@ class AssignedPatients extends React.Component {
                                             
 
                                             <td>
-                                                {record.age}
+                                                {record.PatientId}
                                             </td>
                                         </tr>
                                     ))}

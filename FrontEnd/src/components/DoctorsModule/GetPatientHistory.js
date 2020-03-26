@@ -1,31 +1,18 @@
 import React from 'react';
 import './GetPatientHistory.css';
 class GetPatientHistory extends React.Component{
+   getDateHistory = () => {
+       console.log("hi");
+   }
     render(){
         return(
             <>
-            <form>
                 <h3>History</h3>
-                <div>
-                    <label>BLOOD PRESSURE:
-                        <textarea className ="form-control"/>
-                    </label>
-                    
-                    <label>TEMPRATURE:
-                        <textarea className ="form-control"/>
-                    </label>
-                </div>
-                <hr/>
-                <div>
-                    <label>HEARTBEAT RATE:
-                        <textarea className ="form-control"/>
-                    </label>
-                    <label>PULSERATE:
-                        <textarea className ="form-control"/>
-                    </label>
-                </div>
-                <button className="stylebutton">Add</button>
-            </form>
+                {this.item =this.props.patient.Visits.map((item)=>
+                <li key = {item.Date} onClick={this.getDateHistory} className="Decoratelist">{item.Date}</li>
+                )}
+                
+                
             </>
         );
     }

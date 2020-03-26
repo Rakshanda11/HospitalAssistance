@@ -20,3 +20,12 @@
     align-self: center;
     align-items: center;
 }
+.alignDetails{
+    margin-left: 40px;
+}
+.rightalign{
+    margin-left: 40px;
+}
+.highlighter{
+    font-weight: bold;
+}

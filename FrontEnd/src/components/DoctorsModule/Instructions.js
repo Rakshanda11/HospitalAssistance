@@ -10,7 +10,7 @@ class Instructions extends React.Component {
                 </h3>
             <div className="borderlist infostyle">
                 <ul className ="alignUl">
-                    <li>Get started by clicking on patient name.</li>
+                    <li>Get started by clicking twice on patient name.</li>
                     <li>Use submit button when diagnosis is done.</li>
                     <li>Check the patient's past medical history by selecting the date which you want to check.</li>
                 </ul>
