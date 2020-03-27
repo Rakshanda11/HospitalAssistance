@@ -1,0 +1,14 @@
+.infostyle{
+    font-weight: 400;
+    color: black;
+}
+.headerstyling{
+    color:maroon;
+    padding-top: 0;
+}
+.patient_list li{
+    list-style-type: disc;
+}
+.alignUl{
+    text-align: left ;
+}
