@@ -16,14 +16,14 @@
   transform: translateX(0);
 }
 
-.SDbtn{
+.SDbtn {
   border: none;
   padding: 0;
   background: none;
   color: purple;
 }
 .SDbtn:hover,
-.SDbtn:active{
+.SDbtn:active {
   text-decoration: none;
   color: #fa933ff1;
 }

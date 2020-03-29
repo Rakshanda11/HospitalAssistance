@@ -10,11 +10,13 @@ import Doctor from "./pages/Doctor/doctor";
 // import Backdrop from "./components/Backdrop/Backdrop";
 import Lab from "./pages/Lab/Lab";
 
+import TestApp from "./pages/firebasePage";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideDrawerOpen: false,
+      sideDrawerOpen: false
     };
   }
 
@@ -48,11 +50,9 @@ class App extends Component {
                 path="/reception"
                 component={() => <Reception></Reception>}
               />
-              <Route
-                path="/doctor"
-                component={() => <Doctor></Doctor>}
-              />
+              <Route path="/doctor" component={() => <Doctor></Doctor>} />
               <Route path="/lab" component={() => <Lab></Lab>} />
+              <Route path="/firebase" component={() => <TestApp></TestApp>}></Route>
             </Switch>
           </main>
         </React.Fragment>
