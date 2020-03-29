@@ -12,3 +12,17 @@
 .backgroundstyle{
     background-color: ivory;
 }
+
+
+@media (max-width: 768px) {
+    .row {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    .image{
+        display: none;
+    }
+  
+  }
+  

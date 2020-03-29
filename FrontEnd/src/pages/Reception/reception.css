@@ -14,3 +14,16 @@ body{
     margin-top: 100px;
     border-radius: 50%;;
 }
+
+@media (max-width: 768px) {
+    .Container {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    .image{
+        display: none;
+    }
+  
+  }
+  

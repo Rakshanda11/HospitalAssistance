@@ -1,5 +1,5 @@
 import React from "react";
-import AuthNavigation from '../../components/Navigation/AuthNavigation';
+import AuthNavigation from './Navigation/mainNavigation';
 import "./auth.css";
 
 class AuthPage extends React.Component {

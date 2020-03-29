@@ -1,13 +1,13 @@
 import React from "react";
 import "./doctor.css";
 import DocImg from "./Doctor.jpg";
-import Instruction from "../../components/DoctorsModule/Instructions";
+import Instruction from "./Extras/Instructions";
 // import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Prescription from "./DoctorPrescription";
 // import SuggestTest from "./DoctorTest";
 import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
-import GetPatientHistory from "../../components/DoctorsModule/GetPatientHistory";
-import DoctorPageStart from "../../components/DoctorsModule/StartDoctor";
+import GetPatientHistory from "./Extras/GetPatientHistory";
+import DoctorPageStart from "./Extras/StartDoctor";
 import DoctorNavigation from "./Navigation/doctorsNavigation";
 import SideDrawer from "../../components/SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";

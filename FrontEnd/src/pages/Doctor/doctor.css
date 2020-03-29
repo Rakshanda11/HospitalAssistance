@@ -1,56 +1,56 @@
-.patient_list li{
-    list-style-type: none;
-    scroll-padding-top: 60;
+.patient_list li {
+  list-style-type: none;
+  scroll-padding-top: 60;
 }
 .patient_header {
-    color: rgb(12, 160, 36);
-    padding-inline: 5rem;
-    font-size: 20px;
+  color: rgb(12, 160, 36);
+  padding-inline: 5rem;
+  font-size: 20px;
 }
-.for_padding{
-    padding-left: 0rem;
-}
-
-.row{
-    height: 100%;
+.for_padding {
+  padding-left: 0rem;
 }
 
-.imageDiv{
-    /* align-items: center; */
-    overflow: visible;
-    width: 26%;
-    margin-left: 3rem
+.row {
+  height: 100%;
 }
 
-.imageDiv img{
-    align-self: center;
-    width: inherit;
-    /* margin-left: 10rem; */
-    position: absolute;
+.imageDiv {
+  /* align-items: center; */
+  overflow: visible;
+  width: 26%;
+  margin-left: 3rem;
 }
-.backgroundstyle{
-    /* background-color:oldlace; */
-    background-color: ivory;
-    width: 45%
+
+.imageDiv img {
+  align-self: center;
+  width: inherit;
+  /* margin-left: 10rem; */
+  position: absolute;
 }
-.alignbutton{
-    margin-left: 17rem;
+.backgroundstyle {
+  /* background-color:oldlace; */
+  background-color: ivory;
+  width: 45%;
+}
+.alignbutton {
+  margin-left: 17rem;
 }
 
 @media (max-width: 768px) {
-    .imageDiv{
-        display: none;
-    }
-    .row{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .listOuter{
-        height: 430px;
-    }
-    .backgroundstyle{
-        width: 100%;
-        height: 200px
-    }
+  .imageDiv {
+    display: none;
   }
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .listOuter {
+    height: 430px;
+  }
+  .backgroundstyle {
+    width: 100%;
+    height: 200px;
+  }
+}

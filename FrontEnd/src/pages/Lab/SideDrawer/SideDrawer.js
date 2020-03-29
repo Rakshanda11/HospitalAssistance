@@ -12,20 +12,8 @@ const sideDrawer = props => {
     <nav className={drawerClasses}>
       <ul>
           <li>
-            {/* <a href="/">Products</a> */}
-            <NavLink to="/reception">Reception</NavLink>
-          </li>
-          <li>
             {/* <a href="/">Users</a> */}
-            <NavLink to="/doctor">Doctors</NavLink>
-          </li>
-          <li>
-            {/* <a href="/">Users</a> */}
-            <NavLink to="/auth">Auth</NavLink>
-          </li>
-          <li>
-            {/* <a href="/">Users</a> */}
-            <NavLink to="/lab">Lab</NavLink>
+            <NavLink to="/auth">Log Out</NavLink>
           </li>
         </ul>
     </nav>

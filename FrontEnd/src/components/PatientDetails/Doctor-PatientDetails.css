@@ -11,6 +11,37 @@
     /* font-size: larger; */
     margin-left: 0.5rem
 }
+
+.row1{
+    width: 100%;
+    display: flex;
+}
+
+.spacer{
+    flex:1;
+}
+
+.name{
+    margin-left: 2rem
+}
+
+.pid{
+    margin-right: 2rem
+}
+
+.row2{
+    width: 100%;
+    display: flex;
+}
+
+.number{
+    margin-left: 2rem
+}
+
+.weight{
+    margin-right: 2rem
+}
+
 .align-details{
     margin-top: 1rem;
     margin-bottom: 0;
