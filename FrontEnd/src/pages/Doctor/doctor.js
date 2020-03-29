@@ -11,6 +11,8 @@ import DoctorPageStart from "../../components/DoctorsModule/StartDoctor";
 import DoctorNavigation from "../../components/Navigation/doctorsNavigation";
 import SideDrawer from "../../components/SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
+import firebase from '../../firebase';
+
 // import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
   constructor(props) {
@@ -103,6 +105,12 @@ class Doctor extends React.Component {
   };
 
   insertVitalsigns = () => {
+    const db = firebase.firestore();
+    db.collection('Patients').get().then((snapshot) =>{
+      snapshot.docs.forEach(doc =>{
+        console.log(doc.data());
+      })
+    })
     alert("InsertVitalSigns");
   };
 

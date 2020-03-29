@@ -5,6 +5,7 @@ import LabImg from '../../components/Lab.jpg';
 import SuggestedTextBox from '../../components/Navigation/suggestedTest';
 import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails';
 import Instruction from "../../components/LabModule/LabInstructions";
+import LabNavigation from '../../components/Navigation/LabNavigation';
 class Lab extends React.Component {
     constructor(props) {
         super(props);
@@ -17,25 +18,25 @@ class Lab extends React.Component {
         {
             name: "Patient 1",
             age: "50",
-            phoneNo : "9876543210",
+            phoneNo: "9876543210",
             PatientId: "1"
         },
         {
             name: "Patient 2",
             age: "60",
-            phoneNo : "9876543210",
+            phoneNo: "9876543210",
             PatientId: "2"
         },
         {
             name: "Patient 3",
             age: "44",
-            phoneNo : "9876543210",
+            phoneNo: "9876543210",
             PatientId: "3"
         },
         {
             name: "Patient 4",
             age: "48",
-            phoneNo : "9876543210",
+            phoneNo: "9876543210",
             PatientId: "4"
         }
     ];
@@ -48,9 +49,15 @@ class Lab extends React.Component {
     render() {
         return (
             <div className="row">
+                <LabNavigation
+                    // drawerClickHandler={this.drawerToggleClickHandler}
+                    // diagnosis={this.insertVitalsigns}
+                    // prescription={this.currentIssues}
+                    // history={this.getPatientHistory}
+                />
                 <div className="col-sm-3" >
                     <div className="patient_list">
-                        
+
                         {/* <ListGroup className="for_padding" defaultActiveKey="">
                             {this.patientsList.map(function (d, idx) {
                                 return (

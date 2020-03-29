@@ -4,7 +4,8 @@ import Patiententry from '../../components/patiententry/patiententry';
 import Patientlist from '../../components/patientlist/patientlist';
 // import Pd from '../component/patiententry/pd';
 // import PopUp from '../../components/patientlist/popUp';
-import receptionist from '../../components/receptionist.jpg'
+import receptionist from '../../components/receptionist.jpg';
+import AuthNavigation from '../../components/Navigation/AuthNavigation';
 class Receptionpage extends Component {
     constructor(props){
         super(props);
@@ -33,6 +34,7 @@ class Receptionpage extends Component {
     render() {
         return (
             <div className="Container">
+                <AuthNavigation/>
                 <div className="row">
                     <React.Fragment >
                         <div className="col-sm-4 " >

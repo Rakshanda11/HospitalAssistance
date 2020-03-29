@@ -1,5 +1,5 @@
 import React from "react";
-
+import AuthNavigation from '../../components/Navigation/AuthNavigation';
 import "./auth.css";
 
 class AuthPage extends React.Component {
@@ -35,6 +35,7 @@ class AuthPage extends React.Component {
   render() {
     return (
       <div className ="img-fluid" src ="Auth.jpg">
+        <AuthNavigation/>
         <h2 className="greetings">Welcome</h2>
         <form className="auth-form" onSubmit={this.submitHandler}>
           <div className="form-group">
