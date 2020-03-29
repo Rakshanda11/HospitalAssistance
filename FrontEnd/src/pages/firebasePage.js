@@ -92,7 +92,7 @@ class TestApp extends Component {
         <br />
         <div>{this.state.form}</div>
         <br />
-        <div>{this.state.patient}</div>
+        {/* <div>{this.state.patient}</div> */}
       </>
     );
   }
