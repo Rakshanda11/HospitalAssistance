@@ -1,7 +1,7 @@
 import React from 'react';
 import './Lab.css';
 import LabImg from '../../components/Lab.jpg';
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+// import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import SuggestedTextBox from '../../components/Navigation/suggestedTest';
 import ShowDetails from '../../components/PatientDetails/Doctor-PatientDetails';
 import Instruction from "../../components/LabModule/LabInstructions";
