@@ -8,7 +8,7 @@ import Prescription from "./DoctorPrescription";
 import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import GetPatientHistory from "../../components/DoctorsModule/GetPatientHistory";
 import DoctorPageStart from "../../components/DoctorsModule/StartDoctor";
-import DoctorNavigation from "../../components/Navigation/doctorsNavigation";
+import DoctorNavigation from "./Navigation/doctorsNavigation";
 import SideDrawer from "../../components/SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
 // import firebase from '../../firebase';
@@ -104,14 +104,15 @@ class Doctor extends React.Component {
     });
   };
 
-  insertVitalsigns = () => {
-    // const db = firebase.firestore();
-    // db.collection('Patients').get().then((snapshot) =>{
-    //   snapshot.docs.forEach(doc =>{
-    //     console.log(doc.data());
-    //   })
-    // })
-    alert("InsertVitalSigns");
+  diagnosis = () => {
+    this.setState({
+      mainBody: (
+        <>
+          <ShowDetails patient={this.state.currentPatient} />
+          {/* <GetPatientHistory patient={this.state.currentPatient}/> */}
+        </>
+      )
+    });
   };
 
   currentIssues = () => {
@@ -135,13 +136,13 @@ class Doctor extends React.Component {
         {/* {this.props.navBar} */}
         <DoctorNavigation
           drawerClickHandler={this.drawerToggleClickHandler}
-          diagnosis={this.insertVitalsigns}
+          diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
         />
         <SideDrawer
           drawerClickHandler={this.props.drawerToggleClickHandler}
-          diagnosis={this.insertVitalsigns}
+          diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
           show={this.state.sideDrawerOpen}
