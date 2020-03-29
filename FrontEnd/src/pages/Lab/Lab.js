@@ -2,7 +2,7 @@ import React from "react";
 import "./Lab.css";
 import LabImg from "../../components/Lab.jpg";
 // import { ListGroup, ListGroupItem } from 'react-bootstrap'
-import SuggestedTextBox from "../../components/Navigation/suggestedTest";
+import SuggestedTextBox from "./Extras/suggestedTest";
 import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import Instruction from "../../components/LabModule/LabInstructions";
 import LabNavigation from "./Navigation/LabNavigation";

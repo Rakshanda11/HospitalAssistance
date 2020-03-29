@@ -1,5 +1,5 @@
 import React from 'react';
-import SuggestedTextBox from './Extras/suggestedTest';
+import SuggestedTextBox from './suggestedTest';
 
 class SuggestTest extends React.Component {
     state={

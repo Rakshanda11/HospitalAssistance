@@ -9,9 +9,9 @@ import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import GetPatientHistory from "./Extras/GetPatientHistory";
 import DoctorPageStart from "./Extras/StartDoctor";
 import DoctorNavigation from "./Navigation/doctorsNavigation";
-import SideDrawer from "../../components/SideDrawer/doctorSideDrawer";
+import SideDrawer from "./SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
-// import firebase from '../../firebase';
+import DoctorDiagnosis from "./Extras/DoctorDiagnosis";
 
 // import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
@@ -22,22 +22,22 @@ class Doctor extends React.Component {
         name: "Rakshanda Mahajan",
         age: "50",
         weight: "50",
-        phoneNo : "9876543210",
+        phoneNo: "9876543210",
         PatientId: "1",
-        Visits:[
+        Visits: [
           {
-            Date:"1 January 2020",
-            Diagnosis:"This is Diagnosis1",
-            Doctor:"Dr.Savita",
-            Prescription:"This is prescription",
-            TestResport:null
+            Date: "1 January 2020",
+            Diagnosis: "This is Diagnosis1",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription",
+            TestResport: null
           },
           {
-            Date:"30 January 2020",
-            Diagnosis:"This is Diagnosis2",
-            Doctor:"Dr.Savita",
-            Prescription:"This is prescription2",
-            TestResport:null
+            Date: "30 January 2020",
+            Diagnosis: "This is Diagnosis2",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription2",
+            TestResport: null
           }
         ]
       },
@@ -45,21 +45,21 @@ class Doctor extends React.Component {
         name: "Ajit Niras",
         age: "80",
         weight: "50",
-        phoneNo : "9876543210",
+        phoneNo: "9876543210",
         PatientId: "2"
       },
       {
         name: "Satvik Dandale",
         age: "20",
         weight: "50",
-        phoneNo : "9876543210",
+        phoneNo: "9876543210",
         PatientId: "3"
       },
       {
         name: "Sanjana Jaiswal",
         age: "67",
         weight: "50",
-        phoneNo : "9876543210",
+        phoneNo: "9876543210",
         PatientId: "4"
       }
     ];
@@ -98,7 +98,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          <GetPatientHistory patient={this.state.currentPatient}/>
+          <GetPatientHistory patient={this.state.currentPatient} />
         </>
       )
     });
@@ -109,7 +109,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          {/* <GetPatientHistory patient={this.state.currentPatient}/> */}
+          <DoctorDiagnosis></DoctorDiagnosis>
         </>
       )
     });
