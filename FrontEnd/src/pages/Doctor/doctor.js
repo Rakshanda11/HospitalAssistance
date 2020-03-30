@@ -39,6 +39,11 @@ class Doctor extends React.Component {
             Prescription: "This is prescription2",
             TestResport: null
           }
+        ],
+        Tests: [
+          'Haemogram',
+          'COVID-19',
+          'Malaria'
         ]
       },
       {
@@ -46,21 +51,69 @@ class Doctor extends React.Component {
         age: "80",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "2"
+        PatientId: "2",
+        Visits: [
+          {
+            Date: "1 January 2020",
+            Diagnosis: "This is Diagnosis1",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription",
+            TestResport: null
+          },
+          {
+            Date: "30 January 2020",
+            Diagnosis: "This is Diagnosis2",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription2",
+            TestResport: null
+          }
+        ]
       },
       {
         name: "Satvik Dandale",
         age: "20",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "3"
+        PatientId: "3",
+        Visits: [
+          {
+            Date: "1 January 2020",
+            Diagnosis: "This is Diagnosis1",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription",
+            TestResport: null
+          },
+          {
+            Date: "30 January 2020",
+            Diagnosis: "This is Diagnosis2",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription2",
+            TestResport: null
+          }
+        ]
       },
       {
         name: "Sanjana Jaiswal",
         age: "67",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "4"
+        PatientId: "4",
+        Visits: [
+          {
+            Date: "1 January 2020",
+            Diagnosis: "This is Diagnosis1",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription",
+            TestResport: null
+          },
+          {
+            Date: "30 January 2020",
+            Diagnosis: "This is Diagnosis2",
+            Doctor: "Dr.Savita",
+            Prescription: "This is prescription2",
+            TestResport: null
+          }
+        ]
       }
     ];
     this.state = {

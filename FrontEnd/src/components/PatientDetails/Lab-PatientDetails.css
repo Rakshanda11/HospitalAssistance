@@ -1,0 +1,125 @@
+.styling-details {
+    color: purple;
+    float: left;
+    font-size: larger;
+    display: flex;
+    align-content: center;
+  }
+  .attribute-styling {
+    color: black;
+    /* float: right; */
+    /* font-size: larger; */
+    margin-left: 0.5rem;
+  }
+  
+  .row1 {
+    width: 100%;
+    display: flex;
+  }
+  
+  .spacer {
+    flex: 0 1 auto;
+  }
+  
+  .align-details {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+  }
+  .alignDetails {
+    margin-left: 40px;
+    /* width: 100%; */
+  }
+  .rightalign {
+    margin-left: 40px;
+  }
+  .highlighter {
+    font-weight: bold;
+  }
+  
+  .row2,
+  .row1 {
+    overflow: scroll;
+    scroll-behavior: auto;
+  }
+  .row2::-webkit-scrollbar,
+  .row1::-webkit-scrollbar  {
+    display: none;
+  }
+  .row2,
+  .row1 {
+    -ms-overflow-style: none;
+  }
+  
+  @media (min-width: 769px) {
+    .name {
+      margin-left: 2rem;
+    }
+  
+    .pid {
+      margin-right: 2rem;
+    }
+  
+    .row2 {
+      width: 100%;
+      display: flex;
+      overflow: scroll;
+      scroll-behavior: auto;
+    }
+    .row2::-webkit-scrollbar {
+      display: none;
+    }
+    .row2 {
+      -ms-overflow-style: none;
+    }
+  
+    .number {
+      margin-left: 2rem;
+    }
+  
+    .weight {
+      margin-right: 2rem;
+    }
+    .Tests{
+      margin-right: 2rem;
+      font-size: larger;
+    }
+  }
+
+.button-xlarge {
+font-size: 125%;
+color: #fff !important;
+text-transform: uppercase;
+text-decoration: none;
+background: green;
+padding: 20px;
+border-radius: 50px;
+display: inline-block;
+transition: all 0.4s ease 0s;
+width:100%
+}
+.button-xlarge:hover{
+text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+  @media (max-width: 768px) {
+    .align-details {
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .row2 {
+      width: 100%;
+      overflow: scroll;
+      scrollbar-base-color: blue;
+    }
+  }
+  
