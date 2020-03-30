@@ -3,7 +3,7 @@ import "./doctor.css";
 import DocImg from "./Doctor.jpg";
 import Instruction from "./Extras/Instructions";
 // import { ListGroup, ListGroupItem } from 'react-bootstrap'
-import Prescription from "./DoctorPrescription";
+import Prescription from "./Extras/DoctorPrescription";
 // import SuggestTest from "./DoctorTest";
 import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import GetPatientHistory from "./Extras/GetPatientHistory";
