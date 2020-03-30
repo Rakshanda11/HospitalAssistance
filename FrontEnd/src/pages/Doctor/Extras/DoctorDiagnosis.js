@@ -2,77 +2,72 @@ import React from "react";
 import "./DoctorDiagnosis.css";
 
 class Prescription extends React.Component {
-  state = {
-    medicines: "Enter The Prescription"
-  };
-  handleMedicine = e => {
-    this.setState({ medicines: e.target.value });
-  };
-  clearInput = e => {
-    this.setState({ medicines: "" });
-  };
   render() {
     return (
-      <form>
-        <h3>Current Diagnosis</h3>
+      <>
+        <h3>New Diagnosis</h3>
+        <form ref="form" onSubmit={(event) => {
+          event.preventDefault();
+          console.log("HELLO")
+        }}>
+          <div className="control-group">
+            <div className="controls form-inline basics-row">
+              <label htmlFor="inputKey">Blood Pressure: </label>
+              <input type="text" className="input-small" placeholder="mmHg" />
 
-        <div class="control-group">
-          <div class="controls form-inline basics-row">
-            <label for="inputKey">Blood Pressure: </label>
-            <input
-              type="text"
-              class="input-small"
-              placeholder="mmHg"
-              id="inputKey"
-            />
+              <div className="spacer"></div>
 
-            <div className="spacer"></div>
-
-            <label for="inputValue">Temperature: </label>
-            <input
-              type="password"
-              class="input-small"
-              placeholder={"\u2109"}
-              id="inputValue"
-            />
+              <label htmlFor="inputValue">Temperature: </label>
+              <input
+                type="password"
+                className="input-small"
+                placeholder={"\u2109"}
+              />
+            </div>
           </div>
-        </div>
 
-        <hr />
+          <hr />
 
-        <div class="control-group">
-          <div class="controls form-inline basics-row">
-            <label for="inputKey">Pulse Rate</label>
-            <input
-              type="text"
-              class="input-small"
-              placeholder="per min"
-              id="inputKey"
-            />
+          <div className="control-group">
+            <div className="controls form-inline basics-row">
+              <label htmlFor="inputKey">Pulse Rate:</label>
+              <input
+                type="text"
+                className="input-small"
+                placeholder="per min"
+              />
+            </div>
           </div>
-        </div>
 
-        <hr />
+          <hr />
 
-        <div className="paper">
-          <textarea
-            className="text-area"
-            placeholder="Enter further diagnosis (If Any)"
-            id="text"
-            name="text"
-            rows="4"
-          ></textarea>
+          <div className="paper">
+            <textarea
+              className="text-area"
+              placeholder="Enter further diagnosis (If Any)"
+              id="text"
+              name="text"
+              rows="4"
+            ></textarea>
+            <br />
+          </div>
+          
           <br />
-        </div>
-        <br/>
-        <div class="box-1">
-          <div class="btn btn-one">
-            <span>HOVER ME</span>
+
+          <div className="box-1">
+            {/* <div className="btn btn-one"> */}
+              <button className="btn btn-one submit-button" type="submit">
+                Submit
+              </button>
+            {/* </div> */}
           </div>
-        </div>
-        <br/>
-        <br/>
-      </form>
+          {/* <button onClick={() => {console.log("DOSF")}}>HDJF</button> */}
+          
+          <br />
+          <br />
+        
+        </form>
+      </>
     );
   }
 }
