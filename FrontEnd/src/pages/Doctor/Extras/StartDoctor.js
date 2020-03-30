@@ -3,7 +3,7 @@ import './StartDoctor.css';
 class DoctorStartPage extends React.Component{
     render(){
         return(
-            <h6 className ="decorateheader" >CLICK A BUTTON TO GET STARTED</h6>
+            <h6 className ="decorateheader" >CLICK ON A PATIENT TO GET STARTED</h6>
         );
     }
 }

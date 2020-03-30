@@ -10,7 +10,7 @@ class AssignedPatients extends React.Component {
   render() {
     return (
       <Card className="border-secondary ">
-        <div style={{ width: "100%", height: "50vh" }}>
+        <div className="scroll-bar" >
           <FreeScrollBar>
             {this.props.patientsList.length ? (
               <Table bordered hover striped className="changestyling">
@@ -19,9 +19,7 @@ class AssignedPatients extends React.Component {
                     <th>Name </th>
                     <th
                       style={{
-                        textAlign: "center",
-                        paddingLeft: "0",
-                        paddingRight: "0"
+                        textAlign: "center"
                       }}
                     >
                       Patient ID
