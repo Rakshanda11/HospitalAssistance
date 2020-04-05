@@ -5,6 +5,7 @@
 .headerstyling{
     color:maroon;
     padding-top: 0;
+    margin-top: 0;
 }
 .patient_list li{
     list-style-type: disc;

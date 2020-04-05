@@ -117,8 +117,8 @@ div[class*="box"] {
   border-bottom-width: 1px;
   border-top-style: solid;
   border-bottom-style: solid;
-  border-top-color: rgba(255, 255, 255, 0.5);
-  border-bottom-color: rgba(255, 255, 255, 0.5);
+  border-top-color: rgba(70, 5, 5, 0.5);
+  border-bottom-color: rgba(65, 8, 8, 0.5);
   transform: scale(0.1, 1);
 }
 .btn-one:hover span {
@@ -145,9 +145,36 @@ div[class*="box"] {
 }
 
 .submit-button {
+  width: 100%;
   background: none;
   border: none;
 }
+
+.input-small::-webkit-input-placeholder {
+  text-align: center;
+}
+.input-small{
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
 
 .tests-list {
   margin-left: 1rem;
@@ -254,6 +281,10 @@ div[class*="box"] {
   /* margin-right: 5rem; */
   margin-left: 5.3rem;
   margin-bottom: 1rem;
+}
+
+.category-label{
+  margin-left:2em;
 }
 
 @media (max-width: 768px) {
