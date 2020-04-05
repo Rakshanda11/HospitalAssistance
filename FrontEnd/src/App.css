@@ -1,6 +1,11 @@
 .main_content{
   margin: 4 rem 2.5 rem;
   height: 100%;
+  width: 100%
+}
+body{
+  max-width: 100%;
+  overflow-x: hidden
 }
 html,
 #root{

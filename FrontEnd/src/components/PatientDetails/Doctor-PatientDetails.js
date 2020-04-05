@@ -1,21 +1,30 @@
 import React from "react";
-// import  Item  from 'react-bootstrap/lib/Breadcrumb';
 import "./Doctor-PatientDetails.css";
 class Doctor_PatientDetails extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="align-details">
-        <div className="styling-details">
-          <p>Name: </p>
-          <p className="attribute-styling"> {" " + this.props.detail.name}</p>
+        <div className="styling-details row1">
+          <p className="highlighter aligndetails name">Name: </p>
+          <p className="attribute-styling name"> {" " + this.props.patient.name}</p>
+          <div className="spacer"></div>
+          <p className= "rightalign highlighter pid">Patient ID: </p>
+          <p className="attribute-styling pid"> {" " + this.props.patient.PatientId}</p>
         </div>
         <div className="styling-details">
-          <p>Age: </p>
-          <p className="attribute-styling"> {" " + this.props.detail.age}</p>
+          
         </div>
+        <div className="styling-details row2">
+          <p className="highlighter aligndetails number">Contact No: </p>
+          <p className="attribute-styling number"> {" " + this.props.patient.phoneNo}</p>
+          <div className="spacer"></div>
+          <p className= "alignDetails highlighter age">Age: </p>
+          <p className="attribute-styling age"> {" " + this.props.patient.age}</p>
+          <div className="spacer"></div>
+          <p className= "alignDetails highlighter weight">Weight: </p>
+          <p className="attribute-styling weight"> {" " + this.props.patient.weight}</p>
+        </div>
+        
       </div>
     );
   }

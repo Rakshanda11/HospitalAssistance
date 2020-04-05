@@ -2,9 +2,27 @@
     color: rebeccapurple;
     font-weight: bold;
     font-size: 30px;
+    text-align: center;
 }
 .image{
     overflow: hidden;
     height: auto;
     width: 50%;
 }
+.backgroundstyle{
+    background-color: ivory;
+}
+
+
+@media (max-width: 768px) {
+    .row {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    .image{
+        display: none;
+    }
+  
+  }
+  

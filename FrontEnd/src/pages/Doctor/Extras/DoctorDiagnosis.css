@@ -1,0 +1,302 @@
+.basics-row {
+  width: 100%;
+  overflow: scroll;
+}
+.basics-row::-webkit-scrollbar {
+  display: none;
+}
+.basics-row {
+  -ms-overflow-style: none;
+}
+
+.basics-row label {
+  margin-left: 3rem;
+}
+
+.basics-row input {
+  padding: 0;
+  margin-left: 0.5rem;
+  width: 4rem;
+  margin-right: 3rem;
+  align-items: center;
+}
+.text-area {
+  overflow: hidden;
+  word-wrap: break-word;
+  resize: none;
+  height: 160px;
+}
+#paper {
+  color: #fff;
+  font-size: 20px;
+  /* height: 40rem; */
+}
+.paper {
+  height: 24rem;
+}
+#text {
+  height: 100%;
+  align-self: center;
+  width: 90%;
+  overflow: hidden;
+  background-color: #fff;
+  color: #222;
+  font-family: Courier, monospace;
+  font-weight: normal;
+  font-size: 18px;
+  resize: none;
+  line-height: 30px;
+  padding-left: 70px;
+  padding-right: 50px;
+  padding-top: 33px;
+  padding-bottom: 34px;
+  background-image: url(./lines.png),
+    url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+  background-repeat: repeat-y, repeat;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  /* -webkit-box-shadow: 0px 2px 14px #000; */
+  /* box-shadow: 0px 2px 14px #000; */
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div[class*="box"] {
+  padding-top: 2px;
+  height: 40px;
+  width: 50%;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.box-1 {
+  background-color: #ff6766;
+}
+.box-2 {
+  background-color: #3c3c3c;
+}
+.box-3 {
+  background-color: #66a182;
+}
+
+.box-1.btn {
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 250px;
+  cursor: pointer;
+}
+.btn-one {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  color: #fff;
+  transition: all 0.3s;
+  position: relative;
+}
+.btn-one span {
+  transition: all 0.3s;
+}
+.btn-one::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-top-color: rgba(70, 5, 5, 0.5);
+  border-bottom-color: rgba(65, 8, 8, 0.5);
+  transform: scale(0.1, 1);
+}
+.btn-one:hover span {
+  letter-spacing: 2px;
+}
+.btn-one:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+.btn-one::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.btn-one:hover::after {
+  opacity: 0;
+  transform: scale(0.1, 1);
+}
+
+.submit-button {
+  width: 100%;
+  background: none;
+  border: none;
+}
+
+.input-small::-webkit-input-placeholder {
+  text-align: center;
+}
+.input-small{
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+
+.tests-list {
+  margin-left: 1rem;
+}
+
+.ordered-list {
+  counter-reset: li; /* Initiate a counter */
+  font: 15px "trebuchet MS", "lucida sans";
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+.ordered-list li {
+  left: 3rem;
+  position: relative;
+  display: block;
+  padding: 0.4em 0.4em 0.4em 0.8em;
+  *padding: 0.4em;
+  margin: 0.5em 5rem 0.5em 2.5em;
+  background: #ddd;
+  color: #444;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}
+.ordered-list li:hover {
+  background: rgb(160, 160, 53);
+}
+.ordered-list li::before {
+  counter-increment: li;
+  content: counter(li);
+  position: absolute;
+  left: -2.5em;
+  top: 50%;
+  margin-top: -1em;
+  background: #fa8072;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ordered-list li::after {
+  position: absolute;
+  content: "";
+  border: 0.5em solid transparent;
+  left: -1em;
+  top: 50%;
+  margin-top: -0.5em;
+  transition: all 0.3s ease-out;
+}
+
+.ordered-list li:hover:after {
+  left: -0.5em;
+  border-left-color: #fa8072;
+}
+
+.ordered-list li span {
+  position: relative;
+  left: 10px;
+}
+
+.new-item-text input {
+  width: 100%;
+  background: #ddd;
+  border: none;
+  padding-left: 1.4em;
+
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+
+  font: 15px "trebuchet MS", "lucida sans";
+}
+
+.new-item-text-button {
+  background: #fa8072;
+  border: none;
+  width: 100%;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  margin-top: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.new-item {
+  margin-left: 3rem;
+}
+
+.new-item button {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  background: #fa8072;
+  border: none;
+  width: 5rem;
+}
+
+.new-item-text {
+  display: block;
+  padding-right: 7.3rem;
+  width: 100%;
+  /* margin-right: 5rem; */
+  margin-left: 5.3rem;
+  margin-bottom: 1rem;
+}
+
+.category-label{
+  margin-left:2em;
+}
+
+@media (max-width: 768px) {
+  .control-group {
+    width: 100%;
+  }
+  .control-group label,
+  .control-group input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .control-group input {
+    border-color: rgba(14, 14, 27, 0.5);
+  }
+}

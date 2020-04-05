@@ -1,16 +1,62 @@
-.patient_list li{
-    list-style-type: none;
-    scroll-padding-top: 60;
+.main-navigation{
+  position: fixed;
+  z-index: 1;
+}
+
+.patient_list li {
+  list-style-type: none;
+  scroll-padding-top: 60;
 }
 .patient_header {
-    color: rgb(12, 160, 36);
-    padding-inline: 5rem;
-    font-size: 20px;
+  color: rgb(12, 160, 36);
+  padding-inline: 5rem;
+  font-size: 20px;
 }
-.for_padding{
-    padding-left: 0rem;
+.for_padding {
+  padding-left: 0rem;
 }
-.image{
-    overflow: hidden;
+
+.row {
+  margin-top: 4.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.listOuter{
+  position: fixed;
+  z-index: 1;
+}
+
+.backgroundstyle {
+  /* background-color:oldlace; */
+  background-color: ivory;
+  width: 75%;
+  margin-left: 26%;
+}
+.alignbutton {
+  margin-left: 17rem;
+}
+
+@media (max-width: 768px) {
+  .imageDiv {
+    display: none;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0;
+  }
+
+  .listOuter {
+    /* height: 430px; */
+    padding-top: 0;
+    margin-bottom: 1rem;
     
+  }
+  .backgroundstyle {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 150px;
+  }
 }
