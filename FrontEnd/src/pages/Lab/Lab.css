@@ -25,4 +25,12 @@
     }
   
   }
-  
+  .seperator {
+    height: 100%;
+    width: 5px;
+    background: black;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    left: 25%;
+  }

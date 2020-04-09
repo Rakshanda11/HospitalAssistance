@@ -88,7 +88,10 @@
     }
     .Tests{
       margin-right: 2rem;
-      font-size: larger;
+      font-size: 35px;
+      margin-top: 3rem;
+      color: navy;
+      text-shadow: 2px 2px rosybrown;
     }
   }
 
@@ -123,3 +126,15 @@ transition: all 0.4s ease 0s;
     }
   }
   
+  .containerLab {
+    columns: 2 auto;
+    margin-left: auto;
+  }
+  .items-arrange{
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 0 calc(33.33% - 20px);
+  }
+  .margin-space{
+    margin-left: 10px;
+  }

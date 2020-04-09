@@ -45,7 +45,8 @@ class Lab extends React.Component {
       Tests: [
         'Hemogram',
         'COVID-19',
-        'Malaria'
+        'Malaria',
+        'Dengue'
       ]
     },
     {
@@ -69,6 +70,12 @@ class Lab extends React.Component {
           Prescription: "This is prescription2",
           TestResport: null
         }
+      ],
+      Tests: [
+        'Hemogram',
+        'COVID-19',
+        'Malaria',
+        'Typhoid'
       ]
     },
     {
@@ -156,7 +163,7 @@ class Lab extends React.Component {
         {backDrop}
         <div className="row">
           
-          <div className="col-sm-3">
+          <div className="col-sm-3 listOuter">
             <div className="patient_list">
               {/* <ListGroup className="for_padding" defaultActiveKey="">
                             {this.patientsList.map(function (d, idx) {
@@ -170,7 +177,7 @@ class Lab extends React.Component {
                                 )
                             }.bind(this))};
                         </ListGroup> */}
-              <div className="patient_list">
+              <div className="patient_list" >
                 <Instruction
                   patientsList={this.patientsList}
                   updatePatient={patient => {
@@ -185,8 +192,8 @@ class Lab extends React.Component {
               </div>
             </div>
           </div>
-
-          <div className="col-sm-5 border backgroundstyle">
+                  {/* <div className="seperator"></div> */}
+          <div className=" border backgroundstyle">{this.state.mainBody}</div>
             {/* {this.state.showDetails ? this.tempShowDetails : null}
             <p className="changeFonts">Lab Report:</p>
             <br />
@@ -198,12 +205,11 @@ class Lab extends React.Component {
                 Submit
               </button>
             </div> */}
-            <div >{this.state.mainBody}</div>
-          </div>
-          <div className="col-sm-4 image">
+          {/* <div className="col-sm-4 image">
             <img src={LabImg} className="rounded-circle" alt="Lab_img" />
-          </div>
+          </div> */}
         </div>
+        
       </>
     );
   }

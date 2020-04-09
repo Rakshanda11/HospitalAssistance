@@ -24,25 +24,55 @@ class Lab_PatientDetails extends React.Component {
                     <p className="alignDetails highlighter weight">Weight: </p>
                     <p className="attribute-styling weight"> {" " + this.props.patient.weight}</p>
                 </div>
-                <p className="alignDetails highlighter Tests">Tests To Be Performed:</p>
-                    <ul >
-                    { this.props.patient.Tests.map((item) =>
-                        {
-                            return (
-                                <div >
-                                    <div className="button-xlarge" key={item.Tests}  >{item}</div>
-                                    <br/><br/>
-                                    
+                <hr />
+                <p className="alignDetails highlighter Tests">Tests To Be Performed</p>
+                <ul className="items-arrange">
+                    {this.props.patient.Tests.map((item) => {
+                        return (
+                            <div className="margin-space">
+
+                                <div className=" accordion md-accordion " id="accordionEx" role="tablist" aria-multiselectable="true">
+                                    <div className="card ">
+
+                                        <div className="card-header" role="tab" id="headingOne1">
+                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                                                aria-controls="collapseOne1">
+                                                <h5 class="mb-0">
+                                                    {item}
+                                                </h5>
+                                            </a>
+                                        </div>
+
+                                        <div id="collapseOne1" className="collapse show " role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+                                            <div className="card-body">
+                                                <div className="file-loading">
+                                                    <input id="input-b2" name="input-b2" type="file" className="file" data-show-preview="false"></input>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            );
-                        }
+                                <br />
+                                <br />
+
+                            </div>
+                        );
+                    }
                     )}
-                    </ul>
+                </ul>
                 <div>
+                    <button type="button" className="btn btn-danger submit">
+                        Submit
+                    </button>
                 </div>
 
             </div>
+
         );
     }
 }
 export default Lab_PatientDetails;
+
+
+
