@@ -1,0 +1,52 @@
+.rightalign {
+    margin-left: 40px;
+  }
+  .name {
+    margin-left: 4rem;
+  }
+  .row1 {
+    width: 100%;
+    display: flex;
+  }
+  .doctordetails{
+    display: block;
+    height: 3rem;
+    color: tomato;
+    font-weight: bolder;
+    font-size: x-large;
+    margin-left: 5rem;
+    
+  }
+  .divAlign{
+    margin-top: 25px;
+  }
+  /* .highlighterdoc {
+    font-weight: bolder;
+    font-size: larger;
+    color: teal;
+  } */
+  .alignDetails {
+    margin-left: 40px;
+    /* width: 100%; */
+  }
+  .spacer-doc {
+    /* flex: 0 1 auto; */
+    margin-left: 10rem;
+  }
+  .pid {
+    margin-right: 2rem;
+  }
+  .attribute-styling {
+    color: black;
+    /* float: right; */
+    /* font-size: larger; */
+    margin-left: 0.5rem;
+    justify-content: center;
+  }
+  .styling-details {
+    color: purple;
+    float: left;
+    font-size: larger;
+    display: flex;
+    align-content: center;
+  }
