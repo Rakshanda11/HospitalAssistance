@@ -1,5 +1,5 @@
 import React from "react";
-import SuggestTest from "./DoctorTest";
+// import SuggestTest from "./DoctorTest";
 import './DoctorPrescription.css';
 class Prescription extends React.Component {
   state = {

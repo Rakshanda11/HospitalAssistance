@@ -1,6 +1,6 @@
 import React from "react";
 import "./Lab.css";
-import LabImg from "../../components/Lab.jpg";
+// import LabImg from "../../components/Lab.jpg";
 // import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import ShowDetails from "../../components/PatientDetails/Lab-PatientsDetails";
 import Instruction from "../../components/LabModule/LabInstructions";

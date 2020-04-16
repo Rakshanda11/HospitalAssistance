@@ -1,9 +1,7 @@
 import React from "react";
 import "./doctor.css";
 import Instruction from "./Extras/Instructions";
-// import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Prescription from "./Extras/DoctorPrescription";
-// import SuggestTest from "./DoctorTest";
 import ShowDetails from "../../components/PatientDetails/Doctor-PatientDetails";
 import GetPatientHistory from "./Extras/GetPatientHistory";
 import DoctorPageStart from "./Extras/StartDoctor";
@@ -12,7 +10,6 @@ import SideDrawer from "./SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import DoctorDiagnosis from "./Extras/DoctorDiagnosis";
 
-// import AssignedList from '../../components/DoctorsModule/AssignedList'
 class Doctor extends React.Component {
   constructor(props) {
     super(props);
