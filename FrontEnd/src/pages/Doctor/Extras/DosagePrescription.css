@@ -1,15 +1,58 @@
-.card-color{
-    background-color: whitesmoke;
+.card-color {
+  background-color: whitesmoke;
 }
 
-.card-header-color{
-    background-color: whitesmoke;
-  }
-  .right-shift{
-      margin-right: 2rem;
-      margin-bottom: 1rem;
-  }
-  .head-color{
-      color: black;
-      margin-top: 10px;
-  }
+.card-header-color {
+  background-color: whitesmoke;
+}
+
+.right-shift {
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.head-color {
+  color: black;
+  margin-top: 10px;
+}
+
+td input {
+  width: 100%;
+  border: none;
+  background: inherit;
+  text-align: center;
+}
+
+td input[type="text"]::placeholder {
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+  font-weight: bold;
+}
+
+.button-section button{
+    margin: 0 0.1rem;
+}
+.button-section{
+    display: flex;
+}
+.table-edit{
+    margin-left: auto;
+    margin-right: 0.1rem;
+}
+
+.table-remove{
+    margin-right: auto;
+    margin-left: 0.1rem;
+}
+/* .edit-icon{
+  margin-right: 0.3rem;
+  vertical-align: -webkit-baseline-middle;
+} */
+.delete-icon{
+  /* margin-left: 0.3rem; */
+  /* vertical-align: -webkit-baseline-middle; */
+  cursor: pointer;
+}
+.icon-cell{
+  vertical-align: -webkit-baseline-middle;
+}

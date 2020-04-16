@@ -6,20 +6,29 @@
   display: none;
 }
 .basics-row {
+  padding: 0 2rem;
   -ms-overflow-style: none;
 }
 
-.basics-row label {
-  margin-left: 3rem;
+.control-group{
+  max-width: 50%;
 }
 
 .basics-row input {
   padding: 0;
+  margin-top: 0.2rem;
   margin-left: 0.5rem;
   width: 4rem;
   margin-right: 3rem;
   align-items: center;
+  border: solid 0.5px rgb(138, 138, 138);
 }
+
+.diagnosis-form h4{
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
 .text-area {
   overflow: hidden;
   word-wrap: break-word;

@@ -5,10 +5,11 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import AuthPage from "./pages/Auth/auth";
 import Reception from "./pages/Reception/reception";
 import Doctor from "./pages/Doctor/doctor";
+import Lab from "./pages/Lab/Lab";
 // import MainNavigation from "./components/Navigation/mainNavigation";
 // import SideDrawer from "./components/SideDrawer/SideDrawer";
 // import Backdrop from "./components/Backdrop/Backdrop";
-import Lab from "./pages/Lab/Lab";
+import Test from './test';
 
 import TestApp from "./pages/firebasePage";
 
@@ -53,6 +54,7 @@ class App extends Component {
               <Route path="/doctor" component={() => <Doctor></Doctor>} />
               <Route path="/lab" component={() => <Lab></Lab>} />
               <Route path="/firebase" component={() => <TestApp></TestApp>}></Route>
+              <Route path="/test" component={() => <Test></Test>}></Route>
             </Switch>
           </main>
         </React.Fragment>

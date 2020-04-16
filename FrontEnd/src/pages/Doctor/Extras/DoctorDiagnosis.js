@@ -75,11 +75,13 @@ class Diagnosis extends React.Component {
         <hr />
 
         <form
+          className="diagnosis-form"
           ref="form"
           onSubmit={event => {
             event.preventDefault();
           }}
         >
+          {/* Basic Details */}
           <div className="wrapper">
             <div className="control-group">
               <div className="controls form-inline basics-row">
@@ -126,7 +128,6 @@ class Diagnosis extends React.Component {
           <hr />
 
           <h4 className="category-label">Complaints by Patient</h4>
-
           <div className="paper">
             <textarea
               className="text-area"
@@ -141,7 +142,6 @@ class Diagnosis extends React.Component {
           <hr />
 
           <h4 className="category-label">Symptoms Found Out</h4>
-
           <div className="paper">
             <textarea
               className="text-area"
@@ -175,6 +175,34 @@ class Diagnosis extends React.Component {
                 </button>
               )}
             </div>
+          </div>
+
+          <hr />
+
+          <h4 className="category-label">Diagnosis</h4>
+          <div className="paper">
+            <textarea
+              className="text-area"
+              placeholder="From the results and symptoms"
+              id="text"
+              name="complaints"
+              rows="4"
+            ></textarea>
+            <br />
+          </div>
+
+          <hr />
+
+          <h4 className="category-label">Remarks</h4>
+          <div >
+            <textarea
+              className="text-area"
+              placeholder="If any"
+              id="text"
+              name="complaints"
+              rows="4"
+            ></textarea>
+            <br />
           </div>
 
           <hr />

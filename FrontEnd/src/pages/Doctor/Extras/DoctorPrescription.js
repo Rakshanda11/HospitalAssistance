@@ -23,12 +23,9 @@ class Prescription extends React.Component {
           <hr className="hr-style" />
           <ShowDetails patient={this.props.patient} />
           <hr className="hr-style" />
-          <img src={RXImg} className="image-align" />
+          <img src={RXImg} alt="RxImage" className="image-align" />
           <DosagePrescription/>
-          <div className="buttons-align">
-            <button className="btn btn-danger align-save">Save</button>
-            <button className="btn btn-success align-print">Print</button>
-          </div>
+          
         </div>
       </div>
       // <div>
