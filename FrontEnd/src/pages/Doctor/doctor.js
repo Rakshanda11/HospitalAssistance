@@ -233,8 +233,8 @@ class Doctor extends React.Component {
     this.setState({
       mainBody: (
         <>
-          <ShowDetails patient={this.state.currentPatient} />
-          <Prescription />
+          {/* <ShowDetails patient={this.state.currentPatient} /> */}
+          <Prescription patient={this.state.currentPatient} />
         </>
       )
     });
