@@ -12,15 +12,6 @@ const initialstate = {
   addresserror: ""
 
 }
-// const defaultentry={
-
-//   age: null,
-//   mob: null,
-//   hieght: null,
-//   weight: null,
-//   adharid: null,
-//   address: null
-// }
 
 
 class Patiententry extends React.Component {
@@ -33,7 +24,8 @@ class Patiententry extends React.Component {
       hieght: null,
       weight: null,
       adharid: null,
-      address: null
+      address: null,
+      doctorselected:null
 
     };
   }
@@ -65,7 +57,7 @@ class Patiententry extends React.Component {
     if (isNaN(this.patient.mob)) {
       moberror = "Only digits accepted";
     }
-    if (this.patient.mob.length > 10 || this.patient.mob.length < 10) {
+    if (this.patient.mob != null && (this.patient.mob.length > 10 || this.patient.mob.length < 10)) {
       moberror = "Mobile number must be of 10 digits";
     }
 
@@ -101,11 +93,23 @@ class Patiententry extends React.Component {
 
   mySubmitHandler = (event) => {
     event.preventDefault();
+    // let nam = event.target.name;
     const isvalid = this.validate();
     if (isvalid) {
       this.props.updateFunction(this.patient);
       this.setState(initialstate);
+      // this.setState(this.patient[nam] = "");
       // this.setState(defaultentry);
+      // this.setState({
+      //   name : null,
+      //   age : null,
+      //   mob : null,
+      //   hieght : null,
+      //   weight : null,
+      //   adharid : null,
+      //   address : null
+
+      // });
     }
   }
 
@@ -150,9 +154,16 @@ class Patiententry extends React.Component {
           <input className="patientInput" id="address" name="address" placeholder="Address" onChange={this.myChangeHandler} />
           {this.state.addresserror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.addresserror}</div>) : null}
           <br />
+          <select className="select" id="doctorselected" name="doctorselected" onChange={this.myChangeHandler} defaultValue="">
+          <option value="" disabled>Select</option>
+            <option>Dr.Ajit Niras</option>
+            <option>Dr.Niras</option>
+          </select>
+          <br/>
           <button className="buttonStyle">
             Add
           </button>
+          <br />
         </form>
       </div>
     );

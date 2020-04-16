@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./reception.css";
 import Patiententry from "../../components/patiententry/patiententry";
 import Patientlist from "../../components/patientlist/patientlist";
+import ExistingPatient from "../../components/ExistingPatient/ExistingPatient";
+import AvailableDoctors from "../../components/AvailableDoctors/AvailableDoctors";
 import receptionist from "../../components/receptionist.jpg";
 import ReceptionNavigation from "./Navigation/mainNavigation";
 import Backdrop from "../../components/Backdrop/Backdrop";
@@ -12,20 +14,14 @@ class Receptionpage extends Component {
     super(props);
     this.state = {
       sideDrawerOpen: false,
-      patientList: []
+      patientList: [],
+      newpatient: true
     };
   }
+
   updateList = patient => {
     var tempArray = this.state.patientList;
-    // tempArray.push({
-    //     name: patient.name,
-    //     age: patient.age,
-    //     hieght: patient.hieght,
-    //     weight: patient.weight,
-    //     adharid: patient.adharid,
-    //     address: patient.address
 
-    // });
     if (patient.name) tempArray.push({ ...patient });
     this.setState({
       patientList: tempArray.slice()
@@ -39,6 +35,13 @@ class Receptionpage extends Component {
     });
   };
 
+  switchModeHandler = () => {
+    this.setState(prevState => {
+      return { newpatient: !prevState.newpatient };
+    });
+  };
+
+
   backDropClickHandler = () => {
     this.setState({ sideDrawerOpen: false });
   };
@@ -47,6 +50,7 @@ class Receptionpage extends Component {
     let backDrop;
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
+
     }
 
     return (
@@ -67,15 +71,23 @@ class Receptionpage extends Component {
         {backDrop}
         <div className="row">
           <React.Fragment>
-            <div className="col-sm-4 ">
-              <Patiententry updateFunction={this.updateList} />
+
+            <div className="col-sm-6 ">
+
+              {(!this.state.newpatient) ? <ExistingPatient /> : <Patiententry updateFunction={this.updateList} />}
+
+              <button onClick={this.switchModeHandler} className="buttonexisting">
+                {this.state.newpatient ? "Existing Patient" : "New Patient"}
+              </button>
+
             </div>
-            <div className="col-sm-4">
-              <Patientlist list={this.state.patientList} />
+            <div className="col-sm-6">
+              <AvailableDoctors list={this.state.patientList} />
+              {/* <Patientlist list={this.state.patientList} /> */}
             </div>
-            <div className="col-sm-4 image">
+            {/* <div className="col-sm-4 image">
               <img className="imag" src={receptionist} alt="receptionist" />
-            </div>
+            </div> */}
           </React.Fragment>
         </div>
       </div>

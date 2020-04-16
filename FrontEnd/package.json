@@ -13,6 +13,7 @@
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
+    "react-dropdown": "^1.7.0",
     "react-formgroup": "^2.0.0",
     "react-free-scrollbar": "^0.3.4",
     "react-phone-number-input": "^3.0.22",
