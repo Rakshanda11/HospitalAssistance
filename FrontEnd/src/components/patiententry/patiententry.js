@@ -204,9 +204,9 @@ class Patiententry extends React.Component {
           {this.state.addresserror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.addresserror}</div>) : null}
           <br />
           <select className="select" id="doctorselected" name="doctorselected" onChange={this.myChangeHandler} defaultValue="">
-            <option value="" disabled>Select</option>
-            <option>Dr.Ajit Niras</option>
-            <option>Dr.Niras</option>
+          <option value="" disabled>Select</option>
+            <option>Doctor A</option>
+            <option>Doctor B</option>
           </select>
           <br />
           <button className="buttonStyle">

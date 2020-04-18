@@ -6,7 +6,15 @@ import "./AvailableDoctors.css";
 class AvailableDoctors extends React.Component {
     constructor(props) {
         super(props);
-        // console.log(props);
+        this.Doctors = [{
+            Name: "Doctor A",
+            Assigned_Patient: "50"
+        },
+        {
+            Name: "Doctor B",
+            Assigned_Patient: "40"
+        }
+        ];
 
     }
 
@@ -21,33 +29,25 @@ class AvailableDoctors extends React.Component {
                         <Table bordered hover striped className="changestyling">
                             <thead>
                                 <tr>
-                                    <th>Name </th>
-                                    <th>Assigned Patient</th>
+                                    <th style={{ textAlign: "center" }}>Name </th>
+                                    <th style={{ textAlign: "center" }}>Assigned Patient</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* {this.props.list
-                                    ? this.props.list.map((patient, index) => ( */}
+                                {this.Doctors.map(record => (
+                                    <tr
+                                        key={record.Name}
+                                        onClick={() => {
+                                            console.log(record.Name);
+                                        }}
+                                    >
+                                        <td style={{ textAlign: "center" }}>{record.Name}</td>
 
-                                <tr >
-
-                                    <td>Dr. AJit Niras</td>
-
-
-                                    <td>
-                                        10
-                                            </td>
-                                </tr>
-                                <tr >
-
-                                    <td>Dr.Niras</td>
-
-
-                                    <td>
-                                        15
-</td>
-                                </tr>
-                                {/* )) : null} */}
+                                        <td style={{ textAlign: "center" }}>
+                                            {record.Assigned_Patient}
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </Table>
                     </FreeScrollbar>
