@@ -1,22 +1,35 @@
 import React from "react";
 import "./Lab.css";
-// import LabImg from "../../components/Lab.jpg";
-// import { ListGroup, ListGroupItem } from 'react-bootstrap'
+
 import ShowDetails from "../../components/PatientDetails/Lab-PatientsDetails";
 import Instruction from "../../components/LabModule/LabInstructions";
 import LabNavigation from "./Navigation/LabNavigation";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import StartLab from "../../components/LabModule/StartLab";
+
+import firebase from "./../../firebase";
+
 class Lab extends React.Component {
+  today = (new Date()).toDateString();
+
+  databaseRef = firebase.firestore();
+
+  labQueueRef = this.databaseRef
+    .collection("Everyday-Patients")
+    .doc(this.today)
+    .collection("Lab");
+
+
   constructor(props) {
     super(props);
 
     this.state = {
       sideDrawerOpen: false,
       showDetails: false,
-      mainBody : <StartLab/>,
-      currentPatient: this.patientsList[0]
+      mainBody: <StartLab />,
+      currentPatient: null,
+      labQueue: []
     };
   }
   patientsList = [
@@ -125,6 +138,7 @@ class Lab extends React.Component {
       ]
     }
   ];
+
   handleClickArg = item => {
     this.setState({
       showDetails: true
@@ -145,6 +159,24 @@ class Lab extends React.Component {
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
     }
+
+    // Retrieve the list of patients from lab queue
+    if (!(this.isUpdated)) {
+      this.labQueueRef.onSnapshot((querySnapshot) => {
+        var tempList = [];
+        querySnapshot.forEach((patientDoc) => {
+          tempList.push(patientDoc.data())
+        })
+        if (!(tempList.length))
+          tempList = ["EMPTY"]
+        this.setState({
+          labQueue: tempList
+        })
+      })
+
+      this.isUpdated = true;
+    }
+
     return (
       <>
         <LabNavigation
@@ -162,7 +194,7 @@ class Lab extends React.Component {
         ></SideDrawer>
         {backDrop}
         <div className="row">
-          
+
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               {/* <ListGroup className="for_padding" defaultActiveKey="">
@@ -179,12 +211,13 @@ class Lab extends React.Component {
                         </ListGroup> */}
               <div className="patient_list" >
                 <Instruction
-                  patientsList={this.patientsList}
+                  patientsList={this.state.labQueue}
                   updatePatient={patient => {
+                    console.log(patient);
                     this.setState({
                       currentPatient: patient,
                       mainBody: (
-                        <ShowDetails patient={this.state.currentPatient} />
+                        <ShowDetails patient={patient} />
                       )
                     });
                   }}
@@ -192,9 +225,9 @@ class Lab extends React.Component {
               </div>
             </div>
           </div>
-                  {/* <div className="seperator"></div> */}
+          {/* <div className="seperator"></div> */}
           <div className=" border backgroundstyle">{this.state.mainBody}</div>
-            {/* {this.state.showDetails ? this.tempShowDetails : null}
+          {/* {this.state.showDetails ? this.tempShowDetails : null}
             <p className="changeFonts">Lab Report:</p>
             <br />
             <input type="file" />
@@ -209,7 +242,7 @@ class Lab extends React.Component {
             <img src={LabImg} className="rounded-circle" alt="Lab_img" />
           </div> */}
         </div>
-        
+
       </>
     );
   }

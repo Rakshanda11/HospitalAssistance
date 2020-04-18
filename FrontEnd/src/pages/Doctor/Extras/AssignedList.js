@@ -20,6 +20,10 @@ class AssignedPatients extends React.Component {
           waiting: <h4 style={{ textAlign: "center" }}>Failed to retrieve data!!!</h4>
         })
     }, 3000)
+
+    if (this.props.type === "Investigated")
+      console.log(this.props.patientsList)
+
     return (
       <Card className="border-secondary ">
         <div className="scroll-bar" >

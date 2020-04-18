@@ -1,7 +1,10 @@
 import React from "react";
+import TestUpload from "./testUpload";
 import "./Lab-PatientDetails.css";
-class Lab_PatientDetails extends React.Component {
+
+class LabPatientDetails extends React.Component {
     render() {
+
         return (
             <div className="align-details">
                 <div className="styling-details row1">
@@ -16,7 +19,7 @@ class Lab_PatientDetails extends React.Component {
                 </div>
                 <div className="styling-details row2">
                     <p className="highlighter aligndetails number">Contact No: </p>
-                    <p className="attribute-styling number"> {" " + this.props.patient.phoneNo}</p>
+                    <p className="attribute-styling number"> {" " + this.props.patient.mob}</p>
                     <div className="spacer"></div>
                     <p className="alignDetails highlighter age">Age: </p>
                     <p className="attribute-styling age"> {" " + this.props.patient.age}</p>
@@ -25,11 +28,11 @@ class Lab_PatientDetails extends React.Component {
                     <p className="attribute-styling weight"> {" " + this.props.patient.weight}</p>
                 </div>
                 <hr />
-                <p className="alignDetails highlighter Tests">Tests To Be Performed</p>
+                {/* <p className="alignDetails highlighter Tests">Tests To Be Performed</p>
                 <ul className="items-arrange">
-                    {this.props.patient.Tests.map((item) => {
+                    {this.props.patient.diagnosisData.tests.map((item) => {
                         return (
-                            <div className="margin-space">
+                            <div className="margin-space" key={item}>
 
                                 <div className=" accordion md-accordion " id="accordionEx" role="tablist" aria-multiselectable="true">
                                     <div className="card ">
@@ -37,7 +40,7 @@ class Lab_PatientDetails extends React.Component {
                                         <div className="card-header" role="tab" id="headingOne1">
                                             <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
                                                 aria-controls="collapseOne1">
-                                                <h5 class="mb-0">
+                                                <h5 className="mb-0">
                                                     {item}
                                                 </h5>
                                             </a>
@@ -65,14 +68,14 @@ class Lab_PatientDetails extends React.Component {
                     <button type="button" className="btn btn-danger submit">
                         Submit
                     </button>
-                </div>
-
+                </div> */}
+                <TestUpload patient={this.props.patient}></TestUpload>
             </div>
 
         );
     }
 }
-export default Lab_PatientDetails;
+export default LabPatientDetails;
 
 
 

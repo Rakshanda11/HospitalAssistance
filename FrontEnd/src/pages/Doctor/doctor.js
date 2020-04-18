@@ -14,7 +14,7 @@ import firebase from './../../firebase';
 
 class Doctor extends React.Component {
   databaseRef = firebase.firestore();
-  patientsRef = this.databaseRef.collection("Everyday-Patients");
+  daywiseRef = this.databaseRef.collection("Everyday-Patients");
 
   constructor(props) {
     super(props);
@@ -117,7 +117,7 @@ class Doctor extends React.Component {
         ]
       }
     ];
-    this.investigattedPatientsList = [
+    this.investigatedPatientsList = [
       {
         name: "Rakshanda Mahajan2",
         age: "50",
@@ -169,7 +169,8 @@ class Doctor extends React.Component {
       showHistory: false,
       mainBody: <DoctorPageStart />,
       currentPatient: null,
-      receptionQueue: []
+      receptionQueue: [],
+      investigatedQueue: []
     };
 
   } // Contructor ends here
@@ -248,10 +249,14 @@ class Doctor extends React.Component {
     var today = this.getToday();
 
     // New patient list comes from reception queue
-    var query = this.patientsRef.doc(today).collection("Reception");
+    var queryReception = this.daywiseRef.doc(today).collection("Reception");
+
+    // Investigated list comes from investigated queue
+    var queryInvestigated = this.daywiseRef.doc(today).collection("Investigated");
+
     // Update only once
     if (!(this.isUpdated)){
-      query.onSnapshot((querySnapshot) => {
+      queryReception.onSnapshot((querySnapshot) => {
         var tempList = [];
         querySnapshot.forEach((patientDoc) => {
           tempList.push(patientDoc.data())
@@ -260,6 +265,17 @@ class Doctor extends React.Component {
           tempList = ["EMPTY"]
         this.setState({
           receptionQueue: tempList
+        })
+      })
+      queryInvestigated.onSnapshot((querySnapshot) => {
+        var tempList = [];
+        querySnapshot.forEach((patientDoc) => {
+          tempList.push(patientDoc.data());
+        })
+        if (!(tempList.length))
+          tempList = ["EMPTY"]
+        this.setState({
+          investigatedQueue: tempList
         })
       })
       this.isUpdated = true;
@@ -288,7 +304,7 @@ class Doctor extends React.Component {
             <div className="patient_list">
               <Instruction
                 patientsList={this.state.receptionQueue}
-                oldPatientsList={this.investigattedPatientsList}
+                oldPatientsList={this.state.investigatedQueue}
                 updatePatient={(patient, type) => {
                   patient["type"] = type
                   this.setState({

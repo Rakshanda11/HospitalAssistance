@@ -285,7 +285,6 @@ class Diagnosis extends React.Component {
                             .where("adhaarid", "==", this.currentPatient.adhaarid)
                             .get()
                             .then((patientDocs) => {
-                              console.log(patientDocs)
                               patientDocs.forEach((eachDoc) => {
                                 eachDoc.ref.delete();
                               })
