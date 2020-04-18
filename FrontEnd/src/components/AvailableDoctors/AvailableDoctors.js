@@ -2,24 +2,60 @@ import React from "react";
 import { Card, Table } from 'reactstrap';
 import FreeScrollbar from "react-free-scrollbar";
 import "./AvailableDoctors.css";
+import firebase from '../../firebase';
 
 class AvailableDoctors extends React.Component {
-    constructor(props) {
-        super(props);
-        this.Doctors = [{
-            Name: "Doctor A",
-            Assigned_Patient: "50"
-        },
-        {
-            Name: "Doctor B",
-            Assigned_Patient: "40"
+    state = {
+        Doctors: {
+            "Doctor A": 12,
+            "Doctor B" :16
         }
-        ];
+    }
+    
+    isUpdated = false;
 
+    databaseRef = firebase.firestore();
+
+    patientRef = this.databaseRef.collection("Patients");
+    daywiseRef = this.databaseRef.collection("Everyday-Patients");
+
+    getToday = () => {
+        var today = new Date();
+        return today.toDateString();
     }
 
-
     render() {
+        var today = this.getToday();
+        
+        // Query
+
+        var query  = this.daywiseRef
+            .doc(today)
+            .collection("Reception")
+
+        if (!(this.isUpdated)){
+            query.onSnapshot((patientsQueueSnap) => {
+                var temp = {}
+                // For each patient, check its doctor and increment accordingly
+                patientsQueueSnap.forEach((patientDoc) => {
+                    var doctor = patientDoc.data().doctorselected
+                    if (doctor === undefined)
+                        return;
+
+                    if (temp[doctor])
+                        temp[doctor] += 1
+                    else
+                        temp[doctor] = 1
+                    this.setState({
+                        Doctors: temp
+                    })
+                })
+            })
+            this.isUpdated = true;
+        }
+        // Add event listener to the query - Actually fire the query now
+        
+
         return (
             <Card className="border-secondary ">
                 <div style={{ width: '100%', height: '50vh' }}>
@@ -34,20 +70,20 @@ class AvailableDoctors extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.Doctors.map(record => (
-                                    <tr
-                                        key={record.Name}
+                                {Object.keys(this.state.Doctors).map((name, index) => {
+                                    return (<tr
+                                        key={name}
                                         onClick={() => {
-                                            console.log(record.Name);
+                                            console.log(name);
                                         }}
                                     >
-                                        <td style={{ textAlign: "center" }}>{record.Name}</td>
+                                        <td style={{ textAlign: "center" }}>{name}</td>
 
                                         <td style={{ textAlign: "center" }}>
-                                            {record.Assigned_Patient}
+                                            {this.state.Doctors[name]}
                                         </td>
-                                    </tr>
-                                ))}
+                                    </tr>);
+                                })}
                             </tbody>
                         </Table>
                     </FreeScrollbar>
