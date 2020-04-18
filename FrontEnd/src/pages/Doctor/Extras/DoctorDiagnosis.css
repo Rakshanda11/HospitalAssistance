@@ -273,14 +273,15 @@ input[type=number] {
 
 .new-item {
   margin-left: 3rem;
+  padding-right: 2rem;
 }
 
-.new-item button {
+.new-item-button {
   padding-top: 0.4em;
   padding-bottom: 0.4em;
   background: #fa8072;
   border: none;
-  width: 5rem;
+  /* width: 5rem; */
 }
 
 .new-item-text {
@@ -290,6 +291,17 @@ input[type=number] {
   /* margin-right: 5rem; */
   margin-left: 5.3rem;
   margin-bottom: 1rem;
+}
+
+.submit-text-button{
+  background: #fa8072;
+  border: none;
+  width: 100%;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  margin-top: 1rem;
+  margin-left: 0;
+  margin-right: 2.5rem;
 }
 
 .category-label{

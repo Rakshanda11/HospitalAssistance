@@ -1,6 +1,7 @@
 import React from 'react';
 import './patiententry.css';
 // import Patientlist from '../patientlist/patientlist';
+import firebase from '../../firebase';
 
 const initialstate = {
   nameerror: "",
@@ -15,6 +16,11 @@ const initialstate = {
 
 
 class Patiententry extends React.Component {
+  databaseRef = firebase.firestore();
+
+  patientRef = this.databaseRef.collection("Patients");
+  daywiseRef = this.databaseRef.collection("Everyday-Patients");
+
   constructor(props) {
     super(props);
     this.patient = {
@@ -23,10 +29,9 @@ class Patiententry extends React.Component {
       mob: null,
       height: null,
       weight: null,
-      aadharid: null,
+      adhaarid: null,
       address: null,
-      doctorselected:null
-
+      doctorselected: null
     };
   }
 
@@ -34,13 +39,13 @@ class Patiententry extends React.Component {
   state = initialstate;
 
   validate = () => {
-    let nameerror = "";
-    let ageerror = "";
-    let moberror = "";
-    let heighterror = "";
-    let weighterror = "";
-    let aadhariderror = "";
-    let addresserror = "";
+    let nameerror = null;
+    let ageerror = null;
+    let moberror = null;
+    let heighterror = null;
+    let weighterror = null;
+    let aadhariderror = null;
+    let addresserror = null;
 
     if (!this.patient.name) {
       nameerror = "Name can not be blank";
@@ -76,12 +81,15 @@ class Patiententry extends React.Component {
     if (!this.patient.address) {
       addresserror = "Adress can not be empty";
     }
-    if (!this.patient.aadharid) {
+    if (!this.patient.adhaarid) {
       aadhariderror = "AadharID can not be empty";
     }
-    if (isNaN(this.patient.aadharid)) {
+    if (isNaN(this.patient.adhaarid)) {
       aadhariderror = "Only digits accepted";
     }
+
+    console.log("Errors:")
+    console.log({ nameerror, ageerror, moberror, heighterror, weighterror, aadhariderror, addresserror });
 
     if (nameerror || ageerror || heighterror || weighterror || aadhariderror || addresserror || moberror) {
       this.setState({ nameerror, ageerror, moberror, heighterror, weighterror, aadhariderror, addresserror });
@@ -91,25 +99,66 @@ class Patiententry extends React.Component {
     return true;
   };
 
+  getToday = () => {
+    var today = new Date();
+    return today.toDateString();
+  }
+
   mySubmitHandler = (event) => {
+    var today = this.getToday();
     event.preventDefault();
     // let nam = event.target.name;
     const isvalid = this.validate();
+    console.log(isvalid)
     if (isvalid) {
-      this.props.updateFunction(this.patient);
       this.setState(initialstate);
-      // this.setState(this.patient[nam] = "");
-      // this.setState(defaultentry);
-      // this.setState({
-      //   name : null,
-      //   age : null,
-      //   mob : null,
-      //   height : null,
-      //   weight : null,
-      //   aadharid : null,
-      //   address : null
+      // this.props.updateFunction(this.patient);
 
-      // });
+      // Check if the entered adhaar id is already used.
+      this.patientRef.where("adhaarid", "==", this.patient.adhaarid)
+        .get()  // Async req
+        .then((patientsSnapshot) => {
+          if (patientsSnapshot.docs.length) {
+            alert("Patient with this adhaar ID already exists in the database.")
+          }
+          else {
+            // Get total patients
+            this.patientRef
+              .get()
+              .then((allPatientSnap) => {
+                var totalPatients = allPatientSnap.docs.length;
+
+                // Assign patient id
+                this.patient["PatientId"] = totalPatients + 1;
+
+                // Add to main patient database
+                return this.patientRef.add(this.patient);
+              })
+              .then(() => {
+
+                // Add to daywise reception database
+                this.daywiseRef
+                  .doc(today)
+                  .collection("Reception")
+                  .doc(this.patient.adhaarid)
+                  .set(this.patient)
+
+                // Add the date field
+                this.patientRef
+                  .doc(today)
+                  .set({
+                    "Date": today
+                  })
+
+                this.props.updateFunction(this.patient);
+                alert("Patient Added to Database successfully!")
+              })
+              .catch((err) => { console.log(err) })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 
@@ -148,18 +197,18 @@ class Patiententry extends React.Component {
           <input className="patientInput" id="weight" name="weight" placeholder="Weight" onChange={this.myChangeHandler} />
           {this.state.weighterror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.weighterror}</div>) : null}
           <br />
-          <input className="patientInput" id="aadharid" name="aadharid" placeholder="Aadhaar ID" onChange={this.myChangeHandler} />
+          <input className="patientInput" id="aadharid" name="adhaarid" placeholder="Aadhaar ID" onChange={this.myChangeHandler} />
           {this.state.adhariderror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.adhariderror}</div>) : null}
           <br />
           <input className="patientInput" id="address" name="address" placeholder="Address" onChange={this.myChangeHandler} />
           {this.state.addresserror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.addresserror}</div>) : null}
           <br />
           <select className="select" id="doctorselected" name="doctorselected" onChange={this.myChangeHandler} defaultValue="">
-          <option value="" disabled>Select</option>
+            <option value="" disabled>Select</option>
             <option>Dr.Ajit Niras</option>
             <option>Dr.Niras</option>
           </select>
-          <br/>
+          <br />
           <button className="buttonStyle">
             Add
           </button>

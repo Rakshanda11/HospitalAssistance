@@ -15,7 +15,7 @@ class Diagnosis extends React.Component {
       var tempList = this.state.tests;
       tempList.push(event.target.value);
       this.setState({
-        test: tempList,
+        tests: tempList,
         addNew: false
       });
     }
@@ -38,6 +38,7 @@ class Diagnosis extends React.Component {
         })}
       </ol>
     );
+
     let newItemText = (
       <div className="new-item-text">
         <input
@@ -54,7 +55,7 @@ class Diagnosis extends React.Component {
             var tempList = this.state.tests;
             tempList.push(this.name);
             this.setState({
-              test: tempList,
+              tests: tempList,
               addNew: false
             });
             this.name = "";
@@ -70,18 +71,20 @@ class Diagnosis extends React.Component {
         <hr />
         <h3>New Diagnosis</h3>
 
-        <h5 style={{ textAlign: "center" }}>Date: STATIC 2/Feb/2020</h5>
+    <h5 style={{ textAlign: "center" }}>Date: {(new Date).toDateString()}</h5>
 
         <hr />
 
         <form
           className="diagnosis-form"
           ref="form"
+          noValidate
           onSubmit={event => {
             event.preventDefault();
+            console.log("SUBMITTED")
           }}
         >
-          {/* Basic Details */}
+          {/* Basic Diagnosis */}
           <div className="wrapper">
             <div className="control-group">
               <div className="controls form-inline basics-row">
@@ -90,6 +93,7 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="mmHg"
+                  required
                 />
 
                 {/* <div className="spacer"></div> */}
@@ -99,6 +103,7 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"\u2109"}
+                  required
                 />
               </div>
             </div>
@@ -112,6 +117,7 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="per min"
+                  required
                 />
                 {/* <div className="spacer"></div> */}
 
@@ -120,6 +126,7 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"%"}
+                  required
                 />
               </div>
             </div>
@@ -127,6 +134,7 @@ class Diagnosis extends React.Component {
 
           <hr />
 
+          {/* Further Diagnosis Starts */}
           <h4 className="category-label">Complaints by Patient</h4>
           <div className="paper">
             <textarea
@@ -135,6 +143,7 @@ class Diagnosis extends React.Component {
               id="text"
               name="complaints"
               rows="4"
+              required
             ></textarea>
             <br />
           </div>
@@ -149,6 +158,7 @@ class Diagnosis extends React.Component {
               id="text"
               name="symptoms"
               rows="4"
+              required
             ></textarea>
             <br />
           </div>
@@ -164,97 +174,75 @@ class Diagnosis extends React.Component {
             {this.state.addNew ? newItemText : null}
             <div className="new-item">
               {this.state.tests.length === 0 ? null : (
-                <button
-                  onClick={() => {
-                    this.setState(prevState => ({
-                      addNew: !prevState.addNew
-                    }));
-                  }}
-                >
-                  Add?
+                <>
+                  <button className="new-item-button"
+                    onClick={() => {
+                      this.setState(prevState => ({
+                        addNew: !prevState.addNew
+                      }));
+                    }}
+                  >
+                    Add?
                 </button>
+                  <br></br>
+                  <button
+                    className="submit-text-button"
+                    onClick={() => { console.log(this.state.tests) }}
+                  >Submit to Lab</button></>
               )}
             </div>
           </div>
 
           <hr />
 
-          <h4 className="category-label">Diagnosis</h4>
-          <div className="paper">
-            <textarea
-              className="text-area"
-              placeholder="From the results and symptoms"
-              id="text"
-              name="complaints"
-              rows="4"
-            ></textarea>
-            <br />
-          </div>
+          {this.state.tests.length ? null :
+            <>
+              <h4 className="category-label">Diagnosis</h4>
+              <div className="paper">
+                <textarea
+                  className="text-area"
+                  placeholder="From the results and symptoms"
+                  id="text"
+                  name="complaints"
+                  rows="4"
+                ></textarea>
+                <br />
+              </div>
 
-          <hr />
+              <hr />
 
-          <h4 className="category-label">Remarks</h4>
-          <div >
-            <textarea
-              className="text-area"
-              placeholder="If any"
-              id="text"
-              name="complaints"
-              rows="4"
-            ></textarea>
-            <br />
-          </div>
+              <h4 className="category-label">Remarks</h4>
+              <div >
+                <textarea
+                  className="text-area"
+                  placeholder="If any"
+                  id="text"
+                  name="complaints"
+                  rows="4"
+                ></textarea>
+                <br />
+              </div>
 
-          <hr />
+              <hr />
 
-          <br />
+              <br />
 
-          {/* <div className="custom-control custom-radio">
-            <p>Do you recommend any tests?</p>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.setTrue}
-            >
-              YES
+              <div className="box-1">
+                <button className="btn btn-one submit-button" type="submit">
+                  Submit
             </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={this.setFalse}
-            >
-              NO
-            </button>
-            <br />
-            <br />
-          </div> */}
-          <div className="box-1">
-            <button className="btn btn-one submit-button" type="submit">
-              Submit
-            </button>
-          </div>
+              </div>
 
-          <hr />
-          {/* <h4 className="category-label">Diagnosis</h4>
+              <hr />
 
-          <div className="paper">
-            <textarea
-              className="text-area"
-              placeholder="Enter further diagnosis (If Any)"
-              id="text"
-              name="diagnosis"
-              rows="4"
-            ></textarea>
-            <br />
-          </div>
+              <br />
+              <br />
 
-          <hr /> */}
 
-          <br />
-          <br />
+              <hr />
+            </>}
+
         </form>
-
-        <hr />
       </>
     );
   }

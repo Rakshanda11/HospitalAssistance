@@ -1,26 +1,34 @@
-import firebase from "./firebase";
+import firebase from "./../firebase";
 import React, { Component } from "react";
 
 class TestApp extends Component {
   databaseRef = firebase.firestore();
 
+  patientsRef = this.databaseRef.collection("Patients");
+
   constructor(props) {
     super(props);
     this.state = {
-      patient: "HELLO",
       form: null,
       list: [],
       email: ""
     };
     this.databaseRef.collection("users").onSnapshot((snapshot) => {
       var tempList = [];
-        snapshot.forEach(doc => {
-          tempList.push(doc.data());
-        });
-        this.setState({
-          list: tempList
-        
-        });
+      snapshot.forEach(doc => {
+        tempList.push(doc.data());
+      });
+      this.setState({
+        list: tempList
+      });
+    })
+    this.patientsRef.onSnapshot((snapshot) => {
+      snapshot.forEach(doc => {
+        this.patientsRef.doc(doc.id).collection("Visits").onSnapshot((collectionSnapshot) => {
+          // This will return a collection which will have visits
+          console.log(collectionSnapshot.docs[0]);
+        })
+      })
     })
   }
 
@@ -57,8 +65,8 @@ class TestApp extends Component {
           <ul>
             {this.state.list
               ? this.state.list.map(record => {
-                  return <li key={record.email}>{record.email}</li>;
-                })
+                return <li key={record.email}>{record.email}</li>;
+              })
               : null}
             {/* {this.state.list.length} */}
           </ul>
@@ -76,7 +84,7 @@ class TestApp extends Component {
                       value={this.name}
                       onChange={(event) => {
                         this.setState({
-                          email:  event.target.value
+                          email: event.target.value
                         })
                       }}
                     />

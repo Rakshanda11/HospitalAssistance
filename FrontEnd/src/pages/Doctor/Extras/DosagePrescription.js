@@ -145,7 +145,7 @@ class DosagePrescription extends React.Component {
                         {this.state.showIcons === medicine ? <td className="icon-cell px-0" >
                           {/* <EditIcon className="edit-icon" color="secondary" /> */}
                           <IconButton size="small" onClick={() => {
-                            var array = this.state.listOfMedicines.filter((value) => {return value != medicine})
+                            var array = this.state.listOfMedicines.filter((value) => { return value !== medicine })
                             this.setState({
                               listOfMedicines: array
                             })

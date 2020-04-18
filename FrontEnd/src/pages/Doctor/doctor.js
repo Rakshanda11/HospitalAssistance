@@ -10,7 +10,12 @@ import SideDrawer from "./SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import DoctorDiagnosis from "./Extras/DoctorDiagnosis";
 
+import firebase from './../../firebase';
+
 class Doctor extends React.Component {
+  databaseRef = firebase.firestore();
+  patientsRef = this.databaseRef.collection("Everyday-Patients");
+
   constructor(props) {
     super(props);
     this.newPatientsList = [
@@ -163,8 +168,11 @@ class Doctor extends React.Component {
       showDetails: false,
       showHistory: false,
       mainBody: <DoctorPageStart />,
-      currentPatient: null
+      currentPatient: null,
+      receptionQueue: []
     };
+    let isUpdated = false;
+
   } // Contructor ends here
 
   drawerToggleClickHandler = () => {
@@ -176,20 +184,6 @@ class Doctor extends React.Component {
   backDropClickHandler = () => {
     this.setState({ sideDrawerOpen: false });
   };
-
-  // removePatientNew = () => {
-  //   this.newPatientsList.shift();
-  // };
-
-  // removePatientOld = () => {
-  //   this.investigatedPatientsList.shift();
-  // };
-
-  // detailsfun = () => {
-  //   this.setState({
-  //     mainBody: <ShowDetails patient={this.state.currentPatient} />
-  //   });
-  // };
 
   getPatientHistory = () => {
     if (this.state.currentPatient == null) {
@@ -240,11 +234,37 @@ class Doctor extends React.Component {
     });
   };
 
+  getToday = () => {
+    var today = new Date();
+    return today.toDateString();
+  }
+
   render() {
     let backDrop;
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
     }
+
+    // FIREBASE STUFF
+    var today = this.getToday();
+
+    // New patient list comes from reception queue
+    var query = this.patientsRef.doc(today).collection("Reception");
+    // Update only once
+    if (!(this.isUpdated)){
+      query.onSnapshot((querySnapshot) => {
+        var tempList = [];
+        querySnapshot.forEach((patientDoc) => {
+          tempList.push(patientDoc.data())
+        })
+        this.setState({
+          receptionQueue: tempList
+        })
+      })
+      this.isUpdated = true;
+    }
+
+
     return (
       <>
         {/* {this.props.navBar} */}
@@ -266,7 +286,7 @@ class Doctor extends React.Component {
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
-                patientsList={this.newPatientsList}
+                patientsList={this.state.receptionQueue}
                 oldPatientsList={this.investigattedPatientsList}
                 updatePatient={patient => {
                   this.setState({
