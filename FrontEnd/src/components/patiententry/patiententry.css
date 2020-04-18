@@ -31,3 +31,20 @@ h3{
 .patiententry{
     color: rgb(12, 160, 36);
 }
+.buttonexisting{
+    text-align: center;
+    height: 30px;
+    width: 200px;
+    background-color: #4CAF50;
+  color: white;
+  margin-top: 10px;
+  margin-left: 270px;
+}
+.select{
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    height: 30px;
+    width: 180px;
+    background-color: rgb(250, 240, 240);
+}
