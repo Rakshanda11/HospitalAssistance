@@ -171,7 +171,6 @@ class Doctor extends React.Component {
       currentPatient: null,
       receptionQueue: []
     };
-    let isUpdated = false;
 
   } // Contructor ends here
 
@@ -213,7 +212,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          <DoctorDiagnosis></DoctorDiagnosis>
+          <DoctorDiagnosis currentPatient={this.state.currentPatient}></DoctorDiagnosis>
         </>
       )
     });
@@ -257,6 +256,8 @@ class Doctor extends React.Component {
         querySnapshot.forEach((patientDoc) => {
           tempList.push(patientDoc.data())
         })
+        if (!(tempList.length))
+          tempList = ["EMPTY"]
         this.setState({
           receptionQueue: tempList
         })
@@ -288,7 +289,8 @@ class Doctor extends React.Component {
               <Instruction
                 patientsList={this.state.receptionQueue}
                 oldPatientsList={this.investigattedPatientsList}
-                updatePatient={patient => {
+                updatePatient={(patient, type) => {
+                  patient["type"] = type
                   this.setState({
                     mainBody: <ShowDetails patient={patient} />,
                     currentPatient: patient

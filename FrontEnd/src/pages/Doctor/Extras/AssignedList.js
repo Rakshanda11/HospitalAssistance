@@ -4,15 +4,27 @@ import FreeScrollBar from "react-free-scrollbar";
 import Loading from "./Loading";
 import "./AssignedList.css";
 class AssignedPatients extends React.Component {
-  goOnPatient = () => {
-    console.log(this.record.name);
-  };
+  state = {
+    waiting: <Loading />
+  }
+
   render() {
+    // After 3 seconds, the loading gif will be replaced with the text
+    setTimeout(() => {
+      if (this.props.patientsList[0] === "EMPTY")
+        this.setState({
+          waiting: <h4 style={{ textAlign: "center" }}>No Patients Yet</h4>
+        })
+      else
+        this.setState({
+          waiting: <h4 style={{ textAlign: "center" }}>Failed to retrieve data!!!</h4>
+        })
+    }, 3000)
     return (
       <Card className="border-secondary ">
         <div className="scroll-bar" >
           <FreeScrollBar>
-            {this.props.patientsList.length ? (
+            {(this.props.patientsList.length && this.props.patientsList[0] !== "EMPTY") ? (
               <Table bordered hover striped className="changestyling">
                 <thead>
                   <tr>
@@ -31,8 +43,7 @@ class AssignedPatients extends React.Component {
                     <tr
                       key={record.name}
                       onClick={() => {
-                        console.log(record.name);
-                        this.props.updatePatient(record);
+                        this.props.updatePatient(record, this.props.type);
                       }}
                     >
                       <td>{record.name}</td>
@@ -45,8 +56,8 @@ class AssignedPatients extends React.Component {
                 </tbody>
               </Table>
             ) : (
-              <Loading />
-            )}
+                this.state.waiting
+              )}
           </FreeScrollBar>
         </div>
       </Card>

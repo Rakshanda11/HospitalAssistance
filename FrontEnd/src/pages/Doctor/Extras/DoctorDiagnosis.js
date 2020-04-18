@@ -1,13 +1,64 @@
 import React from "react";
 import "./DoctorDiagnosis.css";
 // import SuggestedTextBox from "../Extras/suggestedTest";
+import firebase from "../../../firebase";
 
 class Diagnosis extends React.Component {
+  today = (new Date()).toDateString();
+
+  databaseRef = firebase.firestore();
+  labQueueRef = this.databaseRef
+    .collection("Everyday-Patients")
+    .doc(this.today)
+    .collection("Lab");
+  receptionQueueRef = this.databaseRef
+    .collection("Everyday-Patients")
+    .doc(this.today)
+    .collection("Reception")
+
   state = {
     addNew: true,
     tests: []
   };
-  name = "";
+
+  currentPatient = null;
+
+  testName = "";
+  diagnosisData = {
+    bloodPressure: "",
+    temperature: "",
+    pulseRate: "",
+    spo2: "",
+    complaints: "",
+    symptoms: "",
+  }
+
+  validate = () => {
+    // let errors = {
+    //   bloodPressure: false,
+    //   temperature: false,
+    //   pulseRate: false,
+    //   spo2: false,
+    //   complaints: false,
+    //   symptoms: false,
+    // }
+
+    let errorString = "Please enter the following details to proceed:\n\n";
+    let isError = false;
+    // Check which elements are missing
+    Object.keys(this.diagnosisData).map((textType, index) => {
+      if (!(this.diagnosisData[textType].length)) {
+        // errors[textType] = true;
+        errorString += " " + textType.toString() + "\n\n"
+        isError = true;
+      }
+    })
+    if (isError) {
+      alert(errorString);
+      return true;
+    }
+    // return errors;
+  }
 
   addTestToList = event => {
     if (event.keyCode === 13) {
@@ -22,6 +73,8 @@ class Diagnosis extends React.Component {
   };
 
   render() {
+    this.currentPatient = this.props.currentPatient;
+
     let listOfTests = (
       <ol className="ordered-list">
         {this.state.tests.map(individualTest => {
@@ -45,20 +98,21 @@ class Diagnosis extends React.Component {
           type="text"
           placeholder="Name of the Test"
           onChange={event => {
-            this.name = event.target.value;
+            this.testName = event.target.value;
           }}
         ></input>
         <button
           className="new-item-text-button"
           onClick={() => {
-            if (this.name === "") return;
+            if (this.testName === "") return;
             var tempList = this.state.tests;
-            tempList.push(this.name);
+            tempList.push(this.testName);
             this.setState({
               tests: tempList,
               addNew: false
             });
-            this.name = "";
+
+            this.testName = "";
           }}
         >
           Add this test
@@ -71,7 +125,7 @@ class Diagnosis extends React.Component {
         <hr />
         <h3>New Diagnosis</h3>
 
-    <h5 style={{ textAlign: "center" }}>Date: {(new Date).toDateString()}</h5>
+        <h5 style={{ textAlign: "center" }}>Date: {(new Date()).toDateString()}</h5>
 
         <hr />
 
@@ -82,6 +136,8 @@ class Diagnosis extends React.Component {
           onSubmit={event => {
             event.preventDefault();
             console.log("SUBMITTED")
+            console.log(this.diagnosisData)
+            this.validate()
           }}
         >
           {/* Basic Diagnosis */}
@@ -93,6 +149,9 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="mmHg"
+                  onChange={(event) => {
+                    this.diagnosisData.bloodPressure = event.target.value;
+                  }}
                   required
                 />
 
@@ -103,6 +162,9 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"\u2109"}
+                  onChange={(event) => {
+                    this.diagnosisData.temperature = event.target.value;
+                  }}
                   required
                 />
               </div>
@@ -117,6 +179,9 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="per min"
+                  onChange={(event) => {
+                    this.diagnosisData.pulseRate = event.target.value;
+                  }}
                   required
                 />
                 {/* <div className="spacer"></div> */}
@@ -126,6 +191,9 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"%"}
+                  onChange={(event) => {
+                    this.diagnosisData.spo2 = event.target.value;
+                  }}
                   required
                 />
               </div>
@@ -143,6 +211,9 @@ class Diagnosis extends React.Component {
               id="text"
               name="complaints"
               rows="4"
+              onChange={(event) => {
+                this.diagnosisData.complaints = event.target.value;
+              }}
               required
             ></textarea>
             <br />
@@ -158,6 +229,9 @@ class Diagnosis extends React.Component {
               id="text"
               name="symptoms"
               rows="4"
+              onChange={(event) => {
+                this.diagnosisData.symptoms = event.target.value;
+              }}
               required
             ></textarea>
             <br />
@@ -166,7 +240,7 @@ class Diagnosis extends React.Component {
           <hr />
 
           {/* LIST OF TESTS */}
-          <div className="tests-list">
+          {this.currentPatient.type === "New" ? <div className="tests-list">
             <h4 className="category-label">
               List of Tests that need to be performed:
             </h4>
@@ -175,7 +249,9 @@ class Diagnosis extends React.Component {
             <div className="new-item">
               {this.state.tests.length === 0 ? null : (
                 <>
-                  <button className="new-item-button"
+                  <button
+                    type="button"
+                    className="new-item-button"
                     onClick={() => {
                       this.setState(prevState => ({
                         addNew: !prevState.addNew
@@ -186,12 +262,45 @@ class Diagnosis extends React.Component {
                 </button>
                   <br></br>
                   <button
+                    type="button"
                     className="submit-text-button"
-                    onClick={() => { console.log(this.state.tests) }}
+                    onClick={() => {
+
+                      // Check if unfilled diagnosis
+                      if (this.validate()) {
+                        return;
+                      }
+
+                      this.currentPatient.diagnosisData = this.diagnosisData;
+                      this.currentPatient.diagnosisData.tests = this.state.tests;
+
+                      // Add this patient to the firebase lab queue
+                      this.labQueueRef
+                        .doc(this.currentPatient.adhaarid)
+                        .set(this.currentPatient)
+                        .then((any) => {
+                          
+                          // Remove this patient from new patients
+                          this.receptionQueueRef
+                            .where("adhaarid", "==", this.currentPatient.adhaarid)
+                            .get()
+                            .then((patientDocs) => {
+                              console.log(patientDocs)
+                              patientDocs.forEach((eachDoc) => {
+                                eachDoc.ref.delete();
+                              })
+                            })
+                            .catch((err) => {
+                              console.log(err)
+                            })
+                        })
+
+
+                    }}
                   >Submit to Lab</button></>
               )}
             </div>
-          </div>
+          </div> : <h4 className="category-label">Tests Are DONE!</h4>}
 
           <hr />
 
@@ -205,6 +314,9 @@ class Diagnosis extends React.Component {
                   id="text"
                   name="complaints"
                   rows="4"
+                // onChange={(event)=> {
+                //   this.diagnosisData.diasnosis = event.target.value;
+                // }}
                 ></textarea>
                 <br />
               </div>
@@ -219,6 +331,9 @@ class Diagnosis extends React.Component {
                   id="text"
                   name="complaints"
                   rows="4"
+                // onChange={(event)=> {
+                //   this.diagnosisData.remarks = event.target.value;
+                // }}
                 ></textarea>
                 <br />
               </div>
