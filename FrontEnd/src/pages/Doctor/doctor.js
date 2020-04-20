@@ -175,6 +175,11 @@ class Doctor extends React.Component {
 
   } // Contructor ends here
 
+  testsOnSubmit = () => {
+    this.setState({
+      mainBody: <DoctorPageStart />
+    });
+  }
   drawerToggleClickHandler = () => {
     this.setState(prevState => {
       return { sideDrawerOpen: !prevState.sideDrawerOpen };
@@ -185,12 +190,19 @@ class Doctor extends React.Component {
     this.setState({ sideDrawerOpen: false });
   };
 
+  
+
+  diagnosisData = null
+  diagnosisChangeHandler = (diagnosisData) => {
+    this.diagnosisData = diagnosisData;
+  }
+
   getPatientHistory = () => {
     if (this.state.currentPatient == null) {
       alert("Select a Patient First!");
       return;
     }
-    if (this.state.currentPatient.Visits == null){
+    if (this.state.currentPatient.Visits == null) {
       alert("No History");
       return;
     }
@@ -213,7 +225,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          <DoctorDiagnosis currentPatient={this.state.currentPatient}></DoctorDiagnosis>
+          <DoctorDiagnosis currentPatient={this.state.currentPatient} onSubmitFun={this.testsOnSubmit} diagnosisChangeHandler={this.diagnosisChangeHandler} />
         </>
       )
     });
@@ -255,7 +267,7 @@ class Doctor extends React.Component {
     var queryInvestigated = this.daywiseRef.doc(today).collection("Investigated");
 
     // Update only once
-    if (!(this.isUpdated)){
+    if (!(this.isUpdated)) {
       queryReception.onSnapshot((querySnapshot) => {
         var tempList = [];
         querySnapshot.forEach((patientDoc) => {
@@ -306,6 +318,11 @@ class Doctor extends React.Component {
                 patientsList={this.state.receptionQueue}
                 oldPatientsList={this.state.investigatedQueue}
                 updatePatient={(patient, type) => {
+                    if ( this.diagnosisData !== null)
+                    if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
+                      alert("This Patient has unsaved changes");
+                      return;
+                    }
                   patient["type"] = type
                   this.setState({
                     mainBody: <ShowDetails patient={patient} />,
@@ -313,7 +330,7 @@ class Doctor extends React.Component {
                   }, () => {
                     console.log(this.state.currentPatient);
                   });
-                  
+
                 }}
               />
             </div>

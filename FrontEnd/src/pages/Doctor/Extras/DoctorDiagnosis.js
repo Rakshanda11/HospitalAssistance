@@ -2,7 +2,7 @@ import React from "react";
 import "./DoctorDiagnosis.css";
 // import SuggestedTextBox from "../Extras/suggestedTest";
 import firebase from "../../../firebase";
-
+import DoctorPageStart from "./StartDoctor";
 class Diagnosis extends React.Component {
   today = (new Date()).toDateString();
 
@@ -58,6 +58,17 @@ class Diagnosis extends React.Component {
       return true;
     }
     // return errors;
+  }
+
+  onChangeHandler = (event) => {
+    // Which type of text is this  
+    var name = event.target.name;
+    // The value entered bu the doctor for this text
+    var value = event.target.value;
+    this.diagnosisData[name] = value;
+
+    // Let the parent know the new updated details of the form
+    this.props.diagnosisChangeHandler(this.diagnosisData);
   }
 
   addTestToList = event => {
@@ -149,9 +160,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="mmHg"
-                  onChange={(event) => {
-                    this.diagnosisData.bloodPressure = event.target.value;
-                  }}
+                  name = "bloodPressure"
+                  onChange={this.onChangeHandler}
                   required
                 />
 
@@ -162,9 +172,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"\u2109"}
-                  onChange={(event) => {
-                    this.diagnosisData.temperature = event.target.value;
-                  }}
+                  name = "temperature"
+                  onChange={this.onChangeHandler}
                   required
                 />
               </div>
@@ -179,9 +188,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="per min"
-                  onChange={(event) => {
-                    this.diagnosisData.pulseRate = event.target.value;
-                  }}
+                  name = "pulseRate"
+                  onChange={this.onChangeHandler}
                   required
                 />
                 {/* <div className="spacer"></div> */}
@@ -191,9 +199,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"%"}
-                  onChange={(event) => {
-                    this.diagnosisData.spo2 = event.target.value;
-                  }}
+                  name = "spo2"
+                  onChange={this.onChangeHandler}
                   required
                 />
               </div>
@@ -211,9 +218,7 @@ class Diagnosis extends React.Component {
               id="text"
               name="complaints"
               rows="4"
-              onChange={(event) => {
-                this.diagnosisData.complaints = event.target.value;
-              }}
+              onChange={this.onChangeHandler}
               required
             ></textarea>
             <br />
@@ -229,9 +234,7 @@ class Diagnosis extends React.Component {
               id="text"
               name="symptoms"
               rows="4"
-              onChange={(event) => {
-                this.diagnosisData.symptoms = event.target.value;
-              }}
+              onChange={this.onChangeHandler}
               required
             ></textarea>
             <br />
@@ -288,6 +291,7 @@ class Diagnosis extends React.Component {
                               patientDocs.forEach((eachDoc) => {
                                 eachDoc.ref.delete();
                               })
+                              this.props.onSubmitFun();
                             })
                             .catch((err) => {
                               console.log(err)

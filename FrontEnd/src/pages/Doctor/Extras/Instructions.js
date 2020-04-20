@@ -11,6 +11,7 @@ class Instructions extends React.Component {
             type="New"
             patientsList={this.props.patientsList}
             updatePatient={this.props.updatePatient}
+            
           />
         </div>
         <br/>

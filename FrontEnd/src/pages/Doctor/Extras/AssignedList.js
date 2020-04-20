@@ -7,19 +7,23 @@ class AssignedPatients extends React.Component {
   state = {
     waiting: <Loading />
   }
+  isUpdated = false;
 
   render() {
-    // After 3 seconds, the loading gif will be replaced with the text
-    setTimeout(() => {
-      if (this.props.patientsList[0] === "EMPTY")
-        this.setState({
-          waiting: <h4 style={{ textAlign: "center" }}>No Patients Yet</h4>
-        })
-      else
-        this.setState({
-          waiting: <h4 style={{ textAlign: "center" }}>Failed to retrieve data!!!</h4>
-        })
-    }, 3000)
+    if (!this.isUpdated) {
+      // After 3 seconds, the loading gif will be replaced with the text
+      setTimeout(() => {
+        if (this.props.patientsList[0] === "EMPTY")
+          this.setState({
+            waiting: <h4 style={{ textAlign: "center" }}>No Patients Yet</h4>
+          })
+        else
+          this.setState({
+            waiting: <h4 style={{ textAlign: "center" }}>Failed to retrieve data!!!</h4>
+          })
+      }, 3000)
+      this.isUpdated = true;
+    }
 
     if (this.props.type === "Investigated")
       console.log(this.props.patientsList)
