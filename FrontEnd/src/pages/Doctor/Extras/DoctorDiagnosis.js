@@ -24,14 +24,7 @@ class Diagnosis extends React.Component {
   currentPatient = null;
 
   testName = "";
-  diagnosisData = {
-    bloodPressure: "",
-    temperature: "",
-    pulseRate: "",
-    spo2: "",
-    complaints: "",
-    symptoms: "",
-  }
+  diagnosisData = {}
 
   validate = () => {
     // let errors = {
@@ -85,7 +78,8 @@ class Diagnosis extends React.Component {
 
   render() {
     this.currentPatient = this.props.currentPatient;
-
+    console.log(this.props)
+    this.diagnosisData = this.props.diagnosisData;
     let listOfTests = (
       <ol className="ordered-list">
         {this.state.tests.map(individualTest => {
@@ -161,6 +155,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder="mmHg"
                   name = "bloodPressure"
+                  value={this.diagnosisData["bloodPressure"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -173,6 +168,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder={"\u2109"}
                   name = "temperature"
+                  value = {this.diagnosisData["temperature"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -189,6 +185,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder="per min"
                   name = "pulseRate"
+                  value = {this.diagnosisData["pulseRate"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -200,6 +197,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder={"%"}
                   name = "spo2"
+                  value = {this.diagnosisData["spo2"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -217,6 +215,7 @@ class Diagnosis extends React.Component {
               placeholder="What are patient's complaints?"
               id="text"
               name="complaints"
+              value = {this.diagnosisData["complaints"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -233,6 +232,7 @@ class Diagnosis extends React.Component {
               placeholder="Patient is showing these symptoms:"
               id="text"
               name="symptoms"
+              value = {this.diagnosisData["symptoms"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -315,7 +315,8 @@ class Diagnosis extends React.Component {
                   className="text-area"
                   placeholder="From the results and symptoms"
                   id="text"
-                  name="complaints"
+                  name="Diagnosis"
+                  value = {this.diagnosisData["Diagnosis"]}
                   rows="4"
                 // onChange={(event)=> {
                 //   this.diagnosisData.diasnosis = event.target.value;
@@ -332,11 +333,10 @@ class Diagnosis extends React.Component {
                   className="text-area"
                   placeholder="If any"
                   id="text"
-                  name="complaints"
+                  name="Remarks"
+                  value = {this.diagnosisData["Remarks"]}
                   rows="4"
-                // onChange={(event)=> {
-                //   this.diagnosisData.remarks = event.target.value;
-                // }}
+                onChange = {this.onChangeHandler}
                 ></textarea>
                 <br />
               </div>

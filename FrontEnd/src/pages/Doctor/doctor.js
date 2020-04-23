@@ -170,7 +170,8 @@ class Doctor extends React.Component {
       mainBody: <DoctorPageStart />,
       currentPatient: null,
       receptionQueue: [],
-      investigatedQueue: []
+      investigatedQueue: [],
+
     };
 
   } // Contructor ends here
@@ -190,16 +191,18 @@ class Doctor extends React.Component {
     this.setState({ sideDrawerOpen: false });
   };
 
-  
 
-  diagnosisData = null
+
+  diagnosisData = {}
   diagnosisChangeHandler = (diagnosisData) => {
+    console.log("Updated:")
+    console.log(diagnosisData)
     this.diagnosisData = diagnosisData;
   }
 
   prescriptionData = null
   tempPrescriptionData = null
-  prescriptionChangeHandler = (prescriptionData , tempPrescriptionData) =>  {
+  prescriptionChangeHandler = (prescriptionData, tempPrescriptionData) => {
     this.prescriptionData = prescriptionData;
     this.tempPrescriptionData = tempPrescriptionData;
   }
@@ -232,7 +235,11 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          <DoctorDiagnosis currentPatient={this.state.currentPatient} onSubmitFun={this.testsOnSubmit} diagnosisChangeHandler={this.diagnosisChangeHandler} />
+          <DoctorDiagnosis 
+            currentPatient={this.state.currentPatient} 
+            onSubmitFun={this.testsOnSubmit} 
+            diagnosisChangeHandler={this.diagnosisChangeHandler} 
+            diagnosisData={this.diagnosisData} />
         </>
       )
     });
@@ -247,7 +254,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           {/* <ShowDetails patient={this.state.currentPatient} /> */}
-          <Prescription patient={this.state.currentPatient} prescriptionChangeHandler = {this.prescriptionChangeHandler} />
+          <Prescription patient={this.state.currentPatient} prescriptionChangeHandler={this.prescriptionChangeHandler} />
         </>
       )
     });
@@ -322,19 +329,19 @@ class Doctor extends React.Component {
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
-                patientsList={this.state.receptionQueue}
-                oldPatientsList={this.state.investigatedQueue}
+                patientsList={this.newPatientsList}
+                oldPatientsList={this.investigatedPatientsList}
                 updatePatient={(patient, type) => {
-                    if ( this.diagnosisData !== null )
+                  if (this.diagnosisData !== {})
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
                       alert("This Patient has unsaved changes");
                       return;
                     }
 
-                    if(this.tempPrescriptionData !== null || this.prescriptionData !== null){
-                        alert("Prescription page has unsaved changes");
-                        return;
-                    }
+                  if (this.tempPrescriptionData !== null || this.prescriptionData !== null) {
+                    alert("Prescription page has unsaved changes");
+                    return;
+                  }
                   patient["type"] = type
                   this.setState({
                     mainBody: <ShowDetails patient={patient} />,
