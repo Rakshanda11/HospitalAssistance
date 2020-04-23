@@ -197,6 +197,13 @@ class Doctor extends React.Component {
     this.diagnosisData = diagnosisData;
   }
 
+  prescriptionData = null
+  tempPrescriptionData = null
+  prescriptionChangeHandler = (prescriptionData , tempPrescriptionData) =>  {
+    this.prescriptionData = prescriptionData;
+    this.tempPrescriptionData = tempPrescriptionData;
+  }
+
   getPatientHistory = () => {
     if (this.state.currentPatient == null) {
       alert("Select a Patient First!");
@@ -240,7 +247,7 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           {/* <ShowDetails patient={this.state.currentPatient} /> */}
-          <Prescription patient={this.state.currentPatient} />
+          <Prescription patient={this.state.currentPatient} prescriptionChangeHandler = {this.prescriptionChangeHandler} />
         </>
       )
     });
@@ -318,10 +325,15 @@ class Doctor extends React.Component {
                 patientsList={this.state.receptionQueue}
                 oldPatientsList={this.state.investigatedQueue}
                 updatePatient={(patient, type) => {
-                    if ( this.diagnosisData !== null)
+                    if ( this.diagnosisData !== null )
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
                       alert("This Patient has unsaved changes");
                       return;
+                    }
+
+                    if(this.tempPrescriptionData !== null || this.prescriptionData !== null){
+                        alert("Prescription page has unsaved changes");
+                        return;
                     }
                   patient["type"] = type
                   this.setState({

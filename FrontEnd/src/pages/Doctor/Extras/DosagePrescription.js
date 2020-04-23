@@ -22,8 +22,17 @@ class DosagePrescription extends React.Component {
     ]
   }
 
-  node = null;
 
+  tempPrescriptionList ={
+
+  }
+
+  node = null;
+  onChangeHandlerPrescription = (event) => {
+    var name = event.target.name;
+    this.tempPrescriptionList[name] = event.target.value;
+    this.props.prescriptionChangeHandler(this.tempPrescriptionList, this.listOfMedicines)
+  }
   handleClick = (event) => {
     if (this.node == null) return;
     if (this.node.contains(event.target)) return;
@@ -41,9 +50,9 @@ class DosagePrescription extends React.Component {
     document.removeEventListener('mousedown', this.handleClick, false);
   }
 
-  drugName = "";
-  dose = "";
-  duration = "";
+  // drugName = "";
+  // dose = "";
+  // duration = "";
 
   addMedicine = () => {
     this.setState(prevState => ({
@@ -56,16 +65,13 @@ class DosagePrescription extends React.Component {
   buttonElement = (
     <button className="text-success" onClick={() => {
       if (this.state.showInput) {
-        if (this.drugName.length > 0 && this.dose.length > 0 && this.duration.length > 0) {
+        if (this.tempPrescriptionList.name.length > 0 && this.tempPrescriptionList.dose.length > 0 && this.tempPrescriptionList.duration.length > 0) {
           console.log(this.state.listOfMedicines)
           this.setState(prevState => ({
-            listOfMedicines: [...prevState.listOfMedicines, {
-              name: this.drugName,
-              dose: this.dose,
-              duration: this.duration
-            }]
+            listOfMedicines: [...prevState.listOfMedicines, {...this.tempPrescriptionList}]
           }), () => {
-            console.log(this.state.listOfMedicines)
+            console.log('list');
+            console.log([...this.state.listOfMedicines]);
           })
         } else {
           alert("Enter complete dose information!")
@@ -83,9 +89,9 @@ class DosagePrescription extends React.Component {
 
   inputelement = (
     <tr ref={node => this.node = node}>
-      <td className="pt-3-half"><input type="text" onChange={(event) => { this.drugName = event.target.value }} placeholder="Drug Name"></input></td>
-      <td className="pt-3-half"><input type="text" onChange={(event) => { this.dose = event.target.value }} placeholder="Dose"></input></td>
-      <td className="pt-3-half"><input type="text" onChange={(event) => { this.duration = event.target.value }} placeholder="Duration"></input></td>
+      <td className="pt-3-half"><input type="text" name = "name" onChange={this.onChangeHandlerPrescription}  placeholder="Drug Name"></input></td>
+      <td className="pt-3-half"><input type="text" name = "dose" onChange={this.onChangeHandlerPrescription}  placeholder="Dose"></input></td>
+      <td className="pt-3-half"><input type="text" name = "duration" onChange={this.onChangeHandlerPrescription} placeholder="Duration"></input></td>
       <td>
         <span className="table-remove">
           {this.buttonElement}
