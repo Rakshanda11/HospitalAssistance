@@ -24,7 +24,7 @@ class Prescription extends React.Component {
           <ShowDetails patient={this.props.patient} />
           <hr className="hr-style" />
           <img src={RXImg} alt="RxImage" className="image-align" />
-          <DosagePrescription prescriptionChangeHandler ={this.props.prescriptionChangeHandler}/>
+          <DosagePrescription prescriptionChangeHandler ={this.props.prescriptionChangeHandler} prescriptionData = {this.props.prescriptionData}/>
           
         </div>
       </div>

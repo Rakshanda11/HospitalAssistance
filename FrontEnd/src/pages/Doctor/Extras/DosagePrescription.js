@@ -5,6 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
 class DosagePrescription extends React.Component {
+  isUpdated = false;
+
   state = {
     showIcons: null,
     showInput: false,
@@ -23,15 +25,13 @@ class DosagePrescription extends React.Component {
   }
 
 
-  tempPrescriptionList ={
-
-  }
+  tempPrescriptionList ={}
 
   node = null;
   onChangeHandlerPrescription = (event) => {
     var name = event.target.name;
     this.tempPrescriptionList[name] = event.target.value;
-    this.props.prescriptionChangeHandler(this.tempPrescriptionList, this.listOfMedicines)
+    this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
   }
   handleClick = (event) => {
     if (this.node == null) return;
@@ -70,8 +70,9 @@ class DosagePrescription extends React.Component {
           this.setState(prevState => ({
             listOfMedicines: [...prevState.listOfMedicines, {...this.tempPrescriptionList}]
           }), () => {
-            console.log('list');
-            console.log([...this.state.listOfMedicines]);
+            // console.log('list');
+            // console.log([...this.state.listOfMedicines]);
+            this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
           })
         } else {
           alert("Enter complete dose information!")
@@ -103,6 +104,15 @@ class DosagePrescription extends React.Component {
 
 
   render() {
+    console.log("Props")
+    console.log(this.props)
+    if ( !this.isUpdated ){
+      this.setState({
+        listOfMedicines : this.props.prescriptionData
+      })
+      this.isUpdated = true
+    }
+    // this.listOfMedicines = this.props.prescriptionData;
     return (
       <div>
         <div className="card card-color">
