@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import Admin from './pages/Admin/admin';
 import AuthPage from "./pages/Auth/auth";
 import Reception from "./pages/Reception/reception";
 import Doctor from "./pages/Doctor/doctor";
@@ -14,9 +16,12 @@ import Test from './test';
 import TestApp from "./pages/firebasePage";
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
+      redirect: null,
+      currentUser: null,
       sideDrawerOpen: false
     };
   }
@@ -30,6 +35,23 @@ class App extends Component {
   // backDropClickHandler = () => {
   //   this.setState({ sideDrawerOpen: false });
   // };
+
+  updateUser = (newUser) => {
+    if (newUser) {
+      console.log("EMAIL:")
+      console.log(newUser.email);
+      this.setState({
+        currentUser: newUser
+      });
+    }
+
+
+    else {
+      this.setState({
+        currentUser: null
+      });
+    }
+  }
 
   render() {
     // let backDrop;
@@ -46,12 +68,25 @@ class App extends Component {
           <main className="main_content">
             <Switch>
               <Redirect from="/" to="/auth" exact strict></Redirect>
-              <Route path="/auth" component={() => <AuthPage></AuthPage>} />
+              <Route
+                path="/auth"
+                component={() => <AuthPage
+                  currentUser={this.state.currentUser}
+                  updateUser={this.updateUser}
+                >
+                </AuthPage>} />
               <Route
                 path="/reception"
                 component={() => <Reception></Reception>}
               />
-              <Route path="/doctor" component={() => <Doctor></Doctor>} />
+              <Route
+                path="/doctor"
+                component={() => <Doctor
+                  currentUser={this.state.currentUser}
+                  updateUser={this.updateUser}
+                >
+                </Doctor>} />
+              <Route path="/admin" component={() => <Admin></Admin>} />
               <Route path="/lab" component={() => <Lab></Lab>} />
               <Route path="/firebase" component={() => <TestApp></TestApp>}></Route>
               <Route path="/test" component={() => <Test></Test>}></Route>
@@ -59,6 +94,7 @@ class App extends Component {
           </main>
         </React.Fragment>
       </BrowserRouter>
+
     );
   }
 }

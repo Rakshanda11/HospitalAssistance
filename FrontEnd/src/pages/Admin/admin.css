@@ -1,0 +1,6 @@
+.form-heading {
+    display: flex
+}
+.form-heading h1{
+    margin: 0 auto;
+}
