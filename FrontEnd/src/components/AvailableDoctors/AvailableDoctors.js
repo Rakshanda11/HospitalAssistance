@@ -5,26 +5,11 @@ import "./AvailableDoctors.css";
 import firebase from '../../firebase';
 
 class AvailableDoctors extends React.Component {
-<<<<<<< Updated upstream
     state = {
         Doctors: {
             "Doctor A": 12,
             "Doctor B" :16
         }
-=======
-    constructor(props) {
-        super(props);
-        this.Doctors = [{
-            Name: "Doctor A",
-            Assigned_Patient: "50"
-        },
-        {
-            Name: "Doctor B",
-            Assigned_Patient: "40"
-        }
-        ];
-
->>>>>>> Stashed changes
     }
     
     isUpdated = false;
@@ -85,20 +70,20 @@ class AvailableDoctors extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.Doctors.map(record => (
-                                    <tr
-                                        key={record.Name}
+                                {Object.keys(this.state.Doctors).map((name, index) => {
+                                    return (<tr
+                                        key={name}
                                         onClick={() => {
-                                            console.log(record.Name);
+                                            console.log(name);
                                         }}
                                     >
-                                        <td style={{ textAlign: "center" }}>{record.Name}</td>
+                                        <td style={{ textAlign: "center" }}>{name}</td>
 
                                         <td style={{ textAlign: "center" }}>
-                                            {record.Assigned_Patient}
+                                            {this.state.Doctors[name]}
                                         </td>
-                                    </tr>
-                                ))}
+                                    </tr>);
+                                })}
                             </tbody>
                         </Table>
                     </FreeScrollbar>
