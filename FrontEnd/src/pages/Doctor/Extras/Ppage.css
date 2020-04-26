@@ -1,0 +1,67 @@
+.ppCard
+{
+    background-color: ivory;
+    /* background-color:rgba(102,205,170,0.5); */
+    /* rgba(102,205,170,0.5); */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.container1{
+    margin-bottom: 40px;
+    align-self: center;
+}
+.row1{
+    /* padding-left: 20px; */
+    margin-left: 20px;
+    display: flex;
+    flex:1;
+}
+
+hr.hr1{
+    border-top: 1px solid  black;
+    margin-top: 10px;
+   
+}
+.wid{
+    width: 200px;
+    padding-right: 50px;
+}
+hr.hrr1{
+    /* border-color:rgba(102,205,170,1); */
+    border-color: ivory;
+}
+p.basic{
+    font-weight: bold;
+}
+p.ttl{
+    margin-bottom: 10px;
+    margin-top: 8px;
+    font-weight: bold;
+}
+.sym{
+    margin-top: -0.1%;
+    font-size: large;
+}
+.digno{
+    padding: 3%;
+}
+.ekPu{
+    padding: 3%; 
+}
+
+.ekPd{
+    padding: 3%; 
+}
+.symp{
+ 
+}
+.dia{
+    
+    margin-top: -0.10%;
+    font-size: large;  
+    
+}
+.align-basic{
+    padding-left: 10%;
+    padding-right: 10%;
+}

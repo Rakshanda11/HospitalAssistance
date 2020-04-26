@@ -30,8 +30,8 @@ class AssignedPatients extends React.Component {
 
     return (
       <Card className="border-secondary ">
-        <div className="scroll-bar" >
-          <FreeScrollBar>
+        <div className="table-wrapper-scroll-y my-custom-scrollbar" >
+         
             {(this.props.patientsList.length && this.props.patientsList[0] !== "EMPTY") ? (
               <Table bordered hover striped className="changestyling">
                 <thead>
@@ -66,7 +66,7 @@ class AssignedPatients extends React.Component {
             ) : (
                 this.state.waiting
               )}
-          </FreeScrollBar>
+          
         </div>
       </Card>
     );

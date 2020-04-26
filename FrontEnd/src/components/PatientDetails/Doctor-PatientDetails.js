@@ -15,7 +15,7 @@ class Doctor_PatientDetails extends React.Component {
         </div>
         <div className="styling-details row2">
           <p className="highlighter aligndetails number">Contact No: </p>
-          <p className="attribute-styling number"> {" " + this.props.patient.mob}</p>
+          <p className="attribute-styling number"> {" " + this.props.patient.phoneNo}</p>
           <div className="spacer"></div>
           <p className= "alignDetails highlighter age">Age: </p>
           <p className="attribute-styling age"> {" " + this.props.patient.age}</p>

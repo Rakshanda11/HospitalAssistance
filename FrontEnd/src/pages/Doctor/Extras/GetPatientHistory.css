@@ -1,3 +1,19 @@
+/* .insertspace{
+    /* margin-left: 20px; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.Decoratelist{
+    font-size: 20px;
+    margin-left: 100px;
+    color:purple;
+}
+.list-group-item:hover{
+    background-color:rosybrown;
+} */
+
+
 .insertspace{
     /* margin-left: 20px; */
     display: flex;
