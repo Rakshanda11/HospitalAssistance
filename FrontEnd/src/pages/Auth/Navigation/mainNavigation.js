@@ -12,13 +12,6 @@ class mainNavigation extends React.Component{
             <h1>CarePlus</h1>
           </div>
           <div className="spacer"></div>
-          <div className="main-navigation__div">
-            <ul>
-              <li>
-                <NavLink to="/auth">Authentication</NavLink>
-              </li>
-            </ul>
-          </div>
         </nav>
       </header>
     );
