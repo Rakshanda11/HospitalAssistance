@@ -116,7 +116,8 @@ class Diagnosis extends React.Component {
               tests: tempList,
               addNew: false
             });
-
+            this.diagnosisData["tests"] = this.state.tests;
+            
             this.testName = "";
           }}
         >
