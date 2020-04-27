@@ -155,7 +155,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder="mmHg"
                   name = "bloodPressure"
-                  value={this.diagnosisData["bloodPressure"]}
+                  defaultValue={this.diagnosisData["bloodPressure"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -168,7 +168,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder={"\u2109"}
                   name = "temperature"
-                  value = {this.diagnosisData["temperature"]}
+                  defaultvalue = {this.diagnosisData["temperature"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -185,7 +185,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder="per min"
                   name = "pulseRate"
-                  value = {this.diagnosisData["pulseRate"]}
+                  defaultValue = {this.diagnosisData["pulseRate"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -197,7 +197,7 @@ class Diagnosis extends React.Component {
                   className="input-small"
                   placeholder={"%"}
                   name = "spo2"
-                  value = {this.diagnosisData["spo2"]}
+                  defaultValue = {this.diagnosisData["spo2"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -215,7 +215,7 @@ class Diagnosis extends React.Component {
               placeholder="What are patient's complaints?"
               id="text"
               name="complaints"
-              value = {this.diagnosisData["complaints"]}
+              defaultValue = {this.diagnosisData["complaints"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -232,7 +232,7 @@ class Diagnosis extends React.Component {
               placeholder="Patient is showing these symptoms:"
               id="text"
               name="symptoms"
-              value = {this.diagnosisData["symptoms"]}
+              defaultValue = {this.diagnosisData["symptoms"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -255,6 +255,8 @@ class Diagnosis extends React.Component {
                   <button
                     type="button"
                     className="new-item-button"
+                    
+                    onChange = {this.onChangeHandler}
                     onClick={() => {
                       this.setState(prevState => ({
                         addNew: !prevState.addNew
@@ -268,7 +270,7 @@ class Diagnosis extends React.Component {
                     type="button"
                     className="submit-text-button"
                     onClick={() => {
-
+                      
                       // Check if unfilled diagnosis
                       if (this.validate()) {
                         return;
@@ -303,7 +305,8 @@ class Diagnosis extends React.Component {
                   >Submit to Lab</button></>
               )}
             </div>
-          </div> : <h4 className="category-label">Tests Are DONE!</h4>}
+          </div> :
+           <h4 className="category-label">Tests Are DONE!</h4>}
 
           <hr />
 
@@ -316,7 +319,7 @@ class Diagnosis extends React.Component {
                   placeholder="From the results and symptoms"
                   id="text"
                   name="Diagnosis"
-                  value = {this.diagnosisData["Diagnosis"]}
+                  defaultValue = {this.diagnosisData["Diagnosis"]}
                   rows="4"
                 // onChange={(event)=> {
                 //   this.diagnosisData.diasnosis = event.target.value;
@@ -334,7 +337,7 @@ class Diagnosis extends React.Component {
                   placeholder="If any"
                   id="text"
                   name="Remarks"
-                  value = {this.diagnosisData["Remarks"]}
+                  defaultValue = {this.diagnosisData["Remarks"]}
                   rows="4"
                 onChange = {this.onChangeHandler}
                 ></textarea>

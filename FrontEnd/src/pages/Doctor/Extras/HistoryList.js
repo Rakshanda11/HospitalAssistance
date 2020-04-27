@@ -7,7 +7,6 @@ import "./HistoryList.css";
 class HistoryList extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
 
@@ -44,12 +43,12 @@ class HistoryList extends React.Component {
                                         <tr
                                             key={item.PatientId}
                                             onClick={() => {
-                                               this.props.getDateHistory(item.Date);
+                                                this.props.getDateHistory(item.Date);
                                                 // this.props.getCurrentP(item);
                                             }}
                                         >
-                                           
-                                            <td style={{ textAlign: "center" , width:"25%" }}>{item.Date}</td>
+
+                                            <td style={{ textAlign: "center", width: "25%" }}>{item.Date}</td>
                                             <td style={{ textAlign: "center" }}>
                                                 {item.Diagnosis}
                                             </td>
