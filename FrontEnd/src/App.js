@@ -8,6 +8,7 @@ import AuthPage from "./pages/Auth/auth";
 import Reception from "./pages/Reception/reception";
 import Doctor from "./pages/Doctor/doctor";
 import Lab from "./pages/Lab/Lab";
+import ReportPage from "./pages/UnusualReports/reports";
 // import MainNavigation from "./components/Navigation/mainNavigation";
 // import SideDrawer from "./components/SideDrawer/SideDrawer";
 // import Backdrop from "./components/Backdrop/Backdrop";
@@ -104,7 +105,10 @@ class App extends Component {
                 </AuthPage>} />
               <Route
                 path="/reception"
-                component={() => <Reception></Reception>}
+                component={() => <Reception
+                  currentUser={this.state.currentUser}
+                  updateUser={this.updateUser}
+                ></Reception>}
               />
               <Route
                 path="/doctor"
@@ -121,6 +125,9 @@ class App extends Component {
                   updateUser={this.updateUser}
                 >
                 </Lab>} />
+                <Route
+                path="/reports"
+                component={() => <ReportPage></ReportPage>} />
             </Switch>
           </main>
         </React.Fragment>

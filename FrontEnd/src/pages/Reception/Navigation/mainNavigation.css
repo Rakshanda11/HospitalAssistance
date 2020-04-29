@@ -7,6 +7,21 @@
   display: flex;
   align-items: center;
 }
+
+.dropdown,
+.dropdown a,
+.dropdown span {
+  transition: 2s;
+}
+
+.dropdown:hover span{
+  display: none;
+}
+
+.dropdown:hover a:before{
+  content: "Log Out!"
+}
+
 .main-navigation__logo h1 {
   margin: 10px;
   color: rosybrown;

@@ -42,6 +42,9 @@ class AuthPage extends React.Component {
           else if (userData.type === "Lab Attendent") {
             this.props.history.push("/lab")
           }
+          else if (userData.type === "Receptionist"){
+            this.props.history.push("/reception")
+          }
           else {
             console.log(userData)
           }
@@ -125,6 +128,7 @@ class AuthPage extends React.Component {
                 <label htmlFor="exampleInputEmail1">Email</label>
                 <input
                   type="email"
+                  placeholder="Enter Email"
                   className="form-control"
                   id="email"
                   ref={this.emailElementRef}
@@ -134,6 +138,7 @@ class AuthPage extends React.Component {
                 <label htmlFor="exampleInputPassword1">Password</label>
                 <input
                   type="password"
+                  placeholder="Enter Password"
                   id="password"
                   className="form-control"
                   ref={this.passwordElementRef}

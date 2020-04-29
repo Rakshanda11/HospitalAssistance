@@ -17,6 +17,8 @@ class Diagnosis extends React.Component {
     .collection("Everyday-Patients")
     .doc(this.today)
     .collection("Reception")
+  unUsualRef = this.databaseRef
+    .collection("Unusual Reports")
 
   state = {
     addNew: true,
@@ -386,16 +388,28 @@ class Diagnosis extends React.Component {
                   return (
                     <li
                       key={individualTest.test}
-                      onClick={() => {
-                        console.log(individualTest);
-                      }}
                     >
                       <div className="test-item">
                         <span>{individualTest.test}</span>
                         <div className="spacer"></div>
-                        <button onClick={() => {
+                        <button 
+                          style={{marginRight: "1rem"}}
+                          onClick={() => {
                           window.open(individualTest.url, "_blank")
                         }}>View Report</button>
+                        <button 
+                        type="button"
+                          onClick={() => {
+                          console.log("Unusual")
+                          this.unUsualRef.add({
+                            testName: individualTest.test,
+                            reportURL: individualTest.url
+                          })
+                          .then(() => {
+                            alert("Report submitted successfully")
+                          })
+                          .catch((error) => {console.log(error)})
+                        }}>Unusual Report?</button>
                       </div>
                       {/* <span>{individualTest.test}</span> */}
                     </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Lab.css";
+import { withRouter } from 'react-router-dom';
 
 import ShowDetails from "../../components/PatientDetails/Lab-PatientsDetails";
 import Instruction from "../../components/LabModule/LabInstructions";
@@ -9,6 +9,8 @@ import SideDrawer from "./SideDrawer/SideDrawer";
 import StartLab from "../../components/LabModule/StartLab";
 
 import firebase from "./../../firebase";
+
+import "./Lab.css";
 
 class Lab extends React.Component {
   today = (new Date()).toDateString();
@@ -143,7 +145,11 @@ class Lab extends React.Component {
     this.setState({
       showDetails: true
     });
-    this.tempShowDetails = <ShowDetails detail={item} />;
+    this.tempShowDetails = <ShowDetails detail={item} patientDone={() => {
+      this.setState({
+        mainBody: <StartLab></StartLab>
+      })
+    }} />;
   };
   drawerToggleClickHandler = () => {
     this.setState(prevState => {
@@ -155,6 +161,13 @@ class Lab extends React.Component {
     this.setState({ sideDrawerOpen: false });
   };
   render() {
+
+    if (this.props.currentUser === null
+      || this.props.currentUser === "Doctor") {
+      this.props.history.push("/auth")
+      return (<div></div>);
+    }
+
     let backDrop;
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
@@ -184,6 +197,7 @@ class Lab extends React.Component {
           diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
+          name={this.props.currentUser.name}
         ></LabNavigation>
         <SideDrawer
           drawerClickHandler={this.props.drawerToggleClickHandler}
@@ -197,18 +211,6 @@ class Lab extends React.Component {
 
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
-              {/* <ListGroup className="for_padding" defaultActiveKey="">
-                            {this.patientsList.map(function (d, idx) {
-                                return (
-                                    <ListGroupItem variant="primary" key={idx} 
-                                    onClick ={ ()=>{
-                                        this.handleClickArg(d);
-                                    }}
-
-                                    >{d.name}</ListGroupItem>
-                                )
-                            }.bind(this))};
-                        </ListGroup> */}
               <div className="patient_list" >
                 <Instruction
                   patientsList={this.state.labQueue}
@@ -226,26 +228,11 @@ class Lab extends React.Component {
               </div>
             </div>
           </div>
-          {/* <div className="seperator"></div> */}
           <div className=" border backgroundstyle">{this.state.mainBody}</div>
-          {/* {this.state.showDetails ? this.tempShowDetails : null}
-            <p className="changeFonts">Lab Report:</p>
-            <br />
-            <input type="file" />
-            <div>
-              <br />
-              <SuggestedTextBox message="Any Remarks?" />
-              <button type="button" className="btn btn-dark">
-                Submit
-              </button>
-            </div> */}
-          {/* <div className="col-sm-4 image">
-            <img src={LabImg} className="rounded-circle" alt="Lab_img" />
-          </div> */}
         </div>
 
       </>
     );
   }
 }
-export default Lab;
+export default withRouter(Lab);

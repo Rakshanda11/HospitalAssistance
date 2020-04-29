@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./mainNavigation.css";
 import DrawerToggleButton from "../SideDrawer/DrawerToggleButton";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+
 class mainNavigation extends React.Component {
   render() {
     // console.log(this.props)
@@ -20,10 +22,11 @@ class mainNavigation extends React.Component {
           <div className="main-navigation__div">
             <ul>
               
-              <li>
-                <button type="button" className="btn">
-                  <NavLink to="/auth">Log Out</NavLink>
-                </button>
+              <li className="dropdown">
+                <NavLink 
+                    className="btn btn-logout" 
+                    to="/auth"
+                  ><span>{<AccountBoxIcon/>} {this.props.name}</span></NavLink>
               </li>
             </ul>
           </div>

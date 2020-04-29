@@ -8,6 +8,7 @@ import AvailableDoctors from "../../components/AvailableDoctors/AvailableDoctors
 import ReceptionNavigation from "./Navigation/mainNavigation";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import SideDrawer from "./SideDrawer/SideDrawer";
+import { withRouter } from 'react-router-dom';
 
 import firebase from '../../firebase';
 
@@ -105,6 +106,13 @@ class Receptionpage extends Component {
   };
 
   render() {
+    if (this.props.currentUser === null
+      || this.props.currentUser === "Doctor") {
+      this.props.history.push("/auth")
+      return (<div></div>);
+    }
+
+
     let backDrop;
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
@@ -155,4 +163,4 @@ class Receptionpage extends Component {
   }
 }
 
-export default Receptionpage;
+export default withRouter(Receptionpage);
