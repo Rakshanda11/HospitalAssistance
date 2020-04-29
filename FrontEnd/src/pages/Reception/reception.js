@@ -95,6 +95,7 @@ class Receptionpage extends Component {
   };
 
   switchModeHandler = () => {
+    console.log(this.state.doctors)
     this.setState(prevState => {
       return { newpatient: !prevState.newpatient };
     });
@@ -107,7 +108,7 @@ class Receptionpage extends Component {
 
   render() {
     if (this.props.currentUser === null
-      || this.props.currentUser === "Doctor") {
+      || this.props.currentUser.type !== "Receptionist") {
       this.props.history.push("/auth")
       return (<div></div>);
     }
@@ -118,7 +119,6 @@ class Receptionpage extends Component {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
 
     }
-
     return (
       <div className="Container">
         <ReceptionNavigation
@@ -140,9 +140,10 @@ class Receptionpage extends Component {
 
             <div className="col-sm-6 ">
 
-              {(!this.state.newpatient)
-                ? <ExistingPatient />
-                : <Patiententry updateFunction={this.updateList} doctors={this.state.doctors} />}
+              {!this.state.newpatient
+                ? <ExistingPatient doctors={this.state.doctors} updateFunction={this.updateList}/>
+                : <Patiententry updateFunction={this.updateList} 
+                doctors={this.state.doctors} />}
 
               <button onClick={this.switchModeHandler} className="buttonexisting">
                 {this.state.newpatient ? "Existing Patient" : "New Patient"}

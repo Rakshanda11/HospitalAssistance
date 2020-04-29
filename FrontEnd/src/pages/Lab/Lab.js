@@ -163,7 +163,7 @@ class Lab extends React.Component {
   render() {
 
     if (this.props.currentUser === null
-      || this.props.currentUser === "Doctor") {
+      || this.props.currentUser.type !== "Lab Attendent") {
       this.props.history.push("/auth")
       return (<div></div>);
     }

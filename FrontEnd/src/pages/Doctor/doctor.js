@@ -17,6 +17,7 @@ import firebase from './../../firebase';
 class Doctor extends React.Component {
   databaseRef = firebase.firestore();
   daywiseRef = this.databaseRef.collection("Everyday-Patients");
+  patientRef = this.databaseRef.collection("Patients");
   auth = firebase.auth();
 
   constructor(props) {
@@ -215,18 +216,28 @@ class Doctor extends React.Component {
       alert("Select a Patient First!");
       return;
     }
-    if (this.state.currentPatient.Visits == null) {
-      alert("No History");
-      return;
-    }
-    this.setState({
-      mainBody: (
-        <>
-          <ShowDetails patient={this.state.currentPatient} />
-          <GetPatientHistory patient={this.state.currentPatient} />
-        </>
-      )
-    });
+    var visits = {}
+    this.patientRef
+      .doc(this.state.currentPatient.adhaarid)
+      .collection("Visits")
+      .get()
+      .then((visitsDocs) => {
+        visitsDocs.forEach((visit) => {
+          visits[visit.id] = visit.data()
+        })
+        console.log(visits)
+        if (Object.keys(visits).length)
+          this.setState({
+            mainBody: (
+              <>
+                <ShowDetails patient={this.state.currentPatient} />
+                <GetPatientHistory patient={this.state.currentPatient} visits={visits} />
+              </>
+            )
+          });
+      })
+      .catch(error => { console.log(error) })
+
   };
 
   diagnosis = () => {
@@ -274,8 +285,10 @@ class Doctor extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+    console.log(this.props.currentUser !== "Doctor")
     if (this.props.currentUser === null
-      || this.props.currentUser === "Doctor") {
+      || this.props.currentUser.type !== "Doctor") {
       this.props.history.push("/auth")
       return (<div></div>);
     }
@@ -352,7 +365,7 @@ class Doctor extends React.Component {
                 updatePatient={(patient, type) => {
                   // console.log("DIAGNOSTIC DATA")
                   // console.log(this.diagnosisData)
-                  if (Object.keys(this.diagnosisData).length){
+                  if (Object.keys(this.diagnosisData).length) {
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
                       alert("This Patient has unsaved changes");
                       return;
@@ -365,9 +378,9 @@ class Doctor extends React.Component {
                       return;
                     }
                   }
-                  
+
                   patient["type"] = type
-                  if (type == "Investigated"){
+                  if (type == "Investigated") {
                     this.diagnosisData = patient.diagnosisData
                     console.log(patient)
                   }

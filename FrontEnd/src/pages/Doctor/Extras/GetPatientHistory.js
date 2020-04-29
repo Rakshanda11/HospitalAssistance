@@ -2,33 +2,41 @@ import React from 'react';
 import './GetPatientHistory.css';
 import HistoryList from './HistoryList';
 import Ppage from './Ppage';
+import { Card } from 'reactstrap';
 class GetPatientHistory extends React.Component {
-    date = null;
-    getDateHistory = (date) => {
-        this.date = date;
+    // date = null;
+    state = {
+        entry: null
+    }
+    getDateHistory = (date, diagnosisData) => {
+        var obj = {
+            "date": date,
+            "diagnosisData": diagnosisData
+        }
+        this.setState({
+            entry: obj
+        })
     }
     render() {
         console.log("Visits:")
-        console.log(this.props.patient.Visits)
+        console.log(this.props.visits)
         return (
             <>
-                <card>
+                <Card>
                     {
-                        <HistoryList historyList={this.props.patient.Visits} getDateHistory = {this.getDateHistory}/>
+                        <HistoryList 
+                            historyList={this.props.visits} 
+                            getDateHistory = {this.getDateHistory}/>
          
                     }
                     <hr className="hrhis"></hr>
                    {
-                       this.props.patient?<Ppage current_p={this.props.patient} date = {this.date}/>:null
+                       this.state.entry?<Ppage 
+                        current_p={this.props.patient} entry={this.state.entry}/>:null
                    }
                    
-                </card>
+                </Card>
 
-                {/* <div className="list-group">
-                    {this.item = this.props.patient.Visits.map((item) =>
-                        <li key={item.Date} onClick={this.getDateHistory} className="list-group-item">{item.Date}</li>
-                    )}
-                </div> */}
 
 
             </>

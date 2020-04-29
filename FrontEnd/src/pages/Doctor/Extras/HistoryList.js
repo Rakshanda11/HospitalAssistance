@@ -18,39 +18,31 @@ class HistoryList extends React.Component {
             <Card className="border-secondary ">
                 <div className="scroll-bar" >
                     <FreeScrollBar>
-                        {this.props.historyList.length ? (
+                        {Object.keys(this.props.historyList).length ? (
                             <Table bordered hover striped className="changestyling1">
                                 <thead>
                                     <tr>
-                                        <th
-                                            style={{
-                                                textAlign: "center"
-                                            }}
-                                        >
+                                        <th style={{textAlign: "center"}}>
                                             Date
-                        </th>
-                                        <th
-                                            style={{
-                                                textAlign: "center"
-                                            }}
-                                        >
+                                        </th>
+                                        <th style={{textAlign: "center"}}>
                                             Summary
-                        </th>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.props.historyList.map(item => (
+                                    {Object.keys(this.props.historyList).map(date => (
                                         <tr
-                                            key={item.PatientId}
+                                            key={date}
                                             onClick={() => {
-                                                this.props.getDateHistory(item.Date);
+                                                this.props.getDateHistory(date, this.props.historyList[date]);
                                                 // this.props.getCurrentP(item);
                                             }}
                                         >
 
-                                            <td style={{ textAlign: "center", width: "25%" }}>{item.Date}</td>
+                                            <td style={{ textAlign: "center", width: "25%" }}>{date}</td>
                                             <td style={{ textAlign: "center" }}>
-                                                {item.Diagnosis}
+                                                {this.props.historyList[date]["Diagnosis"]}
                                             </td>
                                         </tr>
                                     ))}

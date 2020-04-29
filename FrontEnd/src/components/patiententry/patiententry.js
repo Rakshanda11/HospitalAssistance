@@ -35,6 +35,12 @@ class Patiententry extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      doctors: Object.keys(this.props.doctors)
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.doctors !== this.props.doctors) {
       this.setState({
