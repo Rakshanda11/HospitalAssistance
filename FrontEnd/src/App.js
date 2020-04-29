@@ -63,7 +63,6 @@ class App extends Component {
 
   }
 
-
   updateUser = (newUser) => {
     if (newUser) {
       this.setState({
@@ -82,17 +81,9 @@ class App extends Component {
   }
 
   render() {
-    // let backDrop;
-
-    // if (this.state.sideDrawerOpen) {
-    //   backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
-    // }
     return (
       <BrowserRouter>
         <React.Fragment>
-          {/* {this.state.navBar} */}
-          {/* <SideDrawer show={this.state.sideDrawerOpen}></SideDrawer> */}
-          {/* {backDrop} */}
           <main className="main_content">
             <Switch>
               <Redirect from="/" to="/auth" exact strict></Redirect>

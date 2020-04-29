@@ -4,28 +4,24 @@ import './DosagePrescription.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
+import firebase from '../../../firebase';
+
 class DosagePrescription extends React.Component {
+  today = (new Date()).toDateString();
+  daywiseRef = firebase.firestore()
+      .collection("Everyday-Patients")
+      .doc(this.today);
+
   isUpdated = false;
 
   state = {
     showIcons: null,
     showInput: false,
-    listOfMedicines: [
-      {
-        name: "A",
-        dose: "3 times a day",
-        duration: "2 days"
-      },
-      {
-        name: "B",
-        dose: "2 times a day",
-        duration: "4 days"
-      }
-    ]
+    listOfMedicines: []
   }
 
 
-  tempPrescriptionList ={}
+  tempPrescriptionList = {}
 
   node = null;
   onChangeHandlerPrescription = (event) => {
@@ -54,30 +50,30 @@ class DosagePrescription extends React.Component {
   // dose = "";
   // duration = "";
 
-  addMedicine = () => {
-    this.setState(prevState => ({
-      listOfMedicines: prevState.listOfMedicines.push(this.inputelement)
-    }))
-
-  }
-
-
   buttonElement = (
     <button className="text-success" onClick={() => {
       if (this.state.showInput) {
-        if (this.tempPrescriptionList.name.length > 0 && this.tempPrescriptionList.dose.length > 0 && this.tempPrescriptionList.duration.length > 0) {
-          console.log(this.state.listOfMedicines)
-          this.setState(prevState => ({
-            listOfMedicines: [...prevState.listOfMedicines, {...this.tempPrescriptionList}]
-          }), () => {
-            // console.log('list');
-            // console.log([...this.state.listOfMedicines]);
-            this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
-          })
-        } else {
-          alert("Enter complete dose information!")
-        }
+        if (Object.keys(this.tempPrescriptionList).length) {
+          if (this.tempPrescriptionList.name
+            && this.tempPrescriptionList.dose
+            && this.tempPrescriptionList.duration) {
+            // console.log(this.state.listOfMedicines)
+            this.setState(prevState => ({
+              listOfMedicines: [...prevState.listOfMedicines, { ...this.tempPrescriptionList }]
+            }), () => {
+              console.log(this.state.listOfMedicines)
+              this.tempPrescriptionList = {}
+              // console.log('list');
+              // console.log([...this.state.listOfMedicines]);
+              this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
+            })
+          }
 
+          else {
+            alert("Enter complete dose information!")
+            this.tempPrescriptionList = {}
+          }
+        }
       }
       this.setState(prevState => ({
         showInput: !prevState.showInput
@@ -90,9 +86,9 @@ class DosagePrescription extends React.Component {
 
   inputelement = (
     <tr ref={node => this.node = node}>
-      <td className="pt-3-half"><input type="text" name = "name" onChange={this.onChangeHandlerPrescription}  placeholder="Drug Name"></input></td>
-      <td className="pt-3-half"><input type="text" name = "dose" onChange={this.onChangeHandlerPrescription}  placeholder="Dose"></input></td>
-      <td className="pt-3-half"><input type="text" name = "duration" onChange={this.onChangeHandlerPrescription} placeholder="Duration"></input></td>
+      <td className="pt-3-half"><input type="text" name="name" onChange={this.onChangeHandlerPrescription} placeholder="Drug Name"></input></td>
+      <td className="pt-3-half"><input type="text" name="dose" onChange={this.onChangeHandlerPrescription} placeholder="Dose"></input></td>
+      <td className="pt-3-half"><input type="text" name="duration" onChange={this.onChangeHandlerPrescription} placeholder="Duration"></input></td>
       <td>
         <span className="table-remove">
           {this.buttonElement}
@@ -102,17 +98,50 @@ class DosagePrescription extends React.Component {
     </tr>
   )
 
+  saveHandler = () => {
+    // Save the list of medicines in the database
+    if (this.props.patient.type === "New"){
+      this.daywiseRef
+        .collection("Reception")
+        .doc(this.props.patient.adhaarid)
+        .collection("Visits")
+        .doc(this.today)
+        .set({
+          presciptions: this.state.listOfMedicines
+        })
+        .then(() => {
+          alert("Successful")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else {
+      this.daywiseRef
+        .collection("Investigated")
+        .doc(this.props.patient.adhaarid)
+        .collection("Visits")
+        .doc(this.today)
+        .set({
+          presciptions: this.state.listOfMedicines
+        })
+        .then(() => {
+          alert("Successful")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
 
   render() {
     console.log("Props")
     console.log(this.props)
-    if ( !this.isUpdated ){
+    if (!this.isUpdated) {
       this.setState({
-        listOfMedicines : this.props.prescriptionData
+        listOfMedicines: this.props.prescriptionData
       })
       this.isUpdated = true
     }
-    // this.listOfMedicines = this.props.prescriptionData;
     return (
       <div>
         <div className="card card-color">
@@ -143,23 +172,14 @@ class DosagePrescription extends React.Component {
                           })
                         }}
                       >
-                        <td className="pt-3-half" contentEditable="true" suppressContentEditableWarning={true}>{medicine.name}</td>
-                        <td className="pt-3-half" contentEditable="true" suppressContentEditableWarning={true}>{medicine.dose}</td>
-                        <td className="pt-3-half" contentEditable="true" suppressContentEditableWarning={true}>{medicine.duration}</td>
-                        {/* <td className="button-section ">
-                          <span className="table-edit">
-                            <button type="button"
-                              className="btn btn-danger btn-rounded btn-sm my-0">Edit
-                            </button>
-                          </span>
-                          <span className="table-remove">
-                            <button type="button"
-                              className="btn btn-danger btn-rounded btn-sm my-0">Remove
-                            </button>
-                          </span>
-                        </td> */}
+                        <td className="pt-3-half"
+                          contentEditable="true" suppressContentEditableWarning={true}>{medicine.name}</td>
+                        <td className="pt-3-half"
+                          contentEditable="true" suppressContentEditableWarning={true}>{medicine.dose}</td>
+                        <td className="pt-3-half"
+                          contentEditable="true" suppressContentEditableWarning={true}>{medicine.duration}</td>
                         {this.state.showIcons === medicine ? <td className="icon-cell px-0" >
-                          {/* <EditIcon className="edit-icon" color="secondary" /> */}
+
                           <IconButton size="small" onClick={() => {
                             var array = this.state.listOfMedicines.filter((value) => { return value !== medicine })
                             this.setState({
@@ -182,7 +202,7 @@ class DosagePrescription extends React.Component {
           </div>
         </div>
         <div className="buttons-align">
-          <button className="btn btn-danger align-save">Save</button>
+          <button className="btn btn-danger align-save" onClick={this.saveHandler}>Save</button>
           <button className="btn btn-success align-print">Print</button>
         </div>
       </div>
