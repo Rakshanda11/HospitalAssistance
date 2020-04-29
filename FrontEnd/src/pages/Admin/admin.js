@@ -111,7 +111,8 @@ class Admin extends React.Component {
                         id="doctorselected"
                         name="doctorselected"
                         ref={select => this.userTypeRef = select}
-                        defaultValue="">
+                        defaultValue=""
+                    >
                         <option value="" disabled>Select</option>
                         <option>Receptionist</option>
                         <option>Doctor</option>

@@ -11,40 +11,67 @@ import Lab from "./pages/Lab/Lab";
 // import MainNavigation from "./components/Navigation/mainNavigation";
 // import SideDrawer from "./components/SideDrawer/SideDrawer";
 // import Backdrop from "./components/Backdrop/Backdrop";
-import Test from './test';
 
-import TestApp from "./pages/firebasePage";
+import Crypto from 'crypto-js';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      redirect: null,
-      currentUser: null,
-      sideDrawerOpen: false
-    };
+  SECRET_KEY = "12345";
+
+  encryptUserData = (user) => {
+    return Crypto.AES
+      .encrypt(JSON.stringify(user),
+        this.SECRET_KEY)
+      .toString();
   }
 
-  // drawerToggleClickHandler = () => {
-  //   this.setState(prevState => {
-  //     return { sideDrawerOpen: !prevState.sideDrawerOpen };
-  //   });
-  // };
+  decryptUserData = (encryptedData) => {
+    var bytes = Crypto.AES
+      .decrypt(encryptedData,
+        this.SECRET_KEY);
+    return JSON.parse(bytes.toString(Crypto.enc.Utf8))
+  }
+  saveUserData = (userData) => {
+    localStorage.setItem('session', userData)
+  }
 
-  // backDropClickHandler = () => {
-  //   this.setState({ sideDrawerOpen: false });
-  // };
+  getUserData = () => {
+    return localStorage.getItem('session')
+  }
+
+  constructor(props) {
+    super(props);
+    var data = this.getUserData();
+    if (data) {
+      var existingUser = this.decryptUserData(data);
+      if (existingUser) {
+        this.state = {
+          redirect: null,
+          currentUser: existingUser,
+          sideDrawerOpen: false
+        };
+      }
+    } else 
+    {
+      this.state = {
+        redirect: null,
+        currentUser: null,
+        sideDrawerOpen: false
+      };
+    }
+
+  }
+
 
   updateUser = (newUser) => {
     if (newUser) {
-      console.log("EMAIL:")
-      console.log(newUser.email);
       this.setState({
         currentUser: newUser
+      }, () => {
+        var encryptedUser = this.encryptUserData(newUser);
+        this.saveUserData(encryptedUser);
       });
     }
-
 
     else {
       this.setState({
@@ -87,9 +114,13 @@ class App extends Component {
                 >
                 </Doctor>} />
               <Route path="/admin" component={() => <Admin></Admin>} />
-              <Route path="/lab" component={() => <Lab></Lab>} />
-              <Route path="/firebase" component={() => <TestApp></TestApp>}></Route>
-              <Route path="/test" component={() => <Test></Test>}></Route>
+              <Route
+                path="/lab"
+                component={() => <Lab
+                  currentUser={this.state.currentUser}
+                  updateUser={this.updateUser}
+                >
+                </Lab>} />
             </Switch>
           </main>
         </React.Fragment>

@@ -212,6 +212,7 @@ class Lab extends React.Component {
               <div className="patient_list" >
                 <Instruction
                   patientsList={this.state.labQueue}
+                  // patientsList={this.patientsList}
                   updatePatient={patient => {
                     console.log(patient);
                     this.setState({

@@ -21,9 +21,19 @@
 #address{
     height: 60px;
 }
-h3{
-    margin-top: 30px;
+
+.reception-label {
+    display: flex;
+    margin: 1rem 0;
 }
+
+.reception-label h3{
+    margin: 0 auto;
+}
+
+/* h3{
+    margin-top: 30px;
+} */
 .entryform{
     text-align: center;
 

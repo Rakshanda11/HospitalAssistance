@@ -10,11 +10,14 @@ import SideDrawer from "./SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import DoctorDiagnosis from "./Extras/DoctorDiagnosis";
 
+import { withRouter } from 'react-router-dom';
+
 import firebase from './../../firebase';
 
 class Doctor extends React.Component {
   databaseRef = firebase.firestore();
   daywiseRef = this.databaseRef.collection("Everyday-Patients");
+  auth = firebase.auth();
 
   constructor(props) {
     super(props);
@@ -179,6 +182,8 @@ class Doctor extends React.Component {
   testsOnSubmit = () => {
     this.setState({
       mainBody: <DoctorPageStart />
+    }, () => {
+      this.diagnosisData = {}
     });
   }
   drawerToggleClickHandler = () => {
@@ -190,8 +195,6 @@ class Doctor extends React.Component {
   backDropClickHandler = () => {
     this.setState({ sideDrawerOpen: false });
   };
-
-
 
   diagnosisData = {}
   diagnosisChangeHandler = (diagnosisData) => {
@@ -235,11 +238,13 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           <ShowDetails patient={this.state.currentPatient} />
-          <DoctorDiagnosis 
-            currentPatient={this.state.currentPatient} 
-            onSubmitFun={this.testsOnSubmit} 
-            diagnosisChangeHandler={this.diagnosisChangeHandler} 
-            diagnosisData={this.diagnosisData} />
+          <DoctorDiagnosis
+            currentPatient={this.state.currentPatient}
+            onSubmitFun={this.testsOnSubmit}
+            diagnosisChangeHandler={this.diagnosisChangeHandler}
+            diagnosisData={this.diagnosisData}
+            doctorName={this.props.currentUser.name}
+          />
         </>
       )
     });
@@ -254,10 +259,10 @@ class Doctor extends React.Component {
       mainBody: (
         <>
           {/* <ShowDetails patient={this.state.currentPatient} /> */}
-          <Prescription 
-            patient={this.state.currentPatient} 
+          <Prescription
+            patient={this.state.currentPatient}
             prescriptionChangeHandler={this.prescriptionChangeHandler}
-            prescriptionData = {this.prescriptionData} />
+            prescriptionData={this.prescriptionData} />
         </>
       )
     });
@@ -269,6 +274,12 @@ class Doctor extends React.Component {
   }
 
   render() {
+    if (this.props.currentUser === null
+      || this.props.currentUser === "Doctor") {
+      this.props.history.push("/auth")
+      return (<div></div>);
+    }
+
     let backDrop;
     if (this.state.sideDrawerOpen) {
       backDrop = <Backdrop click={this.backDropClickHandler}></Backdrop>;
@@ -310,7 +321,6 @@ class Doctor extends React.Component {
       this.isUpdated = true;
     }
 
-
     return (
       <>
         {/* {this.props.navBar} */}
@@ -319,6 +329,9 @@ class Doctor extends React.Component {
           diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
+          doctorName={this.props.currentUser.name}
+          auth={this.auth}
+          logOutHandler={this.props.update}
         />
         <SideDrawer
           drawerClickHandler={this.props.drawerToggleClickHandler}
@@ -332,23 +345,32 @@ class Doctor extends React.Component {
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
-                patientsList={this.newPatientsList}
-                oldPatientsList={this.investigatedPatientsList}
+                patientsList={this.state.receptionQueue}
+                oldPatientsList={this.state.investigatedQueue}
+                // patientsList={this.newPatientsList}
+                // oldPatientsList={this.investigatedPatientsList}
                 updatePatient={(patient, type) => {
-                  if (this.diagnosisData !== {})
+                  // console.log("DIAGNOSTIC DATA")
+                  // console.log(this.diagnosisData)
+                  if (Object.keys(this.diagnosisData).length){
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
                       alert("This Patient has unsaved changes");
                       return;
                     }
-
-                  if (this.tempPrescriptionData !== {} || this.prescriptionData !== []) {
-                    if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
-                      alert("This Patient has unsaved changes");
-                      return;
-                    }
-                    
                   }
+
+                  if (Object.keys(this.tempPrescriptionData).length || this.prescriptionData.length) {
+                    if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
+                      alert("This Patient has other unsaved changes");
+                      return;
+                    }
+                  }
+                  
                   patient["type"] = type
+                  if (type == "Investigated"){
+                    this.diagnosisData = patient.diagnosisData
+                    console.log(patient)
+                  }
                   this.setState({
                     mainBody: <ShowDetails patient={patient} />,
                     currentPatient: patient
@@ -360,13 +382,12 @@ class Doctor extends React.Component {
               />
             </div>
           </div>
+
           <div className="border backgroundstyle">{this.state.mainBody}</div>
-          {/* <div className="imageDiv">
-            <img src={DocImg} alt="Doctor_img" />
-          </div> */}
+
         </div>
       </>
     );
   }
 }
-export default Doctor;
+export default withRouter(Doctor);

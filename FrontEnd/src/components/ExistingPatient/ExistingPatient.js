@@ -1,5 +1,4 @@
 import React from 'react';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import './ExistingPatient.css';
 
 const initialstate = {

@@ -25,8 +25,9 @@ class AssignedPatients extends React.Component {
       this.isUpdated = true;
     }
 
-    if (this.props.type === "Investigated")
-      console.log(this.props.patientsList)
+    // if (this.props.type === "Investigated")
+    //   console.log(this.props.patientsList)
+      
 
     return (
       <Card className="border-secondary ">

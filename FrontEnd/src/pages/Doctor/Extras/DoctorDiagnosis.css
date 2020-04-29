@@ -307,6 +307,15 @@ input[type=number] {
   margin-left:2em;
 }
 
+/* .category-label-top{
+  font-weight: bold;
+  margin-left: 2em;
+} */
+
+.test-item{
+  display: flex;
+}
+
 @media (max-width: 768px) {
   .control-group {
     width: 100%;

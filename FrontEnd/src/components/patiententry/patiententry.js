@@ -3,26 +3,26 @@ import './patiententry.css';
 // import Patientlist from '../patientlist/patientlist';
 import firebase from '../../firebase';
 
-const initialstate = {
-  nameerror: "",
-  ageerror: "",
-  moberror: "",
-  heighterror: "",
-  weighterror: "",
-  aadhariderror: "",
-  addresserror: ""
-
-}
-
 
 class Patiententry extends React.Component {
   databaseRef = firebase.firestore();
-
   patientRef = this.databaseRef.collection("Patients");
   daywiseRef = this.databaseRef.collection("Everyday-Patients");
 
+
+
   constructor(props) {
     super(props);
+    this.state = {
+      nameerror: "",
+      ageerror: "",
+      moberror: "",
+      heighterror: "",
+      weighterror: "",
+      aadhariderror: "",
+      addresserror: "",
+      doctors: []
+    };
     this.patient = {
       name: null,
       age: null,
@@ -35,8 +35,14 @@ class Patiententry extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.doctors !== this.props.doctors) {
+      this.setState({
+        doctors: Object.keys(nextProps.doctors)
+      })
+    }
+  }
 
-  state = initialstate;
 
   validate = () => {
     let nameerror = null;
@@ -111,7 +117,15 @@ class Patiententry extends React.Component {
     const isvalid = this.validate();
     console.log(isvalid)
     if (isvalid) {
-      this.setState(initialstate);
+      this.setState({
+        nameerror: "",
+        ageerror: "",
+        moberror: "",
+        heighterror: "",
+        weighterror: "",
+        aadhariderror: "",
+        addresserror: ""
+      });
       // this.props.updateFunction(this.patient);
 
       // Check if the entered adhaar id is already used.
@@ -135,19 +149,19 @@ class Patiententry extends React.Component {
                 return this.patientRef.add(this.patient);
               })
               .then(() => {
-
                 // Add to daywise reception database
                 this.daywiseRef
                   .doc(today)
                   .collection("Reception")
                   .doc(this.patient.adhaarid)
                   .set(this.patient)
-
-                // Add the date field
-                this.patientRef
-                  .doc(today)
-                  .set({
-                    "Date": today
+                  .then(() => {
+                    // Add the date field
+                    this.daywiseRef
+                      .doc(today)
+                      .set({
+                        "Date": today
+                      })
                   })
 
                 this.props.updateFunction(this.patient);
@@ -170,13 +184,13 @@ class Patiententry extends React.Component {
     this.patient[nam] = val;
   }
 
-
-
   render() {
     return (
 
       <div className="entry">
-        <h3 className="patiententry">Patient Entry</h3>
+        <div className="reception-label">
+          <h3 className="patiententry">Patient Entry</h3>
+        </div>
         <form className="entryform" onSubmit={this.mySubmitHandler}>
           <label >
             Patient Details
@@ -203,10 +217,11 @@ class Patiententry extends React.Component {
           <input className="patientInput" id="address" name="address" placeholder="Address" onChange={this.myChangeHandler} />
           {this.state.addresserror ? (<div style={{ fontSize: 12, color: "red" }}>{this.state.addresserror}</div>) : null}
           <br />
-          <select className="select" id="doctorselected" name="doctorselected" onChange={this.myChangeHandler} defaultValue="">
-          <option value="" disabled>Select</option>
-            <option>Doctor A</option>
-            <option>Doctor B</option>
+          <select className="select" id="doctorselected"
+            name="doctorselected"
+            onChange={this.myChangeHandler} defaultValue="">
+            <option value="" disabled>Select</option>
+            {this.state.doctors.map(name => <option key={name}>{name}</option>)}
           </select>
           <br />
           <button className="buttonStyle">

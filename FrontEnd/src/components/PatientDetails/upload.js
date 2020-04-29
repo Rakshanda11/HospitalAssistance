@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "./../../firebase";
+import firebase from "../../firebase";
 
 class TestUpload extends React.Component {
     today = (new Date()).toDateString();
@@ -60,7 +60,7 @@ class TestUpload extends React.Component {
                                     uploadComplete: true,
                                     uploading: false
                                 })
-                                this.currentPatient.diagnosisData["completedTests"] = this.completedTestsURLs=
+                                this.currentPatient.diagnosisData["completedTests"] = this.completedTestsURLs
 
                                 // This patient is ready to be sent back to the doctor
                                 this.investigatedQueueRef.doc(this.currentPatient.adhaarid).set(this.currentPatient);
@@ -73,6 +73,7 @@ class TestUpload extends React.Component {
                                         patientDocs.forEach((eachDoc) => {
                                             eachDoc.ref.delete();
                                         })
+                                        alert("Successfull")
                                     })
                                     .catch((err) => {
                                         console.log(err)
@@ -81,6 +82,7 @@ class TestUpload extends React.Component {
                         })
                     
                 })
+            return index    // Doesn't do anything
         })
         // const image = this.storageRef.child(file.name);
         // image.put(file)

@@ -2,11 +2,13 @@ import React from "react";
 import "./DoctorDiagnosis.css";
 // import SuggestedTextBox from "../Extras/suggestedTest";
 import firebase from "../../../firebase";
-import DoctorPageStart from "./StartDoctor";
+// import DoctorPageStart from "./StartDoctor";
 class Diagnosis extends React.Component {
   today = (new Date()).toDateString();
 
   databaseRef = firebase.firestore();
+  patientDatabaseRef = this.databaseRef
+    .collection("Patients")
   labQueueRef = this.databaseRef
     .collection("Everyday-Patients")
     .doc(this.today)
@@ -45,6 +47,7 @@ class Diagnosis extends React.Component {
         errorString += " " + textType.toString() + "\n\n"
         isError = true;
       }
+      return index;
     })
     if (isError) {
       alert(errorString);
@@ -75,6 +78,68 @@ class Diagnosis extends React.Component {
       });
     }
   };
+
+  finalSubmitHandler = (event) => {
+    event.preventDefault();
+    // Create a new patient object 
+    // with structure as per database
+    var finalPatientObject = {
+      name: this.currentPatient.name,
+      mob: this.currentPatient.mob,
+      hospitalID: this.currentPatient.PatientId,
+      adhaarid: this.currentPatient.adhaarid,
+      height: this.currentPatient.height,
+      weight: this.currentPatient.weight,
+      age: this.currentPatient.age
+    }
+    // Create a new document in the patients collection
+    // with doc ID as adhaar id
+    this.patientDatabaseRef
+      .doc(finalPatientObject.adhaarid)
+      .set(finalPatientObject)
+      .then(() => {
+        // In the current firebase document
+        // Go to the collection named "Visits"
+        // And a new document with doc ID as today date
+        return this.patientDatabaseRef
+          .doc(finalPatientObject.adhaarid)
+          .collection("Visits")
+          .doc(this.today)
+          .set(this.diagnosisData)
+      })
+      .then(() => {
+        if (this.currentPatient.type == "New") {
+          return this.receptionQueueRef
+            .where("adhaarid", "==", finalPatientObject.adhaarid)
+            .get()
+            .then((patientDocs) => {
+              patientDocs.forEach((eachDoc) => {
+                eachDoc.ref.delete();
+              })
+            })
+        }
+        // Then delete this patient from investigated queue
+        return this.labQueueRef
+          .where("adhaarid", "==", finalPatientObject.adhaarid)
+          .get()
+          .then((patientDocs) => {
+            patientDocs.forEach((eachDoc) => {
+              eachDoc.ref.delete();
+            })
+          })
+      })
+      .then(() => {
+        alert("Diagnosis Completed")
+        this.props.onSubmitFun();
+
+      })
+      .catch(error => {
+        console.log(error)
+      })
+
+
+
+  }
 
   render() {
     this.currentPatient = this.props.currentPatient;
@@ -117,7 +182,7 @@ class Diagnosis extends React.Component {
               addNew: false
             });
             this.diagnosisData["tests"] = this.state.tests;
-            
+
             this.testName = "";
           }}
         >
@@ -129,7 +194,7 @@ class Diagnosis extends React.Component {
     return (
       <>
         <hr />
-        <h3>New Diagnosis</h3>
+        <h3 className="category-label-top" style={{ textAlign: "center" }}>New Diagnosis</h3>
 
         <h5 style={{ textAlign: "center" }}>Date: {(new Date()).toDateString()}</h5>
 
@@ -155,7 +220,7 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="mmHg"
-                  name = "bloodPressure"
+                  name="bloodPressure"
                   defaultValue={this.diagnosisData["bloodPressure"]}
                   onChange={this.onChangeHandler}
                   required
@@ -168,8 +233,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"\u2109"}
-                  name = "temperature"
-                  defaultvalue = {this.diagnosisData["temperature"]}
+                  name="temperature"
+                  defaultValue={this.diagnosisData["temperature"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -185,8 +250,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder="per min"
-                  name = "pulseRate"
-                  defaultValue = {this.diagnosisData["pulseRate"]}
+                  name="pulseRate"
+                  defaultValue={this.diagnosisData["pulseRate"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -197,8 +262,8 @@ class Diagnosis extends React.Component {
                   type="number"
                   className="input-small"
                   placeholder={"%"}
-                  name = "spo2"
-                  defaultValue = {this.diagnosisData["spo2"]}
+                  name="spo2"
+                  defaultValue={this.diagnosisData["spo2"]}
                   onChange={this.onChangeHandler}
                   required
                 />
@@ -216,7 +281,7 @@ class Diagnosis extends React.Component {
               placeholder="What are patient's complaints?"
               id="text"
               name="complaints"
-              defaultValue = {this.diagnosisData["complaints"]}
+              defaultValue={this.diagnosisData["complaints"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -233,7 +298,7 @@ class Diagnosis extends React.Component {
               placeholder="Patient is showing these symptoms:"
               id="text"
               name="symptoms"
-              defaultValue = {this.diagnosisData["symptoms"]}
+              defaultValue={this.diagnosisData["symptoms"]}
               rows="4"
               onChange={this.onChangeHandler}
               required
@@ -256,8 +321,8 @@ class Diagnosis extends React.Component {
                   <button
                     type="button"
                     className="new-item-button"
-                    
-                    onChange = {this.onChangeHandler}
+
+                    onChange={this.onChangeHandler}
                     onClick={() => {
                       this.setState(prevState => ({
                         addNew: !prevState.addNew
@@ -271,7 +336,7 @@ class Diagnosis extends React.Component {
                     type="button"
                     className="submit-text-button"
                     onClick={() => {
-                      
+
                       // Check if unfilled diagnosis
                       if (this.validate()) {
                         return;
@@ -279,13 +344,17 @@ class Diagnosis extends React.Component {
 
                       this.currentPatient.diagnosisData = this.diagnosisData;
                       this.currentPatient.diagnosisData.tests = this.state.tests;
+                      this.currentPatient["Doctor"] = this.props.doctorName;
+
+                      console.log(this.currentPatient)
 
                       // Add this patient to the firebase lab queue
+
                       this.labQueueRef
                         .doc(this.currentPatient.adhaarid)
                         .set(this.currentPatient)
                         .then((any) => {
-                          
+
                           // Remove this patient from new patients
                           this.receptionQueueRef
                             .where("adhaarid", "==", this.currentPatient.adhaarid)
@@ -307,7 +376,34 @@ class Diagnosis extends React.Component {
               )}
             </div>
           </div> :
-           <h4 className="category-label">Tests Are DONE!</h4>}
+            // <h4 className="category-label">Tests Are DONE!</h4>
+            <div className="tests-list">
+              <h4 className="category-label">
+                List of Tests performed:
+              </h4>
+              <ol className="ordered-list">
+                {this.currentPatient.diagnosisData.completedTests.map(individualTest => {
+                  return (
+                    <li
+                      key={individualTest.test}
+                      onClick={() => {
+                        console.log(individualTest);
+                      }}
+                    >
+                      <div className="test-item">
+                        <span>{individualTest.test}</span>
+                        <div className="spacer"></div>
+                        <button onClick={() => {
+                          window.open(individualTest.url, "_blank")
+                        }}>View Report</button>
+                      </div>
+                      {/* <span>{individualTest.test}</span> */}
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>}
+
 
           <hr />
 
@@ -320,11 +416,9 @@ class Diagnosis extends React.Component {
                   placeholder="From the results and symptoms"
                   id="text"
                   name="Diagnosis"
-                  defaultValue = {this.diagnosisData["Diagnosis"]}
+                  defaultValue={this.diagnosisData["Diagnosis"]}
                   rows="4"
-                // onChange={(event)=> {
-                //   this.diagnosisData.diasnosis = event.target.value;
-                // }}
+                  onChange={this.onChangeHandler}
                 ></textarea>
                 <br />
               </div>
@@ -338,9 +432,9 @@ class Diagnosis extends React.Component {
                   placeholder="If any"
                   id="text"
                   name="Remarks"
-                  defaultValue = {this.diagnosisData["Remarks"]}
+                  defaultValue={this.diagnosisData["Remarks"]}
                   rows="4"
-                onChange = {this.onChangeHandler}
+                  onChange={this.onChangeHandler}
                 ></textarea>
                 <br />
               </div>
@@ -350,9 +444,17 @@ class Diagnosis extends React.Component {
               <br />
 
               <div className="box-1">
-                <button className="btn btn-one submit-button" type="submit">
+                <button
+                  className="btn btn-one submit-button"
+                  type="submit"
+                  // onClick={(event) => {
+                  //   event.preventDefault();
+                  //   console.log(this.diagnosisData);
+                  // }}
+                  onClick={this.finalSubmitHandler}
+                >
                   Submit
-            </button>
+                </button>
               </div>
 
               <hr />

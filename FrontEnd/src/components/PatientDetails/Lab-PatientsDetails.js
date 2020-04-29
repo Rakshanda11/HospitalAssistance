@@ -1,5 +1,5 @@
 import React from "react";
-import TestUpload from "./testUpload";
+import Upload from "./upload";
 import "./Lab-PatientDetails.css";
 
 class LabPatientDetails extends React.Component {
@@ -69,7 +69,7 @@ class LabPatientDetails extends React.Component {
                         Submit
                     </button>
                 </div> */}
-                <TestUpload patient={this.props.patient}></TestUpload>
+                <Upload patient={this.props.patient}></Upload>
             </div>
 
         );

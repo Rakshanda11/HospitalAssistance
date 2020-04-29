@@ -28,7 +28,11 @@ class AuthPage extends React.Component {
         // If the user is a valid user
         if (userData) {
           // Add this to parent state
-          this.props.updateUser(newUserId)
+          this.props.updateUser({
+            name: userData.name,
+            type: userData.type,
+            id: newUserId
+          })
 
           // Check its type
           if (userData.type === "Doctor") {
@@ -53,18 +57,24 @@ class AuthPage extends React.Component {
       })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // We need the props first before handling firebase authentication
-    this.auth.onAuthStateChanged(userAuth => {
-      if (userAuth && this.props.currentUser != userAuth) { }
+    this.firebaseAuthListener = this.auth.onAuthStateChanged(userAuth => {
+      if (userAuth && this.props.currentUser !== userAuth) { }
       else if (userAuth === null && this.props.currentUser !== null) {
         this.props.updateUser(null)
       }
     });
   }
 
+  componentWillUnmount() {
+    this.firebaseAuthListener && this.firebaseAuthListener()
+  }
+
   submitHandler = event => {
-    event.preventDefault();
+    if (event)
+      event.preventDefault();
+    
     const email = this.emailElementRef.current.value;
     const password = this.passwordElementRef.current.value;
 
@@ -76,7 +86,6 @@ class AuthPage extends React.Component {
     // Try to log in
     this.auth.signInWithEmailAndPassword(email, password)
       .then((newUser) => {
-
         this.checkAndNavigate(newUser.user.uid)
         console.log("SIGN IN SUCCESSFUL")
       })
@@ -92,6 +101,9 @@ class AuthPage extends React.Component {
       <h1>Hello User</h1>
       <button onClick={() => {
         this.auth.signOut()
+        .then(() => {
+          localStorage.removeItem('session')
+        })
           .catch(err => {
             console.log(err)
           })
@@ -108,7 +120,7 @@ class AuthPage extends React.Component {
           :
           <div className="img-fluid" src="Auth.jpg">
             <h2 className="greetings">Welcome</h2>
-            {<form className="auth-form" onSubmit={this.submitHandler}>
+            {<form className="auth-form" ref="form" onSubmit={this.submitHandler}>
               <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email</label>
                 <input
@@ -125,6 +137,12 @@ class AuthPage extends React.Component {
                   id="password"
                   className="form-control"
                   ref={this.passwordElementRef}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter'){
+                      this.submitHandler();
+                    }
+
+                  }}
                 ></input>
               </div>
 

@@ -36,6 +36,19 @@
   margin: 0 0.5rem;
   /* margin-top: 1rem; */
 }
+.dropdown,
+.dropdown a,
+.dropdown span {
+  transition: 2s;
+}
+
+.dropdown:hover span{
+  display: none;
+}
+
+.dropdown:hover a:before{
+  content: "Log Out!"
+}
 
 .btn{
   color: white;
