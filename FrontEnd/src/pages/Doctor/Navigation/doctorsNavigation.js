@@ -8,7 +8,7 @@ class mainNavigation extends React.Component{
   render(){
     // console.log(this.props)
     return (
-      <header className="main-navigation">
+      <header className="doctor-main-navigation">
         <nav className="main-navigation__items">
           <div className="toolbar__toggle-button">
             <DrawerToggleButton
@@ -16,7 +16,7 @@ class mainNavigation extends React.Component{
             ></DrawerToggleButton>
           </div>
           <div className="main-navigation__logo">
-            <h1>CarePlus</h1>
+            <h1>Care Plus</h1>
           </div>
           <div className="spacer"></div>
           <div className="main-navigation__div">

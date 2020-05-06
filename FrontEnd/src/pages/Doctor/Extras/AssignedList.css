@@ -1,10 +1,15 @@
 .changestyling{
-    background-color:ivory;
+    background-color: rgb(255, 255, 255);
     width: 100%;
 }
 
 .FreeScrollbar-container{
     width: 100%;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #2864a321
 }
 
 .border-secondary{

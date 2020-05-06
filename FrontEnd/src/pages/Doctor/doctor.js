@@ -254,7 +254,8 @@ class Doctor extends React.Component {
             onSubmitFun={this.testsOnSubmit}
             diagnosisChangeHandler={this.diagnosisChangeHandler}
             diagnosisData={this.diagnosisData}
-            doctorName={this.props.currentUser.name}
+            // doctorName={this.props.currentUser.name}
+            doctorName={"Doctor A"}
           />
         </>
       )
@@ -287,11 +288,11 @@ class Doctor extends React.Component {
   render() {
     console.log(this.props)
     console.log(this.props.currentUser !== "Doctor")
-    if (this.props.currentUser === null
-      || this.props.currentUser.type !== "Doctor") {
-      this.props.history.push("/auth")
-      return (<div></div>);
-    }
+    // if (this.props.currentUser === null
+    //   || this.props.currentUser.type !== "Doctor") {
+    //   this.props.history.push("/auth")
+    //   return (<div></div>);
+    // }
 
     let backDrop;
     if (this.state.sideDrawerOpen) {
@@ -342,7 +343,8 @@ class Doctor extends React.Component {
           diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
-          doctorName={this.props.currentUser.name}
+          // doctorName={this.props.currentUser.name}
+          doctorName={"Doctor A"}
           auth={this.auth}
           logOutHandler={this.props.update}
         />
@@ -358,10 +360,10 @@ class Doctor extends React.Component {
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
-                patientsList={this.state.receptionQueue}
-                oldPatientsList={this.state.investigatedQueue}
-                // patientsList={this.newPatientsList}
-                // oldPatientsList={this.investigatedPatientsList}
+                // patientsList={this.state.receptionQueue}
+                // oldPatientsList={this.state.investigatedQueue}
+                patientsList={this.newPatientsList}
+                oldPatientsList={this.investigatedPatientsList}
                 updatePatient={(patient, type) => {
                   // console.log("DIAGNOSTIC DATA")
                   // console.log(this.diagnosisData)

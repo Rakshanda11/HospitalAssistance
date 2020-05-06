@@ -2,7 +2,6 @@
   left: 0;
   top: 0;
   width: 100%;
-  background-color: black;
   height: 3.5rem;
   display: flex;
   align-items: center;
@@ -22,11 +21,6 @@
   content: "Log Out!"
 }
 
-.main-navigation__logo h1 {
-  margin: 10px;
-  color: rosybrown;
-  font-size: 1.5rem;
-}
 .toolbar__toggle-button {
   align-self: center;
   align-items: center;

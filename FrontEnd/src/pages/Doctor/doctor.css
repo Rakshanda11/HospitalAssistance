@@ -1,4 +1,4 @@
-.main-navigation{
+.doctor-main-navigation{
   position: fixed;
   z-index: 1;
 }
@@ -29,7 +29,7 @@
 
 .backgroundstyle {
   /* background-color:oldlace; */
-  background-color: ivory;
+  background-color: whitesmoke;
   width: 75%;
   margin-left: 26%;
 }

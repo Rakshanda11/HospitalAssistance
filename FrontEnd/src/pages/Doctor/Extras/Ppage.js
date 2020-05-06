@@ -34,7 +34,7 @@ class Ppage extends React.Component {
 
                         </div>
                     </div>
-                    <div className="row1">
+                    <div className="new-row1">
                         <div className="col-lg-6 col-md-6 col-12">
                             <div className=" symp card .bg-#A4FFD5 z-depth-1" >
                                 <div className="card-body">

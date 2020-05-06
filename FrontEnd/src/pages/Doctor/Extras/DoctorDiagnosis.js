@@ -216,60 +216,60 @@ class Diagnosis extends React.Component {
           {/* Basic Diagnosis */}
           <div className="wrapper">
             <div className="control-group">
-              <div className="controls form-inline basics-row">
-                <label htmlFor="inputKey">Blood Pressure: </label>
-                <input
-                  type="number"
-                  className="input-small"
-                  placeholder="mmHg"
-                  name="bloodPressure"
-                  defaultValue={this.diagnosisData["bloodPressure"]}
-                  onChange={this.onChangeHandler}
-                  required
-                />
+              
+                <div className="basic-item">
+                  <label htmlFor="inputKey">Blood Pressure: </label>
+                  <input
+                    type="number"
+                    className="input-small"
+                    placeholder="mmHg"
+                    name="bloodPressure"
+                    defaultValue={this.diagnosisData["bloodPressure"]}
+                    onChange={this.onChangeHandler}
+                    required
+                  />
+                </div>
 
-                {/* <div className="spacer"></div> */}
+                <div className="basic-item">
+                  <label htmlFor="inputValue">Temperature: </label>
+                  <input
+                    type="number"
+                    className="input-small"
+                    placeholder={"\u2109"}
+                    name="temperature"
+                    defaultValue={this.diagnosisData["temperature"]}
+                    onChange={this.onChangeHandler}
+                    required
+                  />
+                </div>
 
-                <label htmlFor="inputValue">Temperature: </label>
-                <input
-                  type="number"
-                  className="input-small"
-                  placeholder={"\u2109"}
-                  name="temperature"
-                  defaultValue={this.diagnosisData["temperature"]}
-                  onChange={this.onChangeHandler}
-                  required
-                />
-              </div>
-            </div>
+                <div className="basic-item">
+                  <label htmlFor="inputKey">Pulse Rate:</label>
+                  <input
+                    type="number"
+                    className="input-small"
+                    placeholder="per min"
+                    name="pulseRate"
+                    defaultValue={this.diagnosisData["pulseRate"]}
+                    onChange={this.onChangeHandler}
+                    required
+                  />
+                </div>
 
-            <hr />
+                <div className="basic-item">
+                  <label htmlFor="inputValue">SPO2: </label>
+                  <input
+                    type="number"
+                    className="input-small"
+                    placeholder={"%"}
+                    name="spo2"
+                    defaultValue={this.diagnosisData["spo2"]}
+                    onChange={this.onChangeHandler}
+                    required
+                  />
+                </div>
 
-            <div className="control-group">
-              <div className="controls form-inline basics-row">
-                <label htmlFor="inputKey">Pulse Rate:</label>
-                <input
-                  type="number"
-                  className="input-small"
-                  placeholder="per min"
-                  name="pulseRate"
-                  defaultValue={this.diagnosisData["pulseRate"]}
-                  onChange={this.onChangeHandler}
-                  required
-                />
-                {/* <div className="spacer"></div> */}
 
-                <label htmlFor="inputValue">SPO2: </label>
-                <input
-                  type="number"
-                  className="input-small"
-                  placeholder={"%"}
-                  name="spo2"
-                  defaultValue={this.diagnosisData["spo2"]}
-                  onChange={this.onChangeHandler}
-                  required
-                />
-              </div>
             </div>
           </div>
 
@@ -392,24 +392,24 @@ class Diagnosis extends React.Component {
                       <div className="test-item">
                         <span>{individualTest.test}</span>
                         <div className="spacer"></div>
-                        <button 
-                          style={{marginRight: "1rem"}}
+                        <button
+                          style={{ marginRight: "1rem" }}
                           onClick={() => {
-                          window.open(individualTest.url, "_blank")
-                        }}>View Report</button>
-                        <button 
-                        type="button"
+                            window.open(individualTest.url, "_blank")
+                          }}>View Report</button>
+                        <button
+                          type="button"
                           onClick={() => {
-                          console.log("Unusual")
-                          this.unUsualRef.add({
-                            testName: individualTest.test,
-                            reportURL: individualTest.url
-                          })
-                          .then(() => {
-                            alert("Report submitted successfully")
-                          })
-                          .catch((error) => {console.log(error)})
-                        }}>Unusual Report?</button>
+                            console.log("Unusual")
+                            this.unUsualRef.add({
+                              testName: individualTest.test,
+                              reportURL: individualTest.url
+                            })
+                              .then(() => {
+                                alert("Report submitted successfully")
+                              })
+                              .catch((error) => { console.log(error) })
+                          }}>Unusual Report?</button>
                       </div>
                       {/* <span>{individualTest.test}</span> */}
                     </li>

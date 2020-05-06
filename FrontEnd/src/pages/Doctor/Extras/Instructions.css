@@ -4,13 +4,15 @@
 }
 
 .headers-div{
-    display:flex
+    display:flex;
+    font-family: fantasy;
+    font-weight: bolder;
 }
 
 .headerstyling{
     color:maroon;
     padding-top: 0;
-    margin: 0 auto;
+    margin: 1rem auto;
     /* margin-left: 1rem; */
 }
 .patient_list li{

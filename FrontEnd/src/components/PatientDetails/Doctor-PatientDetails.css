@@ -1,7 +1,8 @@
 .styling-details {
-  color: purple;
+  color: maroon;
   float: left;
-  font-size: larger;
+  font-size: 1.4rem;
+  font-family: fantasy;
   display: flex;
   align-content: center;
 }

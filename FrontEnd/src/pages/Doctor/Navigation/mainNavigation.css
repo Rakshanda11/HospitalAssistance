@@ -1,20 +1,21 @@
-.main-navigation {
+.doctor-main-navigation {
   left: 0;
   top: 0;
   width: 100%;
-  background-color: black;
   height: 3.5rem;
+  background-color: rgb(18, 60, 95);
   display: flex;
   align-items: center;
 }
 .main-navigation__logo h1 {
   margin: 10px;
-  color: rosybrown;
+  color: rgb(255, 255, 255);
   font-size: 1.5rem;
 }
 .toolbar__toggle-button {
   align-self: center;
   align-items: center;
+  /* font-size: ; */
 }
 .spacer {
   flex: 1;
@@ -39,7 +40,7 @@
 .dropdown,
 .dropdown a,
 .dropdown span {
-  transition: 2s;
+  transition: 1s;
 }
 
 .dropdown:hover span{
@@ -50,8 +51,9 @@
   content: "Log Out!"
 }
 
-.btn{
+.main-navigation__div .btn{
   color: white;
+  font-size: large;
 }
 .btn:hover,
 .btn:active{

@@ -43,10 +43,3 @@
     margin-left: 0.5rem;
     justify-content: center;
   }
-  .styling-details {
-    color: purple;
-    float: left;
-    font-size: larger;
-    display: flex;
-    align-content: center;
-  }

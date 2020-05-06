@@ -10,23 +10,30 @@
   -ms-overflow-style: none;
 }
 
-.control-group{
-  max-width: 50%;
+.control-group {
+  display: flex;
 }
 
-.basics-row input {
-  padding: 0;
+.control-group label {
+  font-size: large;
+  font-family: Roboto;
+}
+
+.control-group input {
+  padding: 0.4rem 0.4rem;
   margin-top: 0.2rem;
   margin-left: 0.5rem;
-  width: 4rem;
+  width: 5rem;
   margin-right: 3rem;
   align-items: center;
   border: solid 0.5px rgb(138, 138, 138);
+  border-radius: 5px;
+  font-size: medium;
 }
 
-
-.diagnosis-form h4{
+.diagnosis-form h4 {
   margin-bottom: 1rem;
+  font-family: fantasy;
   font-weight: bold;
 }
 
@@ -41,13 +48,11 @@
   font-size: 20px;
   /* height: 40rem; */
 }
-.paper {
-  height: 24rem;
-}
+
 #text {
-  height: 80%;
+  height: 15rem;
   align-self: center;
-  width: 90%;
+  width: 65%;
   overflow: hidden;
   background-color: #fff;
   color: rgb(112, 13, 13);
@@ -60,9 +65,10 @@
   padding-right: 50px;
   padding-top: 33px;
   padding-bottom: 34px;
-    background-color: #f8fc91;
-background-image: url("textured-paper.png");
-  background-repeat:  repeat;
+  /* background-color: #f8fc91;
+  background-image: url("textured-paper.png"); */
+  background-image: url('./lines.png');
+  background-repeat: repeat;
   -webkit-border-radius: 12px;
   border-radius: 12px;
   border-top: 1px solid #fff;
@@ -161,7 +167,7 @@ div[class*="box"] {
 .input-small::-webkit-input-placeholder {
   text-align: center;
 }
-.input-small{
+.input-small {
   text-align: center;
 }
 
@@ -173,16 +179,19 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.wrapper{
+.wrapper {
   margin-left: auto;
   margin-right: auto;
   display: flex;
 }
 
+.control-group {
+  margin: 0 auto;
+}
 
 .tests-list {
   margin-left: 1rem;
@@ -292,7 +301,7 @@ input[type=number] {
   margin-bottom: 1rem;
 }
 
-.submit-text-button{
+.submit-text-button {
   background: #fa8072;
   border: none;
   width: 100%;
@@ -303,16 +312,17 @@ input[type=number] {
   margin-right: 2.5rem;
 }
 
-.category-label{
-  margin-left:2em;
+.category-label {
+  margin-left: 2em;
 }
 
-/* .category-label-top{
+.category-label-top {
+  font-family: fantasy;
+  color: rgb(40, 68, 95);
   font-weight: bold;
-  margin-left: 2em;
-} */
+}
 
-.test-item{
+.test-item {
   display: flex;
 }
 
