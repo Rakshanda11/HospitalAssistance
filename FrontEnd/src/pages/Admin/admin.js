@@ -18,6 +18,7 @@ class Admin extends React.Component {
         this.passwordRef = React.createRef();
         this.userTypeRef = React.createRef();
         this.secretKeyRef = React.createRef();
+        this.mobileRef = React.createRef();
     }
 
     onFormSubmit = (event) => {
@@ -27,10 +28,16 @@ class Admin extends React.Component {
         var password = this.passwordRef.value
         var userType = this.userTypeRef.value
         var secretKey = this.secretKeyRef.value
+        var mobileNumber = this.mobileRef.value;
 
         if (secretKey !== "12345"){
             alert("Wrong Secret key")
             return
+        }
+
+        if (mobileNumber.length !== 10){
+            alert("Mobile Number should be 10 digits");
+            return;
         }
 
         // First create an user with Email and Password
@@ -41,7 +48,8 @@ class Admin extends React.Component {
                 return this.usersDataRef.doc(newUser.user.uid).set({
                     "name": name,
                     "email": email,
-                    "type": userType
+                    "type": userType,
+                    "mob": mobileNumber
                 })
             })
             .then(() => {
@@ -50,9 +58,6 @@ class Admin extends React.Component {
             .catch(error => {
                 alert(error)
             })
-
-        
-
 
     }
 
@@ -92,6 +97,17 @@ class Admin extends React.Component {
                     ></input>
                 </div>
                 
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Mobile Number</label>
+                    <input
+                        required
+                        type="number"
+                        id="number"
+                        className="form-control"
+                        ref={input => this.mobileRef = input}
+                    ></input>
+                </div>
+
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1">Admin Secret Key</label>
                     <input

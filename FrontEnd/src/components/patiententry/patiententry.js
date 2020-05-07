@@ -149,10 +149,12 @@ class Patiententry extends React.Component {
                 var totalPatients = allPatientSnap.docs.length;
 
                 // Assign patient id
-                this.patient["PatientId"] = totalPatients + 1;
+                this.patient["patientId"] = totalPatients + 1;
 
                 // Add to main patient database
-                return this.patientRef.add(this.patient);
+                return this.patientRef
+                  .doc(this.patient.adhaarid)
+                  .set(this.patient);
               })
               .then(() => {
                 // Add to daywise reception database

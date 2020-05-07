@@ -21,7 +21,9 @@
   flex: 1;
 }
 .main-navigation__div {
-  display: flex;
+  resize: none;
+  /* display: flex; */
+  position: relative;
   align-items: center;
 }
 .main-navigation__items {
@@ -31,13 +33,76 @@
   align-content: center;
 }
 .main-navigation__items ul {
+  /* position: fixed; */
+  /* left: ; */
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0 0.5rem;
   /* margin-top: 1rem; */
 }
-.dropdown,
+
+.btn-option {
+  color: black;
+}
+
+.option-item {
+  margin: 0;
+}
+
+.user-dropdown {
+  width: auto;
+  position: relative;
+  display: inline-block;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  right: 0px;
+  width: 10rem;
+  /* width: 100%; */
+  background-color: rgb(43, 80, 110);
+  font-weight: bold;
+  position: absolute;
+
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.options li a {
+  color: #000;
+  text-decoration: none;
+}
+.options li {
+  /* padding: 8px 16px; */
+  border-bottom: 1px solid #e5e5e5;
+}
+.options li:last-child {
+  border-bottom: none;
+}
+.options .button {
+  width: 178px;
+  height: 18px;
+  background-color: #ff3232;
+  padding: 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+.options .button:before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border: 10px solid;
+  border-color: white transparent transparent transparent;
+  right: 6px;
+  top: 18px;
+}
+
+/* .dropdown,
 .dropdown a,
 .dropdown span {
   transition: 1s;
@@ -49,21 +114,21 @@
 
 .dropdown:hover a:before{
   content: "Log Out!"
-}
+} */
 
-.main-navigation__div .btn{
+.main-navigation__div .btn {
   color: white;
   font-size: large;
 }
 .btn:hover,
-.btn:active{
+.btn:active {
   text-decoration: none;
   color: lightblue;
 }
 
 .main-navigation__items li {
   /* margin: 0 0.5rem; */
-  margin-left: 1rem
+  margin-left: 1rem;
 }
 
 .main-navigation__items a {

@@ -4,7 +4,6 @@ import "./Lab-PatientDetails.css";
 
 class LabPatientDetails extends React.Component {
     render() {
-
         return (
             <div className="align-details">
                 <div className="styling-details row1">
@@ -12,7 +11,7 @@ class LabPatientDetails extends React.Component {
                     <p className="attribute-styling name"> {" " + this.props.patient.name}</p>
                     <div className="spacer"></div>
                     <p className="rightalign highlighter pid">Patient ID: </p>
-                    <p className="attribute-styling pid"> {" " + this.props.patient.PatientId}</p>
+                    <p className="attribute-styling pid"> {" " + this.props.patient.patientId}</p>
                 </div>
                 <div className="styling-details">
 

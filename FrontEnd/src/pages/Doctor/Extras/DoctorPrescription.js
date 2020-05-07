@@ -3,8 +3,9 @@ import React from "react";
 import './DoctorPrescription.css';
 import ShowDetails from '../../../components/PatientDetails/Doctor-PatientDetails';
 import DoctorDetails from '../../../components/DoctorsModule/DoctorDetails';
-import RXImg from '../../../components/DoctorsModule/rx_img.png';
+import htmlToImage from 'html-to-image';
 import DosagePrescription from './DosagePrescription';
+
 class Prescription extends React.Component {
   state = {
     medicines: "Enter The Prescription"
@@ -19,45 +20,30 @@ class Prescription extends React.Component {
     return (
       <div className="prescriptionsec">
         <div className="flex-rectangle styling-details">
-          <DoctorDetails />
+          <DoctorDetails doctor={this.props.doctor}/>
           <hr className="hr-style" />
-          <ShowDetails patient={this.props.patient} />
+          <div className="patient-details-section">
+            <ShowDetails patient={this.props.patient} />
+          </div>
           <hr className="hr-style" />
-          <img src={RXImg} alt="RxImage" className="image-align" />
-          <DosagePrescription patient={this.props.patient} prescriptionChangeHandler ={this.props.prescriptionChangeHandler} prescriptionData = {this.props.prescriptionData}/>
-          
+          <DosagePrescription 
+            patient={this.props.patient} 
+            prescriptionChangeHandler={this.props.prescriptionChangeHandler} 
+            prescriptionData={this.props.prescriptionData}/>
+          <div className="buttons-align">
+            <button className="btn btn-warning align-print" onClick={() => {
+              var node = document.getElementById("print-paper");
+              htmlToImage.toJpeg(node)
+                .then((dataUrl) => {
+                  require("downloadjs")(dataUrl, "print-Image.jpg")
+                })
+                .catch(error => {
+                  console.log("Printing Error")
+                })
+            }}>Print</button>
+          </div>
         </div>
       </div>
-      // <div>
-      //   <br />
-      //   {/* <textarea
-      //     rows="8"
-      //     className="form-control"
-      //     value={this.state.medicines}
-      //     onChange={this.handleMedicine}
-      //     onClick={this.clearInput}
-      //   /> */}
-      //   <div className="paper">
-      //       <textarea
-      //         className="text-area"
-      //         placeholder="Enter Prescription "
-      //         id="text"
-      //         name="text"
-      //         rows="4"
-      //       ></textarea>
-      //       <br />
-      //     </div>
-
-
-      //   {/* <SuggestTest
-      //     message="Enter the Prescription"
-      //     patientsList={this.patientsList}
-      //     funref={this.removePatient}
-      //   /> */}
-      //   <button type="button" className="btn btn-dark submit">
-      //     Submit
-      //   </button>
-      //     </div>
     );
   }
 }

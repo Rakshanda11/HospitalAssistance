@@ -13,6 +13,10 @@ class Diagnosis extends React.Component {
     .collection("Everyday-Patients")
     .doc(this.today)
     .collection("Lab");
+  investigatedRef = this.databaseRef
+    .collection("Everyday-Patients")
+    .doc(this.today)
+    .collection("Investigated");
   receptionQueueRef = this.databaseRef
     .collection("Everyday-Patients")
     .doc(this.today)
@@ -85,15 +89,19 @@ class Diagnosis extends React.Component {
     event.preventDefault();
     // Create a new patient object 
     // with structure as per database
+    console.log(this.currentPatient);
     var finalPatientObject = {
       name: this.currentPatient.name,
       mob: this.currentPatient.mob,
-      hospitalID: this.currentPatient.PatientId,
+      patientId: this.currentPatient.patientId,
       adhaarid: this.currentPatient.adhaarid,
       height: this.currentPatient.height,
       weight: this.currentPatient.weight,
-      age: this.currentPatient.age
+      age: this.currentPatient.age,
+      address: this.currentPatient.address,
+      doctorselected: this.currentPatient.doctorselected,
     }
+    this.diagnosisData["prescriptions"] = this.props.prescriptionData
     // Create a new document in the patients collection
     // with doc ID as adhaar id
     this.patientDatabaseRef
@@ -120,8 +128,9 @@ class Diagnosis extends React.Component {
               })
             })
         }
+        console.log("Removing investigated patient");
         // Then delete this patient from investigated queue
-        return this.labQueueRef
+        return this.investigatedRef
           .where("adhaarid", "==", finalPatientObject.adhaarid)
           .get()
           .then((patientDocs) => {
@@ -174,6 +183,7 @@ class Diagnosis extends React.Component {
           }}
         ></input>
         <button
+          style={{ color: "white" }}
           className="new-item-text-button"
           onClick={() => {
             if (this.testName === "") return;
@@ -216,58 +226,58 @@ class Diagnosis extends React.Component {
           {/* Basic Diagnosis */}
           <div className="wrapper">
             <div className="control-group">
-              
-                <div className="basic-item">
-                  <label htmlFor="inputKey">Blood Pressure: </label>
-                  <input
-                    type="number"
-                    className="input-small"
-                    placeholder="mmHg"
-                    name="bloodPressure"
-                    defaultValue={this.diagnosisData["bloodPressure"]}
-                    onChange={this.onChangeHandler}
-                    required
-                  />
-                </div>
 
-                <div className="basic-item">
-                  <label htmlFor="inputValue">Temperature: </label>
-                  <input
-                    type="number"
-                    className="input-small"
-                    placeholder={"\u2109"}
-                    name="temperature"
-                    defaultValue={this.diagnosisData["temperature"]}
-                    onChange={this.onChangeHandler}
-                    required
-                  />
-                </div>
+              <div className="basic-item">
+                <label htmlFor="inputKey">Blood Pressure: </label>
+                <input
+                  type="number"
+                  className="input-small"
+                  placeholder="mmHg"
+                  name="bloodPressure"
+                  defaultValue={this.diagnosisData["bloodPressure"]}
+                  onChange={this.onChangeHandler}
+                  required
+                />
+              </div>
 
-                <div className="basic-item">
-                  <label htmlFor="inputKey">Pulse Rate:</label>
-                  <input
-                    type="number"
-                    className="input-small"
-                    placeholder="per min"
-                    name="pulseRate"
-                    defaultValue={this.diagnosisData["pulseRate"]}
-                    onChange={this.onChangeHandler}
-                    required
-                  />
-                </div>
+              <div className="basic-item">
+                <label htmlFor="inputValue">Temperature: </label>
+                <input
+                  type="number"
+                  className="input-small"
+                  placeholder={"\u2109"}
+                  name="temperature"
+                  defaultValue={this.diagnosisData["temperature"]}
+                  onChange={this.onChangeHandler}
+                  required
+                />
+              </div>
 
-                <div className="basic-item">
-                  <label htmlFor="inputValue">SPO2: </label>
-                  <input
-                    type="number"
-                    className="input-small"
-                    placeholder={"%"}
-                    name="spo2"
-                    defaultValue={this.diagnosisData["spo2"]}
-                    onChange={this.onChangeHandler}
-                    required
-                  />
-                </div>
+              <div className="basic-item">
+                <label htmlFor="inputKey">Pulse Rate:</label>
+                <input
+                  type="number"
+                  className="input-small"
+                  placeholder="per min"
+                  name="pulseRate"
+                  defaultValue={this.diagnosisData["pulseRate"]}
+                  onChange={this.onChangeHandler}
+                  required
+                />
+              </div>
+
+              <div className="basic-item">
+                <label htmlFor="inputValue">SPO2: </label>
+                <input
+                  type="number"
+                  className="input-small"
+                  placeholder={"%"}
+                  name="spo2"
+                  defaultValue={this.diagnosisData["spo2"]}
+                  onChange={this.onChangeHandler}
+                  required
+                />
+              </div>
 
 
             </div>

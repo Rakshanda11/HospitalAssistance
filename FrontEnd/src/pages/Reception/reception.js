@@ -126,6 +126,7 @@ class Receptionpage extends Component {
           diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
+          name={this.props.currentUser.name}
         ></ReceptionNavigation>
         <SideDrawer
           drawerClickHandler={this.props.drawerToggleClickHandler}

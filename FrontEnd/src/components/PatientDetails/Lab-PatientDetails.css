@@ -83,8 +83,8 @@
     margin-right: 2rem;
     font-size: 35px;
     margin-top: 3rem;
-    color: navy;
-    text-shadow: 2px 2px rosybrown;
+    color: rgb(39, 39, 124);
+    /* text-shadow: 2px 2px rosybrown; */
   }
 }
 

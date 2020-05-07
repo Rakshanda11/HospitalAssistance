@@ -89,7 +89,7 @@ div[class*="box"] {
   margin-right: auto;
 }
 .box-1 {
-  background-color: #ff6766;
+  background-color: rgba(25, 91, 144, 0.794);;
 }
 .box-2 {
   background-color: #3c3c3c;
@@ -131,8 +131,8 @@ div[class*="box"] {
   border-bottom-width: 1px;
   border-top-style: solid;
   border-bottom-style: solid;
-  border-top-color: rgba(70, 5, 5, 0.5);
-  border-bottom-color: rgba(65, 8, 8, 0.5);
+  border-top-color: rgba(25, 91, 144, 0.794);
+  border-bottom-color: rgba(25, 91, 144, 0.794);
   transform: scale(0.1, 1);
 }
 .btn-one:hover span {
@@ -151,17 +151,19 @@ div[class*="box"] {
   height: 100%;
   z-index: 1;
   transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(48, 133, 202, 0.596);;
 }
 .btn-one:hover::after {
   opacity: 0;
   transform: scale(0.1, 1);
+  color: white;
 }
 
 .submit-button {
   width: 100%;
   background: none;
   border: none;
+  
 }
 
 .input-small::-webkit-input-placeholder {
@@ -269,7 +271,7 @@ input[type="number"] {
 }
 
 .new-item-text-button {
-  background: #fa8072;
+  background: rgba(25, 91, 144, 0.794);
   border: none;
   width: 100%;
   padding-top: 0.4em;
@@ -302,7 +304,7 @@ input[type="number"] {
 }
 
 .submit-text-button {
-  background: #fa8072;
+  background: rgba(25, 91, 144, 0.794);
   border: none;
   width: 100%;
   padding-top: 0.4em;

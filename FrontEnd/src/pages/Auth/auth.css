@@ -1,24 +1,31 @@
-/* 
-.form-control{
-    margin-bottom: 1rem;
-}
-.form-control label{
-    margin-bottom: 0.5rem;
-}
-
-.form-control label,
-.form-control input{
-    width: 100%;
-    display: block;
+.forgot-page {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: white;
 }
 
-
- */
 .greetings {
   margin-top: 2rem;
   margin-bottom: 0;
   text-align: center;
   color: rgb(168, 41, 58);
+}
+.greetings-text{
+  margin-top: 1rem;
+  text-align: center;
+}
+.alert-div {
+  width: 100%;
+  z-index: 1;
+  position: fixed;
+  display: flex;
+}
+
+.alert-container {
+  margin: 0 auto;
+  width: 40%;
 }
 
 .auth-form {

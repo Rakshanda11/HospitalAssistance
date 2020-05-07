@@ -1,13 +1,16 @@
-.main-navigation {
+.main-navigation-lab {
   left: 0;
   top: 0;
   width: 100%;
   height: 3.5rem;
   display: flex;
+  background-color: rgb(18, 60, 95);
   align-items: center;
+  z-index: 1;
+  position: fixed;
 }
 
-.dropdown,
+/* .dropdown,
 .dropdown a,
 .dropdown span {
   transition: 2s;
@@ -19,26 +22,32 @@
 
 .dropdown:hover a:before{
   content: "Log Out!"
+} */
+
+.main-navigation__logo-lab h1 {
+  margin: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
 }
 
-.toolbar__toggle-button {
+.toolbar__toggle-button-lab {
   align-self: center;
   align-items: center;
 }
 .spacer {
   flex: 1;
 }
-.main-navigation__div {
+.main-navigation__div-lab {
   display: flex;
   align-items: center;
 }
-.main-navigation__items {
+.main-navigation__items-lab {
   width: 100%;
   margin-left: 1.5rem;
   display: flex;
   align-content: center;
 }
-.main-navigation__items ul {
+.main-navigation__items-lab ul {
   display: flex;
   list-style: none;
   padding: 0;
@@ -74,7 +83,7 @@
 }
 
 @media (max-width: 768px) {
-  .toolbar__navigation-items {
+  .toolbar__navigation-items-lab {
     display: none;
   }
   .main-navigation__div {
@@ -83,7 +92,7 @@
 }
 
 @media (min-width: 769px) {
-  .toolbar__toggle-button {
+  .toolbar__toggle-button-lab {
     display: none;
   }
   .toolbar__logo {

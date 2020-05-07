@@ -9,7 +9,7 @@ class Doctor_PatientDetails extends React.Component {
           <p className="attribute-styling name"> {" " + this.props.patient.name}</p>
           <div className="spacer"></div>
           <p className= "rightalign highlighter pid">Patient ID: </p>
-          <p className="attribute-styling pid"> {" " + this.props.patient.PatientId}</p>
+          <p className="attribute-styling pid"> {" " + this.props.patient.patientId}</p>
         </div>
         <div className="styling-details row2">
           <p className="highlighter aligndetails number">Contact No: </p>

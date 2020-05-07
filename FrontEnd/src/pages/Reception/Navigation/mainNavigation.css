@@ -1,51 +1,42 @@
-.main-navigation {
+.main-navigation-reception {
   left: 0;
   top: 0;
   width: 100%;
   height: 3.5rem;
   display: flex;
   align-items: center;
+  background-color: rgb(18, 60, 95);
 }
 
-.dropdown,
-.dropdown a,
-.dropdown span {
-  transition: 2s;
-}
-
-.dropdown:hover span{
-  display: none;
-}
-
-.dropdown:hover a:before{
-  content: "Log Out!"
-}
-
-.toolbar__toggle-button {
+.toolbar__toggle-button-reception {
   align-self: center;
   align-items: center;
 }
 .spacer {
   flex: 1;
 }
-.main-navigation__div {
+.main-navigation__div-reception {
   display: flex;
   align-items: center;
 }
-.main-navigation__items {
+.main-navigation__items-reception {
   width: 100%;
   margin-left: 1.5rem;
   display: flex;
   align-content: center;
 }
-.main-navigation__items ul {
+.main-navigation__items-reception ul {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0 0.5rem;
   /* margin-top: 1rem; */
 }
-
+.main-navigation__logo-reception h1 {
+  margin: 10px;
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+}
 .btn{
   color: white;
 }
@@ -55,35 +46,35 @@
   color: lightblue;
 }
 
-.main-navigation__items li {
+.main-navigation__items-reception li {
   /* margin: 0 0.5rem; */
   margin-left: 1rem
 }
 
-.main-navigation__items a {
+.main-navigation__items-reception a {
   text-decoration: none;
   color: white;
 }
-.main-navigation__items a:hover {
+.main-navigation__items-reception a:hover {
   text-decoration: none;
   color: lightblue;
 }
-.main-navigation__items a:active {
+.main-navigation__items-reception a:active {
   text-decoration: none;
   color: lightblue;
 }
 
 @media (max-width: 768px) {
-  .toolbar__navigation-items {
+  .toolbar__navigation-items-reception {
     display: none;
   }
-  .main-navigation__div {
+  .main-navigation__div-reception {
     display: none;
   }
 }
 
 @media (min-width: 769px) {
-  .toolbar__toggle-button {
+  .toolbar__toggle-button-reception {
     display: none;
   }
   .toolbar__logo {

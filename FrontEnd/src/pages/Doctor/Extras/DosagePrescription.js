@@ -3,14 +3,15 @@ import './DosagePrescription.css';
 // import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import RXImg from '../../../components/DoctorsModule/rx_img.png';
 
 import firebase from '../../../firebase';
 
 class DosagePrescription extends React.Component {
   today = (new Date()).toDateString();
   daywiseRef = firebase.firestore()
-      .collection("Everyday-Patients")
-      .doc(this.today);
+    .collection("Everyday-Patients")
+    .doc(this.today);
 
   isUpdated = false;
 
@@ -50,45 +51,49 @@ class DosagePrescription extends React.Component {
   // dose = "";
   // duration = "";
 
-  buttonElement = (
-    <button className="text-success" onClick={() => {
-      if (this.state.showInput) {
-        if (Object.keys(this.tempPrescriptionList).length) {
-          if (this.tempPrescriptionList.name
-            && this.tempPrescriptionList.dose
-            && this.tempPrescriptionList.duration) {
-            // console.log(this.state.listOfMedicines)
-            this.setState(prevState => ({
-              listOfMedicines: [...prevState.listOfMedicines, { ...this.tempPrescriptionList }]
-            }), () => {
-              console.log(this.state.listOfMedicines)
-              this.tempPrescriptionList = {}
-              // console.log('list');
-              // console.log([...this.state.listOfMedicines]);
-              this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
-            })
-          }
-
-          else {
-            alert("Enter complete dose information!")
+  addNewDrugEvent = () => {
+    if (this.state.showInput) {
+      if (Object.keys(this.tempPrescriptionList).length) {
+        if (this.tempPrescriptionList.name
+          && this.tempPrescriptionList.dose
+          && this.tempPrescriptionList.duration) {
+          // console.log(this.state.listOfMedicines)
+          this.setState(prevState => ({
+            listOfMedicines: [...prevState.listOfMedicines, { ...this.tempPrescriptionList }]
+          }), () => {
+            console.log(this.state.listOfMedicines)
             this.tempPrescriptionList = {}
-          }
+            // console.log('list');
+            // console.log([...this.state.listOfMedicines]);
+            this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
+          })
+        }
+
+        else {
+          alert("Enter complete dose information!")
+          this.tempPrescriptionList = {}
         }
       }
-      this.setState(prevState => ({
-        showInput: !prevState.showInput
-      }))
     }
-    }>
+    this.setState(prevState => ({
+      showInput: !prevState.showInput
+    }))
+  }
+
+  buttonElement = (
+    <button className="add-drug-button btn" onClick={this, this.addNewDrugEvent}>
       Add
     </button>
   )
 
-  inputelement = (
+  inputElement = (
     <tr ref={node => this.node = node}>
       <td className="pt-3-half"><input type="text" name="name" onChange={this.onChangeHandlerPrescription} placeholder="Drug Name"></input></td>
       <td className="pt-3-half"><input type="text" name="dose" onChange={this.onChangeHandlerPrescription} placeholder="Dose"></input></td>
-      <td className="pt-3-half"><input type="text" name="duration" onChange={this.onChangeHandlerPrescription} placeholder="Duration"></input></td>
+      <td className="pt-3-half"><input type="text" name="duration" onKeyDown={(event) => {
+        if (event.keyCode === 13)
+          this.addNewDrugEvent();
+      }} onChange={this.onChangeHandlerPrescription} placeholder="Duration"></input></td>
       <td>
         <span className="table-remove">
           {this.buttonElement}
@@ -100,7 +105,8 @@ class DosagePrescription extends React.Component {
 
   saveHandler = () => {
     // Save the list of medicines in the database
-    if (this.props.patient.type === "New"){
+    console.log(this.state.listOfMedicines)
+    if (this.props.patient.type === "New") {
       this.daywiseRef
         .collection("Reception")
         .doc(this.props.patient.adhaarid)
@@ -144,8 +150,11 @@ class DosagePrescription extends React.Component {
     }
     return (
       <div>
-        <div className="card card-color">
-          <h3 className="card-header card-header-color text-center font-weight-bold text-uppercase py-4 head-color">Prescription</h3>
+        <div className="card card-color" id="print-paper">
+          <h3
+            className="card-header card-header-color text-center font-weight-bold text-uppercase py-4 head-color"
+          >Prescription</h3>
+          <img src={RXImg} alt="RxImage" className="image-align" />
           <div className="card-body">
             <div id="table" className="table-editable">
               <table className="table table-bordered table-responsive-md  text-center">
@@ -192,7 +201,7 @@ class DosagePrescription extends React.Component {
                       </tr>
                     )
                   })}
-                  {this.state.showInput ? this.inputelement : null}
+                  {this.state.showInput ? this.inputElement : null}
                 </tbody>
               </table>
               <span className="table-add float-right right-shift ">
@@ -202,8 +211,8 @@ class DosagePrescription extends React.Component {
           </div>
         </div>
         <div className="buttons-align">
-          <button className="btn btn-danger align-save" onClick={this.saveHandler}>Save</button>
-          <button className="btn btn-success align-print">Print</button>
+          <button className="btn btn-success align-save" onClick={this.saveHandler}>Save</button>
+          
         </div>
       </div>
     );

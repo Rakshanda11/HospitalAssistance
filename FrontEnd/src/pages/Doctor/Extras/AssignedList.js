@@ -50,7 +50,7 @@ class AssignedPatients extends React.Component {
                 <tbody>
                   {this.props.patientsList.map(record => (
                     <tr
-                      key={record.name}
+                      key={record.patientId}
                       onClick={() => {
                         this.props.updatePatient(record, this.props.type);
                       }}
@@ -58,7 +58,7 @@ class AssignedPatients extends React.Component {
                       <td>{record.name}</td>
 
                       <td style={{ textAlign: "center" }}>
-                        {record.PatientId}
+                        {record.patientId}
                       </td>
                     </tr>
                   ))}

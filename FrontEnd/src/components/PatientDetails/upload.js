@@ -74,12 +74,14 @@ class TestUpload extends React.Component {
                                             eachDoc.ref.delete();
                                         })
                                         alert("Successfull")
+                                        // Reset patient details section
                                         this.props.patientDone();
                                     })
                                     .catch((err) => {
                                         console.log(err)
                                     })
                             }
+                            
                         })
                     
                 })

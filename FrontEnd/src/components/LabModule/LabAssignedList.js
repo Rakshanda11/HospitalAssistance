@@ -32,7 +32,7 @@ class AssignedPatients extends React.Component {
                                             
 
                                             <td>
-                                                {record.PatientId}
+                                                {record.patientId}
                                             </td>
                                         </tr>
                                     ))}

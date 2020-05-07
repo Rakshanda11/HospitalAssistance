@@ -40,7 +40,7 @@ class Lab extends React.Component {
       age: "50",
       weight: "50",
       phoneNo: "9876543210",
-      PatientId: "1",
+      patientId: "1",
       Visits: [
         {
           Date: "1 January 2020",
@@ -69,7 +69,7 @@ class Lab extends React.Component {
       age: "80",
       weight: "50",
       phoneNo: "9876543210",
-      PatientId: "2",
+      patientId: "2",
       Visits: [
         {
           Date: "1 January 2020",
@@ -98,7 +98,7 @@ class Lab extends React.Component {
       age: "20",
       weight: "50",
       phoneNo: "9876543210",
-      PatientId: "3",
+      patientId: "3",
       Visits: [
         {
           Date: "1 January 2020",
@@ -121,7 +121,7 @@ class Lab extends React.Component {
       age: "67",
       weight: "50",
       phoneNo: "9876543210",
-      PatientId: "4",
+      patientId: "4",
       Visits: [
         {
           Date: "1 January 2020",
@@ -146,6 +146,7 @@ class Lab extends React.Component {
       showDetails: true
     });
     this.tempShowDetails = <ShowDetails detail={item} patientDone={() => {
+      console.log("PATIENT DONE")
       this.setState({
         mainBody: <StartLab></StartLab>
       })
@@ -220,7 +221,11 @@ class Lab extends React.Component {
                     this.setState({
                       currentPatient: patient,
                       mainBody: (
-                        <ShowDetails patient={patient} />
+                        <ShowDetails patient={patient} patientDone={() => {
+                          this.setState({
+                            mainBody: <StartLab></StartLab>
+                          })
+                        }}/>
                       )
                     });
                   }}

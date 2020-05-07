@@ -28,7 +28,7 @@ class Doctor extends React.Component {
         age: "50",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "1",
+        patientId: "1",
         Visits: [
           {
             Date: "1 January 2020",
@@ -56,7 +56,7 @@ class Doctor extends React.Component {
         age: "80",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "2",
+        patientId: "2",
         Visits: [
           {
             Date: "1 January 2020",
@@ -79,7 +79,7 @@ class Doctor extends React.Component {
         age: "20",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "3",
+        patientId: "3",
         Visits: [
           {
             Date: "1 January 2020",
@@ -102,7 +102,7 @@ class Doctor extends React.Component {
         age: "67",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "4",
+        patientId: "4",
         Visits: [
           {
             Date: "1 January 2020",
@@ -127,7 +127,7 @@ class Doctor extends React.Component {
         age: "50",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "1",
+        patientId: "1",
         Visits: [
           {
             Date: "1 January 2020",
@@ -150,21 +150,21 @@ class Doctor extends React.Component {
         age: "80",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "2"
+        patientId: "2"
       },
       {
         name: "Satvik Dandale",
         age: "20",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "3"
+        patientId: "3"
       },
       {
         name: "Sanjana Jaiswal",
         age: "67",
         weight: "50",
         phoneNo: "9876543210",
-        PatientId: "4"
+        patientId: "4"
       }
     ];
     this.state = {
@@ -254,8 +254,9 @@ class Doctor extends React.Component {
             onSubmitFun={this.testsOnSubmit}
             diagnosisChangeHandler={this.diagnosisChangeHandler}
             diagnosisData={this.diagnosisData}
-            // doctorName={this.props.currentUser.name}
-            doctorName={"Doctor A"}
+            doctorName={this.props.currentUser.name}
+            prescriptionData={this.prescriptionData}
+            // doctorName={"Doctor A"}
           />
         </>
       )
@@ -273,6 +274,7 @@ class Doctor extends React.Component {
           {/* <ShowDetails patient={this.state.currentPatient} /> */}
           <Prescription
             patient={this.state.currentPatient}
+            doctor={this.props.currentUser.name}
             prescriptionChangeHandler={this.prescriptionChangeHandler}
             prescriptionData={this.prescriptionData} />
         </>
@@ -288,11 +290,11 @@ class Doctor extends React.Component {
   render() {
     console.log(this.props)
     console.log(this.props.currentUser !== "Doctor")
-    // if (this.props.currentUser === null
-    //   || this.props.currentUser.type !== "Doctor") {
-    //   this.props.history.push("/auth")
-    //   return (<div></div>);
-    // }
+    if (this.props.currentUser === null
+      || this.props.currentUser.type !== "Doctor") {
+      this.props.history.push("/auth")
+      return (<div></div>);
+    }
 
     let backDrop;
     if (this.state.sideDrawerOpen) {
@@ -313,7 +315,9 @@ class Doctor extends React.Component {
       queryReception.onSnapshot((querySnapshot) => {
         var tempList = [];
         querySnapshot.forEach((patientDoc) => {
-          tempList.push(patientDoc.data())
+          var patient = patientDoc.data();
+          if (patient.doctorselected === this.props.currentUser.name)
+            tempList.push(patient)
         })
         if (!(tempList.length))
           tempList = ["EMPTY"]
@@ -324,7 +328,9 @@ class Doctor extends React.Component {
       queryInvestigated.onSnapshot((querySnapshot) => {
         var tempList = [];
         querySnapshot.forEach((patientDoc) => {
-          tempList.push(patientDoc.data());
+          var patient = patientDoc.data();
+          if (patient.doctorselected === this.props.currentUser.name)
+            tempList.push(patient)
         })
         if (!(tempList.length))
           tempList = ["EMPTY"]
@@ -343,8 +349,8 @@ class Doctor extends React.Component {
           diagnosis={this.diagnosis}
           prescription={this.currentIssues}
           history={this.getPatientHistory}
-          // doctorName={this.props.currentUser.name}
-          doctorName={"Doctor A"}
+          doctorName={this.props.currentUser.name}
+          // doctorName={"Doctor A"}
           auth={this.auth}
           logOutHandler={this.props.update}
         />
@@ -360,13 +366,13 @@ class Doctor extends React.Component {
           <div className="col-sm-3 listOuter">
             <div className="patient_list">
               <Instruction
-                // patientsList={this.state.receptionQueue}
-                // oldPatientsList={this.state.investigatedQueue}
-                patientsList={this.newPatientsList}
-                oldPatientsList={this.investigatedPatientsList}
+                patientsList={this.state.receptionQueue}
+                oldPatientsList={this.state.investigatedQueue}
+                // patientsList={this.newPatientsList}
+                // oldPatientsList={this.investigatedPatientsList}
                 updatePatient={(patient, type) => {
-                  // console.log("DIAGNOSTIC DATA")
-                  // console.log(this.diagnosisData)
+                  console.log("DIAGNOSTIC DATA")
+                  console.log(this.diagnosisData)
                   if (Object.keys(this.diagnosisData).length) {
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
                       alert("This Patient has unsaved changes");
