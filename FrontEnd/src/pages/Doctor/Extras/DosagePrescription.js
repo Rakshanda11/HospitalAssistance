@@ -30,26 +30,6 @@ class DosagePrescription extends React.Component {
     this.tempPrescriptionList[name] = event.target.value;
     this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
   }
-  handleClick = (event) => {
-    if (this.node == null) return;
-    if (this.node.contains(event.target)) return;
-
-    this.setState(prevState => ({
-      showInput: !prevState.showInput
-    }))
-  }
-
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClick, false);
-  }
-
-  componentWillMount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
-  }
-
-  // drugName = "";
-  // dose = "";
-  // duration = "";
 
   addNewDrugEvent = () => {
     if (this.state.showInput) {
@@ -57,20 +37,16 @@ class DosagePrescription extends React.Component {
         if (this.tempPrescriptionList.name
           && this.tempPrescriptionList.dose
           && this.tempPrescriptionList.duration) {
-          // console.log(this.state.listOfMedicines)
           this.setState(prevState => ({
             listOfMedicines: [...prevState.listOfMedicines, { ...this.tempPrescriptionList }]
           }), () => {
-            console.log(this.state.listOfMedicines)
             this.tempPrescriptionList = {}
-            // console.log('list');
-            // console.log([...this.state.listOfMedicines]);
             this.props.prescriptionChangeHandler(this.state.listOfMedicines, this.tempPrescriptionList)
           })
         }
 
         else {
-          alert("Enter complete dose information!")
+          this.props.alertFunction("Enter complete dose information!")
           this.tempPrescriptionList = {}
         }
       }
@@ -81,7 +57,7 @@ class DosagePrescription extends React.Component {
   }
 
   buttonElement = (
-    <button className="add-drug-button btn" onClick={this, this.addNewDrugEvent}>
+    <button className="add-drug-button btn" onClick={this.addNewDrugEvent}>
       Add
     </button>
   )
@@ -104,8 +80,13 @@ class DosagePrescription extends React.Component {
   )
 
   saveHandler = () => {
+    // Check for empty list
+    if (this.state.listOfMedicines.length === 0){
+      this.props.alertFunction("Nothing to save")
+      return;
+    }
+
     // Save the list of medicines in the database
-    console.log(this.state.listOfMedicines)
     if (this.props.patient.type === "New") {
       this.daywiseRef
         .collection("Reception")
@@ -116,10 +97,10 @@ class DosagePrescription extends React.Component {
           presciptions: this.state.listOfMedicines
         })
         .then(() => {
-          alert("Successful")
+          this.props.alertFunction("Successful", "success")
         })
         .catch((error) => {
-          console.log(error)
+          this.props.alertFunction(error.toString())
         })
     } else {
       this.daywiseRef
@@ -131,16 +112,15 @@ class DosagePrescription extends React.Component {
           presciptions: this.state.listOfMedicines
         })
         .then(() => {
-          alert("Successful")
+          this.props.alertFunction("Successful", "success")
         })
         .catch((error) => {
-          console.log(error)
+          this.props.alertFunction(error.toString())
         })
     }
   }
 
   render() {
-    console.log("Props")
     console.log(this.props)
     if (!this.isUpdated) {
       this.setState({
@@ -211,7 +191,7 @@ class DosagePrescription extends React.Component {
           </div>
         </div>
         <div className="buttons-align">
-          <button className="btn btn-success align-save" onClick={this.saveHandler}>Save</button>
+          {this.state.showInput ? null : <button className="btn btn-success align-save" onClick={this.saveHandler}>Save</button>}
           
         </div>
       </div>

@@ -28,7 +28,12 @@ class LabPatientDetails extends React.Component {
                 </div>
                 <hr />
                 
-                <Upload patient={this.props.patient} patientDone={this.props.patientDone}></Upload>
+                <Upload 
+                    patient={this.props.patient} 
+                    patientDone={this.props.patientDone}
+                    alertUser={this.props.alertUser}
+                >
+                </Upload>
             </div>
 
         );

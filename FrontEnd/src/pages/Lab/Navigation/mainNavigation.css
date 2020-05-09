@@ -6,7 +6,7 @@
   display: flex;
   background-color: rgb(18, 60, 95);
   align-items: center;
-  z-index: 1;
+  z-index: 1000;
   position: fixed;
 }
 

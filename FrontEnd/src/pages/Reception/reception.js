@@ -9,6 +9,8 @@ import ReceptionNavigation from "./Navigation/mainNavigation";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import SideDrawer from "./SideDrawer/SideDrawer";
 import { withRouter } from 'react-router-dom';
+import { Alert } from 'reactstrap';
+import LoadingOverlay from 'react-loading-overlay';
 
 import firebase from '../../firebase';
 
@@ -25,8 +27,13 @@ class Receptionpage extends Component {
       sideDrawerOpen: false,
       doctors: {},
       patientList: [],
-      newpatient: true
+      newpatient: true,
+      loading: false,
+      showAlert: false,
+      alertText: "Error",
+      color: "danger"
     };
+
   }
 
   componentDidMount() {
@@ -60,7 +67,7 @@ class Receptionpage extends Component {
                 })
               })
               .catch(error => { console.log(error) })
-              return 1
+            return 1
           })
 
         })
@@ -106,6 +113,22 @@ class Receptionpage extends Component {
     this.setState({ sideDrawerOpen: false });
   };
 
+  alertUser = (text, color = "danger") => {
+    this.setState({
+      loading: false,
+      color: color,
+      showAlert: true,
+      alertText: text,
+    })
+  }
+
+  toggleAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }))
+  }
+
+
   render() {
     if (this.props.currentUser === null
       || this.props.currentUser.type !== "Receptionist") {
@@ -136,15 +159,33 @@ class Receptionpage extends Component {
           show={this.state.sideDrawerOpen}
         ></SideDrawer>
         {backDrop}
+        <div className="alert-div">
+          <div className="alert-container">
+            <Alert color={this.state.color}
+              isOpen={this.state.showAlert}
+              toggle={this.toggleAlert}
+            >{this.state.alertText}</Alert>
+          </div>
+        </div>
         <div className="row">
+          
           <React.Fragment>
 
             <div className="col-sm-6 ">
 
               {!this.state.newpatient
-                ? <ExistingPatient doctors={this.state.doctors} updateFunction={this.updateList}/>
-                : <Patiententry updateFunction={this.updateList} 
-                doctors={this.state.doctors} />}
+                ? <ExistingPatient
+                  doctors={this.state.doctors}
+                  updateFunction={this.updateList}
+                  alertUser={this.alertUser}
+                />
+                : <Patiententry
+                  loading={this.toggleLoading}
+                  updateFunction={this.updateList}
+                  doctors={this.state.doctors}
+                  alertUser={this.alertUser}
+                />
+              }
 
               <button onClick={this.switchModeHandler} className="buttonexisting">
                 {this.state.newpatient ? "Existing Patient" : "New Patient"}
@@ -156,10 +197,11 @@ class Receptionpage extends Component {
               {/* <Patientlist list={this.state.patientList} /> */}
             </div>
             {/* <div className="col-sm-4 image">
-              <img className="imag" src={receptionist} alt="receptionist" />
-            </div> */}
+                <img className="imag" src={receptionist} alt="receptionist" />
+              </div> */}
           </React.Fragment>
         </div>
+
       </div>
     );
   }

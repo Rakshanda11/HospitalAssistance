@@ -5,11 +5,6 @@ import Loading from "./Loading";
 import "./HistoryList.css";
 
 class HistoryList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
         console.log("in his List");
         console.log(this.props.historyList);
@@ -19,13 +14,21 @@ class HistoryList extends React.Component {
                 <div className="scroll-bar" >
                     <FreeScrollBar>
                         {Object.keys(this.props.historyList).length ? (
-                            <Table bordered hover striped className="changestyling1">
+                            <Table 
+                                bordered 
+                                hover 
+                                striped 
+                                className="changestyling1">
                                 <thead>
                                     <tr>
-                                        <th style={{textAlign: "center"}}>
+                                        <th 
+                                            style={{ textAlign: "center" }}
+                                        >
                                             Date
                                         </th>
-                                        <th style={{textAlign: "center"}}>
+                                        <th 
+                                            style={{ textAlign: "center" }}
+                                        >
                                             Summary
                                         </th>
                                     </tr>

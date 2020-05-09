@@ -73,12 +73,12 @@ class TestUpload extends React.Component {
                                         patientDocs.forEach((eachDoc) => {
                                             eachDoc.ref.delete();
                                         })
-                                        alert("Successfull")
+                                        this.props.alertUser("Successful")
                                         // Reset patient details section
                                         this.props.patientDone();
                                     })
                                     .catch((err) => {
-                                        console.log(err)
+                                        this.props.alertUser(err)
                                     })
                             }
                             

@@ -10,46 +10,73 @@ import "./auth.css";
 
 class ForgotPassword extends React.Component {
   auth = firebase.auth();
-  constructor(props){
+  constructor(props) {
     super(props);
     this.emailElementRef = React.createRef();
   }
 
+  state = {
+    loading: false,
+    showAlert: false,
+    alertText: "Error"
+  }
+
+  alertUser = (text) => {
+    this.setState({
+      loading: false,
+      showAlert: true,
+      alertText: text,
+    })
+  }
+
+  toggleAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }))
+  }
+
   render() {
     return (
-      <div className="forgot-page">
-        <div className="img-fluid" src="Auth.jpg">
-              <h2 className="greetings">Reset Your Password</h2>
-              <p className="greetings-text">Enter the email associated with your account. We will send you an email with further instructions.</p>
-              {<form className="auth-form" ref="form" onSubmit={(event) => {
-                event.preventDefault();
-                var email = this.emailElementRef.current.value;
-                this.auth.sendPasswordResetEmail(email)
-                  .then(() => {
-                    alert("Instructions sent to your email.")
-                  })
-                  .catch((error) => {
-                    alert(error)
-                  })
-              }}>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    placeholder="Enter Email"
-                    className="form-control"
-                    id="email"
-                    ref={this.emailElementRef}
-                  ></input>
-                </div>
-                <div className="form-action">
-                  <button type="submit" className="btn btn-primary">
-                    Reset Password
-                </button>
-                </div>
-              </form>
-              }
-            </div>
-      </div>
+      <LoadingOverlay
+        active={this.state.loading}
+        spinner
+        text="Please Wait"
+      >
+        <div className="forgot-page">
+          <div className="img-fluid" src="Auth.jpg">
+            <h2 className="greetings">Reset Your Password</h2>
+            <p className="greetings-text">Enter the email associated with your account. We will send you an email with further instructions.</p>
+            {<form className="auth-form" ref="form" onSubmit={(event) => {
+              event.preventDefault();
+              var email = this.emailElementRef.current.value;
+              this.auth.sendPasswordResetEmail(email)
+                .then(() => {
+                  this.alertUser("Instructions sent to your email.")
+                })
+                .catch((error) => {
+                  this.alertUser(error)
+                })
+            }}>
+              <div className="form-group">
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  className="form-control"
+                  id="email"
+                  ref={this.emailElementRef}
+                ></input>
+              </div>
+              <div className="form-action">
+                <button type="submit" className="btn btn-primary">
+                  Reset Password
+                  </button>
+              </div>
+            </form>
+            }
+          </div>
+        </div>
+
+      </LoadingOverlay>
     )
   }
 }
@@ -206,14 +233,13 @@ class AuthPage extends React.Component {
             <Alert variant="danger"
               isOpen={this.state.showAlert}
               toggle={this.toggleAlert}
-              dissmisible
             >{this.state.alertText}</Alert>
           </div>
         </div>
         <LoadingOverlay
           active={this.state.loading}
           spinner
-          text="Please wait"
+          text="Please Wait"
         >
           {this.props.currentUser ?
             this.userElement

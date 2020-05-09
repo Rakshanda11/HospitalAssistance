@@ -38,7 +38,7 @@ class Ppage extends React.Component {
                         <div className="col-lg-6 col-md-6 col-12">
                             <div className=" symp card .bg-#A4FFD5 z-depth-1" >
                                 <div className="card-body">
-                                    <h4 className="card-title " className="sym">Symptoms</h4>
+                                    <h4 className="card-title sym">Symptoms</h4>
                                     <hr className="hrr1"></hr>
                                     <p>{this.props.entry["diagnosisData"]["symptoms"]}</p>
                                 </div>
@@ -47,7 +47,7 @@ class Ppage extends React.Component {
                         <div className="col-lg-6 col-md-6 col-12 wid">
                             <div className="card .bg-secondary z-depth-1" >
                                 <div className="card-body ">
-                                    <h4 className="card-title " className="sym">Remarks</h4>
+                                    <h4 className="card-title sym">Remarks</h4>
                                     <hr className="hrr1"></hr>
                                     <p >{this.props.entry["diagnosisData"]["Remarks"]}</p>
 

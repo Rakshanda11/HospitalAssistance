@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Table } from "reactstrap";
-import FreeScrollBar from "react-free-scrollbar";
 import Loading from "./Loading";
 import "./AssignedList.css";
 class AssignedPatients extends React.Component {

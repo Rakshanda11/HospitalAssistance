@@ -117,11 +117,10 @@ class Patiententry extends React.Component {
   }
 
   mySubmitHandler = (event) => {
-    var today = this.getToday();
     event.preventDefault();
-    // let nam = event.target.name;
+    var today = this.getToday();
+    
     const isvalid = this.validate();
-    console.log(isvalid)
     if (isvalid) {
       this.setState({
         nameerror: "",
@@ -138,8 +137,13 @@ class Patiententry extends React.Component {
       this.patientRef.where("adhaarid", "==", this.patient.adhaarid)
         .get()  // Async req
         .then((patientsSnapshot) => {
+          console.log(patientsSnapshot)
+          if (patientsSnapshot.DE === null){
+            console.log("Internet connectivity issue")
+            return
+          }
           if (patientsSnapshot.docs.length) {
-            alert("Patient with this adhaar ID already exists in the database.")
+            this.props.alertUser("Patient with this adhaar ID already exists in the database.")
           }
           else {
             // Get total patients
@@ -170,10 +174,12 @@ class Patiententry extends React.Component {
                       .set({
                         "Date": today
                       })
+                    this.props.updateFunction(this.patient);
+                    this.props.alertUser("Patient Added to Database successfully!", "success")
                   })
 
-                this.props.updateFunction(this.patient);
-                alert("Patient Added to Database successfully!")
+
+
               })
               .catch((err) => { console.log(err) })
           }

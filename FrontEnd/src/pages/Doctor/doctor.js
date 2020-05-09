@@ -10,6 +10,7 @@ import SideDrawer from "./SideDrawer/doctorSideDrawer";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import DoctorDiagnosis from "./Extras/DoctorDiagnosis";
 
+import { Alert } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
 import firebase from './../../firebase';
@@ -175,9 +176,10 @@ class Doctor extends React.Component {
       currentPatient: null,
       receptionQueue: [],
       investigatedQueue: [],
-
+      showAlert: false,
+      alertText: "Error",
+      color: "danger"
     };
-
   } // Contructor ends here
 
   testsOnSubmit = () => {
@@ -199,8 +201,6 @@ class Doctor extends React.Component {
 
   diagnosisData = {}
   diagnosisChangeHandler = (diagnosisData) => {
-    console.log("Updated:")
-    console.log(diagnosisData)
     this.diagnosisData = diagnosisData;
   }
 
@@ -213,7 +213,7 @@ class Doctor extends React.Component {
 
   getPatientHistory = () => {
     if (this.state.currentPatient == null) {
-      alert("Select a Patient First!");
+      this.alertUser("Select a Patient First!");
       return;
     }
     var visits = {}
@@ -225,24 +225,29 @@ class Doctor extends React.Component {
         visitsDocs.forEach((visit) => {
           visits[visit.id] = visit.data()
         })
-        console.log(visits)
-        if (Object.keys(visits).length)
+        if (Object.keys(visits).length) {
           this.setState({
             mainBody: (
               <>
                 <ShowDetails patient={this.state.currentPatient} />
-                <GetPatientHistory patient={this.state.currentPatient} visits={visits} />
+                <GetPatientHistory
+                  patient={this.state.currentPatient}
+                  visits={visits}
+                  alertFunction={this.alertUser} />
               </>
             )
           });
+        } else {
+          this.alertUser("This patient does not have any history stored.")
+        }
       })
-      .catch(error => { console.log(error) })
+      .catch(error => { this.alertUser(error) })
 
   };
 
   diagnosis = () => {
     if (this.state.currentPatient == null) {
-      alert("Select a Patient First!");
+      this.alertUser("Select a Patient First!");
       return;
     }
     this.setState({
@@ -256,7 +261,7 @@ class Doctor extends React.Component {
             diagnosisData={this.diagnosisData}
             doctorName={this.props.currentUser.name}
             prescriptionData={this.prescriptionData}
-            // doctorName={"Doctor A"}
+            alertFunction={this.alertUser}
           />
         </>
       )
@@ -265,7 +270,7 @@ class Doctor extends React.Component {
 
   currentIssues = () => {
     if (this.state.currentPatient == null) {
-      alert("Select a Patient First!");
+      this.alertUser("Select a Patient First!");
       return;
     }
     this.setState({
@@ -276,7 +281,8 @@ class Doctor extends React.Component {
             patient={this.state.currentPatient}
             doctor={this.props.currentUser.name}
             prescriptionChangeHandler={this.prescriptionChangeHandler}
-            prescriptionData={this.prescriptionData} />
+            prescriptionData={this.prescriptionData}
+            alertFunction={this.alertUser} />
         </>
       )
     });
@@ -287,9 +293,22 @@ class Doctor extends React.Component {
     return today.toDateString();
   }
 
+  alertUser = (text, color = "danger") => {
+    this.setState({
+      loading: false,
+      color: color,
+      showAlert: true,
+      alertText: text,
+    })
+  }
+
+  toggleAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }))
+  }
+
   render() {
-    console.log(this.props)
-    console.log(this.props.currentUser !== "Doctor")
     if (this.props.currentUser === null
       || this.props.currentUser.type !== "Doctor") {
       this.props.history.push("/auth")
@@ -343,6 +362,15 @@ class Doctor extends React.Component {
 
     return (
       <>
+        <div className="alert-div">
+          <div className="alert-container">
+            <Alert color={this.state.color}
+              isOpen={this.state.showAlert}
+              toggle={this.toggleAlert}
+            >{this.state.alertText}</Alert>
+          </div>
+        </div>
+
         {/* {this.props.navBar} */}
         <DoctorNavigation
           drawerClickHandler={this.drawerToggleClickHandler}
@@ -371,32 +399,27 @@ class Doctor extends React.Component {
                 // patientsList={this.newPatientsList}
                 // oldPatientsList={this.investigatedPatientsList}
                 updatePatient={(patient, type) => {
-                  console.log("DIAGNOSTIC DATA")
-                  console.log(this.diagnosisData)
                   if (Object.keys(this.diagnosisData).length) {
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
-                      alert("This Patient has unsaved changes");
+                      this.alertUser("This Patient has unsaved changes");
                       return;
                     }
                   }
 
                   if (Object.keys(this.tempPrescriptionData).length || this.prescriptionData.length) {
                     if (this.state.currentPatient !== null && this.state.currentPatient !== patient) {
-                      alert("This Patient has other unsaved changes");
+                      this.alertUser("This Patient has other unsaved changes");
                       return;
                     }
                   }
 
                   patient["type"] = type
-                  if (type == "Investigated") {
+                  if (type === "Investigated") {
                     this.diagnosisData = patient.diagnosisData
-                    console.log(patient)
                   }
                   this.setState({
                     mainBody: <ShowDetails patient={patient} />,
                     currentPatient: patient
-                  }, () => {
-                    console.log(this.state.currentPatient);
                   });
 
                 }}
@@ -404,10 +427,14 @@ class Doctor extends React.Component {
             </div>
           </div>
 
-          <div className="border backgroundstyle">{this.state.mainBody}</div>
+            <div className="border backgroundstyle">
+                {this.state.mainBody}
+            </div>
 
         </div>
+
       </>
+
     );
   }
 }

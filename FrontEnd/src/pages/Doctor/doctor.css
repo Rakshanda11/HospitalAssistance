@@ -1,6 +1,10 @@
 .doctor-main-navigation{
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
+}
+
+.backgroundstyle ._loading_overlay_wrapper ._loading_overlay_content{
+  margin-top: 10rem;
 }
 
 .patient_list li {

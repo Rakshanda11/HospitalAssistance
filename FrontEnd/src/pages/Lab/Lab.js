@@ -1,5 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
+import LoadingOverlay from 'react-loading-overlay';
+import { Alert } from 'reactstrap';
 
 import ShowDetails from "../../components/PatientDetails/Lab-PatientsDetails";
 import Instruction from "../../components/LabModule/LabInstructions";
@@ -31,7 +33,10 @@ class Lab extends React.Component {
       showDetails: false,
       mainBody: <StartLab />,
       currentPatient: null,
-      labQueue: []
+      labQueue: [],
+      loading: false,
+      showAlert: false,
+      alertText: "Error"
     };
   }
   patientsList = [
@@ -161,6 +166,21 @@ class Lab extends React.Component {
   backDropClickHandler = () => {
     this.setState({ sideDrawerOpen: false });
   };
+
+  alertUser = (text) => {
+    this.setState({
+      loading: false,
+      showAlert: true,
+      alertText: text,
+    })
+  }
+
+  toggleAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }))
+  }
+
   render() {
 
     if (this.props.currentUser === null
@@ -193,6 +213,15 @@ class Lab extends React.Component {
 
     return (
       <>
+        <div className="alert-div">
+          <div className="alert-container">
+            <Alert color={this.state.color}
+              isOpen={this.state.showAlert}
+              toggle={this.toggleAlert}
+            >{this.state.alertText}</Alert>
+          </div>
+        </div>
+
         <LabNavigation
           drawerClickHandler={this.drawerToggleClickHandler}
           diagnosis={this.diagnosis}
@@ -221,11 +250,15 @@ class Lab extends React.Component {
                     this.setState({
                       currentPatient: patient,
                       mainBody: (
-                        <ShowDetails patient={patient} patientDone={() => {
-                          this.setState({
-                            mainBody: <StartLab></StartLab>
-                          })
-                        }}/>
+                        <ShowDetails
+                          patient={patient}
+                          patientDone={() => {
+                            this.setState({
+                              mainBody: <StartLab></StartLab>
+                            })
+                          }}
+                          alertUser={this.alertUser}
+                        />
                       )
                     });
                   }}

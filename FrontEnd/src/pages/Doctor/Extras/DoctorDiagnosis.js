@@ -34,29 +34,48 @@ class Diagnosis extends React.Component {
   testName = "";
   diagnosisData = {}
 
-  validate = () => {
-    // let errors = {
-    //   bloodPressure: false,
-    //   temperature: false,
-    //   pulseRate: false,
-    //   spo2: false,
-    //   complaints: false,
-    //   symptoms: false,
-    // }
+  validate = (lab) => {
+    let fields = [
+      "bloodPressure",
+      "temperature",
+      "pulseRate",
+      "spo2",
+      "complaints",
+      "symptoms",
+    ]
+
+    if (!lab){  // If request came for submitting to lab, don't check these. Else check these also.
+      fields = [...fields, 
+        "diagnosis",
+        "remarks"]
+    }
+
+    let keys = Object.keys(this.diagnosisData)
+
+    if (keys.length === 0){
+      this.props.alertFunction("Nothing is filled")
+      return true
+    }
+    
+    for (var eachData in fields){
+      if (!(keys.includes(fields[eachData]))){
+        this.props.alertFunction("Please make sure you have filled all the data")
+        return true
+      }
+    }
 
     let errorString = "Please enter the following details to proceed:\n\n";
     let isError = false;
     // Check which elements are missing
-    Object.keys(this.diagnosisData).map((textType, index) => {
+    keys.forEach((textType, index) => {
       if (!(this.diagnosisData[textType].length)) {
         // errors[textType] = true;
         errorString += " " + textType.toString() + "\n\n"
         isError = true;
       }
-      return index;
     })
     if (isError) {
-      alert(errorString);
+      this.props.alertFunction(errorString);
       return true;
     }
     // return errors;
@@ -75,7 +94,6 @@ class Diagnosis extends React.Component {
 
   addTestToList = event => {
     if (event.keyCode === 13) {
-      // console.log(event.target.value.length)
       var tempList = this.state.tests;
       tempList.push(event.target.value);
       this.setState({
@@ -87,9 +105,17 @@ class Diagnosis extends React.Component {
 
   finalSubmitHandler = (event) => {
     event.preventDefault();
+
+    // Check if unfilled diagnosis
+    if (this.validate()) {
+      return;
+    }
+
+    console.log(this.diagnosisData);
+
     // Create a new patient object 
     // with structure as per database
-    console.log(this.currentPatient);
+
     var finalPatientObject = {
       name: this.currentPatient.name,
       mob: this.currentPatient.mob,
@@ -118,7 +144,7 @@ class Diagnosis extends React.Component {
           .set(this.diagnosisData)
       })
       .then(() => {
-        if (this.currentPatient.type == "New") {
+        if (this.currentPatient.type === "New") {
           return this.receptionQueueRef
             .where("adhaarid", "==", finalPatientObject.adhaarid)
             .get()
@@ -128,7 +154,6 @@ class Diagnosis extends React.Component {
               })
             })
         }
-        console.log("Removing investigated patient");
         // Then delete this patient from investigated queue
         return this.investigatedRef
           .where("adhaarid", "==", finalPatientObject.adhaarid)
@@ -140,12 +165,12 @@ class Diagnosis extends React.Component {
           })
       })
       .then(() => {
-        alert("Diagnosis Completed")
+        this.props.alertFunction("Diagnosis Completed")
         this.props.onSubmitFun();
 
       })
       .catch(error => {
-        console.log(error)
+        this.props.alertFunction(error)
       })
 
 
@@ -154,7 +179,6 @@ class Diagnosis extends React.Component {
 
   render() {
     this.currentPatient = this.props.currentPatient;
-    console.log(this.props)
     this.diagnosisData = this.props.diagnosisData;
     let listOfTests = (
       <ol className="ordered-list">
@@ -162,9 +186,6 @@ class Diagnosis extends React.Component {
           return (
             <li
               key={individualTest}
-              onClick={() => {
-                console.log(individualTest);
-              }}
             >
               <span>{individualTest}</span>
             </li>
@@ -218,8 +239,6 @@ class Diagnosis extends React.Component {
           noValidate
           onSubmit={event => {
             event.preventDefault();
-            console.log("SUBMITTED")
-            console.log(this.diagnosisData)
             this.validate()
           }}
         >
@@ -348,9 +367,8 @@ class Diagnosis extends React.Component {
                     type="button"
                     className="submit-text-button"
                     onClick={() => {
-
                       // Check if unfilled diagnosis
-                      if (this.validate()) {
+                      if (this.validate(true)) {
                         return;
                       }
 
@@ -358,14 +376,12 @@ class Diagnosis extends React.Component {
                       this.currentPatient.diagnosisData.tests = this.state.tests;
                       this.currentPatient["Doctor"] = this.props.doctorName;
 
-                      console.log(this.currentPatient)
-
                       // Add this patient to the firebase lab queue
 
                       this.labQueueRef
                         .doc(this.currentPatient.adhaarid)
                         .set(this.currentPatient)
-                        .then((any) => {
+                        .then(() => {
 
                           // Remove this patient from new patients
                           this.receptionQueueRef
@@ -375,10 +391,11 @@ class Diagnosis extends React.Component {
                               patientDocs.forEach((eachDoc) => {
                                 eachDoc.ref.delete();
                               })
+                              this.props.alertFunction("Patient Details sent to lab.", "success")
                               this.props.onSubmitFun();
                             })
                             .catch((err) => {
-                              console.log(err)
+                              this.props.alertFunction(err)
                             })
                         })
 
@@ -410,15 +427,14 @@ class Diagnosis extends React.Component {
                         <button
                           type="button"
                           onClick={() => {
-                            console.log("Unusual")
                             this.unUsualRef.add({
                               testName: individualTest.test,
                               reportURL: individualTest.url
                             })
                               .then(() => {
-                                alert("Report submitted successfully")
+                                this.props.alertFunction("Report submitted successfully")
                               })
-                              .catch((error) => { console.log(error) })
+                              .catch((error) => { this.props.alertFunction(error) })
                           }}>Unusual Report?</button>
                       </div>
                       {/* <span>{individualTest.test}</span> */}
@@ -471,10 +487,6 @@ class Diagnosis extends React.Component {
                 <button
                   className="btn btn-one submit-button"
                   type="submit"
-                  // onClick={(event) => {
-                  //   event.preventDefault();
-                  //   console.log(this.diagnosisData);
-                  // }}
                   onClick={this.finalSubmitHandler}
                 >
                   Submit

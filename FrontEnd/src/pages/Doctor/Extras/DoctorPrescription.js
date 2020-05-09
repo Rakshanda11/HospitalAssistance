@@ -29,7 +29,10 @@ class Prescription extends React.Component {
           <DosagePrescription 
             patient={this.props.patient} 
             prescriptionChangeHandler={this.props.prescriptionChangeHandler} 
-            prescriptionData={this.props.prescriptionData}/>
+            prescriptionData={this.props.prescriptionData}
+            alertFunction={this.props.alertFunction}  
+          />
+            
           <div className="buttons-align">
             <button className="btn btn-warning align-print" onClick={() => {
               var node = document.getElementById("print-paper");
